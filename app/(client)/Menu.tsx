@@ -18,7 +18,7 @@ const Menu = (props: Props) => {
         </Button>
         <AnimatePresence>
         {
-            open ? <motion.div initial={{opacity:0}} animate={{opacity:1}}  exit={{opacity:0}} className={'flex-col w-screen h-screen flex justify-center fixed top-0 left-0 bg-primary z-10 p-10'}>
+            open ? <motion.div initial={{x:600}} animate={{x:0}}  exit={{x:600}} className={'flex-col w-screen md:w-[30vw] h-screen flex justify-center fixed top-0 right-0 bg-primary z-10 p-10'}>
                 {
                     [
                         {name:"Home",href:"/"},
@@ -30,7 +30,7 @@ const Menu = (props: Props) => {
                     <motion.div initial={{opacity:0,y:40}} animate={{opacity:1,y:0}} exit={{opacity:0,y:40}} transition={{duration:0.3,delay:0.1*i}}>
                         <Link onClick={()=>setTimeout(() => {
                             setOpen(false)
-                        }, 300)} href={href} key={name} className='md:text-9xl sm:text-8xl text-6xl py-[8px] text-black/50 uppercase font-bold '>{name}</Link>
+                        }, 300)} href={href} key={name} className=' md:text-6xl text-6xl py-[8px] text-black/50 uppercase font-bold '>{name}</Link>
                     </motion.div>
                     </div>
                     )

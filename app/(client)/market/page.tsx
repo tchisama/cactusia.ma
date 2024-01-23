@@ -5,19 +5,20 @@ import { Leaf, Palette } from 'lucide-react'
 import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/ui/button'
 import PotCactus from '@/components/PotCactus'
+import PotCactusWithControllers from '@/components/PotCactusWithControlers'
 type Props = {}
 
 const page = (props: Props) => {
   return (
     <div className="flex flex-col md:flex-row items-center container md:gap-20">
-        <div className=' flex md:flex-[2] max-h-[50vh] md:max-h-[70vh] items-center justify-center '>
+        <div className=' flex md:flex-[3] max-h-[50vh] md:max-h-[70vh] items-center justify-center '>
             {/* <Image src={cactus} alt="Cactus" width={500} height={500} className='w-ful object-contain h-full'></Image> */}
-            <PotCactus />
+            <PotCactusWithControllers />
         </div>
-        <div className=' md:flex-1 w-full'>
-            <div className='md:ml-2'>
-                <h3 className=''>Price</h3>
-                <h1 className='text-4xl '>65 Dh</h1>
+        <div className=' md:flex-[2] w-full'>
+            <div className='md:ml-2 space-y-2'>
+                <h3 className='text-gray-500'>Price</h3>
+                <h1 className='text-5xl font-light'>65.00 Dh</h1>
                 <Separator className='my-2 md:my-4 md:max-w-sm'/>
                 <div className='flex justify-between'>
                     <h1 className='text-lg md:text-xl flex items-center gap-2'><Leaf />Ferocactus Echidne</h1>

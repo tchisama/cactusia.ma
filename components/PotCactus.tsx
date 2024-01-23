@@ -7,10 +7,10 @@ import Image from 'next/image'
 function PotCactus({}: Props) {
   return (
     <div className='relative pt-20'>
-        <div className='absolute -top-[80px] left-0 '>
-            <Image src={Cactus} alt="Cactus" width={350} height={350} className='w-[250px]  mx-auto object-contain h-[230px]'></Image>
+        <div className='absolute md:-top-[160px] -top-[80px] left-0 '>
+            <Image src={Cactus} alt="Cactus" width={350} height={350} className='w-[250px] md:h-[350px] md:w-[350px] mx-auto object-contain h-[230px]'></Image>
         </div>
-        <Image src={Pot} alt="Cactus" width={350} height={350} className='w-[250px] object-contain h-[250px]'></Image>
+        <Image src={Pot} alt="Cactus" width={350} height={350} className='w-[250px] md:h-[350px] md:w-[350px] object-contain h-[250px]'></Image>
     </div>
   )
 }

@@ -2,6 +2,16 @@
 
 
 const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'firebasestorage.googleapis.com',
+        port: '',
+        pathname: '/v0/b/cactusia-adf86.appspot.com/**',
+      },
+    ],
+  },
 };
 
 export default nextConfig;

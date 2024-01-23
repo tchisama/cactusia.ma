@@ -30,7 +30,7 @@ const Menu = (props: Props) => {
                     <motion.div initial={{opacity:0,y:40}} animate={{opacity:1,y:0}} exit={{opacity:0,y:40}} transition={{duration:0.3,delay:0.1*i}}>
                         <Link onClick={()=>setTimeout(() => {
                             setOpen(false)
-                        }, 300)} href={href} key={name} className='text-9xl text-black/50 uppercase font-bold '>{name}</Link>
+                        }, 300)} href={href} key={name} className='md:text-9xl sm:text-8xl text-6xl py-[8px] text-black/50 uppercase font-bold '>{name}</Link>
                     </motion.div>
                     </div>
                     )

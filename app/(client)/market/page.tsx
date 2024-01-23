@@ -10,7 +10,8 @@ type Props = {}
 
 const page = (props: Props) => {
   return (
-    <div className="flex flex-col md:flex-row items-center container md:gap-20">
+    <div className='container'>
+    <div className="flex flex-col md:flex-row items-center  md:gap-20">
         <div className=' flex md:flex-[3] max-h-[50vh] md:max-h-[70vh] items-center justify-center '>
             {/* <Image src={cactus} alt="Cactus" width={500} height={500} className='w-ful object-contain h-full'></Image> */}
             <PotCactusWithControllers />
@@ -34,6 +35,14 @@ const page = (props: Props) => {
                 <Button className='p-8 rounded-full w-full md:w-fit text-xl'>Add To Cart</Button>
             </div>
         </div>
+    </div>
+    <div className='mt-20'>
+        <h1 className='md:text-5xl text-3xl'>About the cactus</h1>
+        <h3 className='md:text-2xl text-xl text-gray-500'>Ferocactus Echidne</h3>
+        <p className='max-w-5xl md:text-lg text-sm mt-2'>
+            Ferocactus Echidne is a cactus species that is known for its large, round leaves and colorful flowers. It is a popular choice for indoor and outdoor use, particularly in tropical regions. Ferocactus Echidne is a cactus species that is known for its large, round leaves and colorful flowers. It is a popular choice for indoor and outdoor use, particularly in tropical regions. Ferocactus Echidne is a cactus species that is known for its large, round leaves and colorful flowers. It is a popular choice for indoor and outdoor use, particularly in tropical regions.    
+        </p>
+    </div>
     </div>
   )
 }

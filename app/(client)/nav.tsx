@@ -10,7 +10,7 @@ import { motion } from 'framer-motion';
 
 const Navbar: React.FC = () => {
   return (
-    <motion.nav initial={{opacity:0,y:-10}} animate={{opacity:1,y:0}} className='flex gap-4 justify-between items-center p-8 bg-white max-w-screen-2xl mx-auto'>
+    <motion.nav initial={{opacity:0,y:-10}} animate={{opacity:1,y:0}} className='flex gap-4 justify-between items-center p-4 md:p-8 bg-white max-w-screen-2xl mx-auto'>
       <div className="logo">
         <Link href="/">
           <Image width={50} height={50} src={Logo} alt="Logo" />

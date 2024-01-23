@@ -6,11 +6,13 @@ import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/ui/button'
 import PotCactus from '@/components/PotCactus'
 import PotCactusWithControllers from '@/components/PotCactusWithControlers'
+import AboutCactus from '@/components/AboutCactus'
+import Reviews from '@/components/Reviews'
 type Props = {}
 
 const page = (props: Props) => {
   return (
-    <div className='container'>
+    <div className='container px-4 md:px-6 '>
     <div className="flex flex-col md:flex-row items-center  md:gap-20">
         <div className=' flex md:flex-[3] max-h-[50vh] md:max-h-[70vh] items-center justify-center '>
             {/* <Image src={cactus} alt="Cactus" width={500} height={500} className='w-ful object-contain h-full'></Image> */}
@@ -20,7 +22,8 @@ const page = (props: Props) => {
             <div className='md:ml-2 space-y-2'>
                 <h3 className='text-gray-500'>Price</h3>
                 <h1 className='text-5xl font-light'>65.00 Dh</h1>
-                <p className='p-2 px-3 w-fit rounded-xl bg-green-100 text-sm md:text-md text-green-800'>Free delivery on 3+ cactus pots! Happy planting! 🌵📦</p>
+                <p className='p-2 px-3 w-fit rounded-xl bg-green-100 text-sm md:text-md text-green-800'>
+Score free delivery on 3+ cactus pots! 🌵🚚</p>
                 <Separator className='my-2 md:my-4 md:max-w-sm'/>
                 <div className='flex justify-between'>
                     <h1 className='text-lg md:text-xl flex items-center gap-2'><Leaf />Ferocactus Echidne</h1>
@@ -37,13 +40,8 @@ const page = (props: Props) => {
             </div>
         </div>
     </div>
-    <div className='mt-20'>
-        <h1 className='md:text-5xl text-3xl'>About the cactus</h1>
-        <h3 className='md:text-2xl text-xl text-green-600 flex gap-4 items-center'><Leaf/> Ferocactus Echidne</h3>
-        <p className='max-w-5xl md:text-lg text-sm mt-2'>
-            Ferocactus Echidne is a cactus species that is known for its large, round leaves and colorful flowers. It is a popular choice for indoor and outdoor use, particularly in tropical regions. Ferocactus Echidne is a cactus species that is known for its large, round leaves and colorful flowers. It is a popular choice for indoor and outdoor use, particularly in tropical regions. Ferocactus Echidne is a cactus species that is known for its large, round leaves and colorful flowers. It is a popular choice for indoor and outdoor use, particularly in tropical regions.    
-        </p>
-    </div>
+    <AboutCactus/>
+    <Reviews />
     </div>
   )
 }

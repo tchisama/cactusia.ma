@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { Leaf, Palette } from 'lucide-react'
 import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/ui/button'
+import PotCactus from '@/components/PotCactus'
 type Props = {}
 
 const page = (props: Props) => {
@@ -11,7 +12,7 @@ const page = (props: Props) => {
     <div className="flex flex-col md:flex-row items-center container md:gap-20">
         <div className=' flex md:flex-[2] max-h-[50vh] md:max-h-[70vh] items-center justify-center '>
             {/* <Image src={cactus} alt="Cactus" width={500} height={500} className='w-ful object-contain h-full'></Image> */}
-            <
+            <PotCactus />
         </div>
         <div className=' md:flex-1 w-full'>
             <div className='md:ml-2'>

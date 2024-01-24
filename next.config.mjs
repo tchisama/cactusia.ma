@@ -8,10 +8,11 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'firebasestorage.googleapis.com',
         port: '',
-        pathname: '/v0/b/cactusia-adf86.appspot.com/**',
+        pathname: '/v0/b/cactusia-983c2.appspot.com/**',
       },
     ],
   },
 };
+
 
 export default nextConfig;

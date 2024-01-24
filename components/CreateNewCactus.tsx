@@ -16,12 +16,12 @@ import { Textarea } from './ui/textarea'
 import { DialogClose } from '@radix-ui/react-dialog'
 import { ref, uploadBytes } from 'firebase/storage'
 import { db, storage } from '@/firebase'
-import { addDoc, collection, setDoc } from 'firebase/firestore'
+import { addDoc, collection } from 'firebase/firestore'
 
 type Props = {}
 
 const CreateNewCactus = (props: Props) => {
-    const [file, setFile] = useState<File>();
+    const [file, setFile] = useState<File|null>(null);
     const [image, setImage] = useState("");
     const [name,setName] = useState("");
     const [about,setAbout] = useState("")
@@ -30,22 +30,27 @@ const CreateNewCactus = (props: Props) => {
         setFile(e.target.files[0]);
     }
     const create = () => {
-      const name = "" + Date.now() as string
-      const storageRef = ref(storage, 'cactuses/'+name);
+      const name1 = "" + Date.now() as string
+      const storageRef = ref(storage, 'cactuses/'+name1);
       if(file){
         uploadBytes(storageRef, file as File).then((snapshot) => {
            console.log(snapshot)
-           setDoc(
+           addDoc(
             collection(db, "cactuses"),
             {
               name,
               about,
-              image: snapshot.metadata.fullPath,
+              image: name1,
               inStock: true,
               createdAt : new Date(),
               order: 0
             }
            )
+        }).then(()=>{
+          setFile(null)
+          setImage("")
+          setName("")
+          setAbout("")
         });
       }
     }
@@ -71,10 +76,10 @@ const CreateNewCactus = (props: Props) => {
                         file ?
                         <Image  src={image} alt='' className='mb-8 z-10 relative' width={300} height={300}>
                         </Image>:
-                        <Image  src={"https://firebasestorage.googleapis.com/v0/b/cactusia-adf86.appspot.com/o/cactus%2F10.png?alt=media&token=f07fe8a1-d600-4985-b263-c4a3f89d919c"} alt='' className='mb-8 z-10 opacity-0 relative' width={300} height={300}>
+                        <Image  src={"https://firebasestorage.googleapis.com/v0/b/cactusia-983c2.appspot.com/o/cactuses%2F1706097332390?alt=media&token=bb288d03-287d-45f0-8b90-f9871f1a7567"} alt='' className='mb-8 z-10 opacity-0 relative' width={300} height={300}>
                         </Image>
                       }
-                      <Image className='absolute z-[0] top-[170px] left-1/2 translate-x-[-50%]'  src={"https://firebasestorage.googleapis.com/v0/b/cactusia-adf86.appspot.com/o/pots%2F1.png?alt=media&token=42e00519-9931-473e-8f5a-9f987645a634"} alt='' width={300} height={300}>
+                      <Image className='absolute z-[0] top-[170px] left-1/2 translate-x-[-50%]'  src={"https://firebasestorage.googleapis.com/v0/b/cactusia-983c2.appspot.com/o/1.png?alt=media&token=a1e0aa65-9270-4f04-b175-02e2a7ae919f"} alt='' width={300} height={300}>
                       </Image>
                   </div>
                 </label>
@@ -89,12 +94,12 @@ const CreateNewCactus = (props: Props) => {
         </DialogHeader>
         <DialogFooter>
           <DialogClose>
-            <Button variant={"secondary"}>
+            <Button  variant={"secondary"}>
               Close
             </Button>
           </DialogClose>
           <DialogClose>
-            <Button variant={"default"} onClick={create}>
+            <Button disabled={!name || !about || !file} variant={"default"} onClick={create}>
               Create
             </Button>
           </DialogClose>

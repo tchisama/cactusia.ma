@@ -1,4 +1,8 @@
 import Nav from "./nav"
+import "../globals.css"
+import { Comfortaa } from "next/font/google";
+
+const comfortaa = Comfortaa({ subsets: ["latin"] });
 
 export const metadata = {
   title: 'Next.js',
@@ -12,8 +16,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="h-screen flex ">
-        <div className="flex h-full w-full">
+      <body className={comfortaa.className}>
+        <div className="flex h-screen w-full">
         <Nav />
         <div className="flex-1 overflow-y-auto h-screen">
         {children}

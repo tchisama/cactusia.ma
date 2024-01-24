@@ -19,7 +19,7 @@ function Reviews({}: Props) {
     <CarouselContent>
       {
         Array(5).fill(0).map((_, index) => (
-          <CarouselItem key={index} className=' md:basis-1/2'>
+          <CarouselItem key={index} className=' md:basis-2/3'>
             <div className='p-2  border bg-white rounded-2xl  flex  flex-col md:flex-row gap-8 md:items-center relative'>
             <Image src={potcactus} alt='' width={350} className='aspect-square object-cover rounded-xl w-fit md:w-[250px] ' height={350}></Image>
             <div className='flex-1 '>

@@ -10,8 +10,11 @@ type Props = {}
 const page = (props: Props) => {
   return (
     <div className='p-4 font-bold text-gray-700'>
-      <h1 className='text-3xl'>Pots</h1>
-      <div className='grid grid-cols-2 gap-2 mt-8'>
+      <div className='flex justify-between items-center'>
+          <h1 className='text-3xl'>Pots</h1>
+          
+      </div>
+      <div className='grid grid-cols-3 gap-2 mt-8'>
       {
         [
           "https://firebasestorage.googleapis.com/v0/b/cactusia-adf86.appspot.com/o/pots%2F1.png?alt=media&token=42e00519-9931-473e-8f5a-9f987645a634",
@@ -29,6 +32,7 @@ const page = (props: Props) => {
               </div>
               </div>
               <div className=''>
+                <h1 className='text-xl'>{i+1}</h1>
                 <h2 className=' mb-2'>Echinopsis Subdenudata</h2>
                 <Switch />
               </div>

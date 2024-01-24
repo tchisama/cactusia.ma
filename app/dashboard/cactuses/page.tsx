@@ -1,4 +1,5 @@
 "use client"
+import CreateNewCactus from '@/components/CreateNewCactus'
 import { Separator } from '@/components/ui/separator'
 import { Switch } from '@/components/ui/switch'
 import Image from 'next/image'
@@ -9,7 +10,10 @@ type Props = {}
 const page = (props: Props) => {
   return (
     <div className='p-4 font-bold text-gray-700'>
-      <h1 className='text-3xl'>Cactuses</h1>
+      <div className='flex justify-between items-center'>
+        <h1 className='text-3xl'>Cactuses</h1>
+        <CreateNewCactus />
+      </div>
       <div className='flex flex-col gap-2 mt-8'>
       {
         [

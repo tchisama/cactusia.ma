@@ -1,21 +1,30 @@
+
+
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { getStorage } from "firebase/storage";
+import { getFirestore } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyDkKj9xjt18HttEGA8uZWbFnNMPPz4UKEU",
-  authDomain: "cactusia-adf86.firebaseapp.com",
-  projectId: "cactusia-adf86",
-  storageBucket: "cactusia-adf86.appspot.com",
-  messagingSenderId: "656193591821",
-  appId: "1:656193591821:web:d7e34fdd28370dbad31344",
-  measurementId: "G-TBS956159S"
+  apiKey: "AIzaSyDOgFLz9MOVlfMoT_CuU6ncrxzvtinYziY",
+  authDomain: "cactusia-983c2.firebaseapp.com",
+  projectId: "cactusia-983c2",
+  storageBucket: "cactusia-983c2.appspot.com",
+  messagingSenderId: "153270618122",
+  appId: "1:153270618122:web:76aef6857423b35146b7f3",
+  measurementId: "G-WK67S9GBC2"
 };
 
 // Initialize Firebase
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app); 
+export const storage = getStorage();
+
+export const db = getFirestore(app)
+

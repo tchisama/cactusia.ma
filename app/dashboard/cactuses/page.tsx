@@ -16,6 +16,7 @@ const page = (props: Props) => {
           "https://firebasestorage.googleapis.com/v0/b/cactusia-adf86.appspot.com/o/cactus%2F1.png?alt=media&token=f98a2dc0-1971-4014-b82a-0c5cb8a55cce",
           "https://firebasestorage.googleapis.com/v0/b/cactusia-adf86.appspot.com/o/cactus%2F10.png?alt=media&token=f07fe8a1-d600-4985-b263-c4a3f89d919c"
         ].map((src,i)=>{
+          
           return(
             <div key={i} className='bg-white  shadow border p-6 rounded-xl overflow-hidden flex gap-8'>
               <div className='flex items-end'>

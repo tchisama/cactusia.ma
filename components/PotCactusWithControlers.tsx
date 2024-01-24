@@ -1,7 +1,7 @@
 import React from 'react'
 type Props = {}
-import Cactus from "@/public/cactusImages/3.png"
-import Pot from "@/public/potsImages/8.png"
+import Cactus from "@/public/cactusImages/5.png"
+import Pot from "@/public/potsImages/7.png"
 import Image from 'next/image'
 import { Button } from './ui/button'
 import { ChevronLeft, ChevronRight } from 'lucide-react'

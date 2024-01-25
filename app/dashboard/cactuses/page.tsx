@@ -29,7 +29,7 @@ const page = (props: Props) => {
         )
     });
     return()=> unsub()
-  })
+  },[])
   return (
     <div className='p-4 font-bold text-gray-700 h-screen flex flex-col'>
       <div className='flex justify-between items-center'>

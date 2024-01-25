@@ -19,9 +19,20 @@ type Cactus = {
   id: string
 }
 
+type Pot = {
+  name: string
+  about: string
+  image: string
+  inStock: boolean
+  createdAt: Date
+  order: number
+  id: string
+}
 function PotCactusWithControllers({}: Props) {
   const [cactuses , setCactuses] = useState<Cactus[]>([])
+  const [pots , setPots] = useState<Pot[]>([])
   const [activeCactus , setActiveCactus] = useState(0)
+  const [activePot , setActivePot] = useState(0)
   useEffect(()=>{
     const unsub = onSnapshot(collection(db, "cactuses"), (doc) => {
         setCactuses(
@@ -29,7 +40,15 @@ function PotCactusWithControllers({}: Props) {
         )
     });
     return()=> unsub()
-  })
+  },[])
+  useEffect(()=>{
+    const unsub = onSnapshot(collection(db, "pots"), (doc) => {
+        setPots(
+          doc.docs.map(d=>({...d.data() as Cactus ,id : d.id }))
+        )
+    });
+    return()=> unsub()
+  },[])
 
   const changeLeft = () => {
     if(activeCactus > 0){
@@ -46,6 +65,20 @@ function PotCactusWithControllers({}: Props) {
     }
   }
 
+  const changePotLeft = () => {
+    if(activePot > 0){
+      setActivePot(activePot - 1)
+    }else{
+      setActivePot(pots.length - 1)
+    }
+  }
+  const changePotRight = () => {
+    if(activePot < pots.length - 1){
+      setActivePot(activePot + 1)
+    }else{
+      setActivePot(0)
+    }
+  }
 
   return (
     <div className='relative pt-20'>
@@ -58,9 +91,11 @@ function PotCactusWithControllers({}: Props) {
                 alt="Cactus" width={350} height={350} className='w-full md:h-[350px] md:w-[350px] scale-90 object-contain h-[230px]'></Image>
            </div>
         </div>
-        <Button className='absolute text-primary top-1/2 w-14 h-14 rounded-full -left-12 border' variant="ghost" size="icon"><ChevronLeft size={35} /></Button>
-        <Button className='absolute text-primary top-1/2 w-14 h-14 rounded-full -right-12 border' variant="ghost" size="icon"><ChevronRight size={35} /></Button>
-        <Image src={Pot} alt="Cactus" width={350} height={350} className='w-[250px] md:h-[350px] md:w-[350px] object-contain h-[250px]'></Image>
+        <Button onClick={changePotLeft} className='absolute text-primary top-1/2 w-14 h-14 rounded-full -left-12 border' variant="ghost" size="icon"><ChevronLeft size={35} /></Button>
+        <Button onClick={changePotRight} className='absolute text-primary top-1/2 w-14 h-14 rounded-full -right-12 border' variant="ghost" size="icon"><ChevronRight size={35} /></Button>
+        <Image 
+            src={`https://firebasestorage.googleapis.com/v0/b/cactusia-983c2.appspot.com/o/pots%2F${pots[activePot]?.image}?alt=media&token=bb288d03-287d-45f0-8b90-f9871f1a7567`} 
+            alt="Cactus" width={350} height={350} className='w-[250px] md:h-[350px] md:w-[350px] object-contain h-[250px]'></Image>
     </div>
   )
 }

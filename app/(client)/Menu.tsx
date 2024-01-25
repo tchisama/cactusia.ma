@@ -27,10 +27,10 @@ const Menu = (props: Props) => {
                         {name:"About",href:"/about"},
                     ].map(({name,href},i) => 
                     <div className='overflow-hidden '>
-                    <motion.div initial={{opacity:0,y:40}} animate={{opacity:1,y:0}} exit={{opacity:0,y:40}} transition={{duration:0.3,delay:0.1*i}}>
+                    <motion.div initial={{opacity:0,y:40}} animate={{opacity:1,y:0}} exit={{opacity:0,y:40}} transition={{duration:0.3,delay:0.1*i,ease:[.35,.17,.3,.86]}} className='py-4'>
                         <Link onClick={()=>setTimeout(() => {
                             setOpen(false)
-                        }, 300)} href={href} key={name} className=' md:text-6xl text-6xl py-[8px] text-black/50 uppercase font-bold '>{name}</Link>
+                        }, 300)} href={href} key={name} className=' md:text-6xl text-6xl py-[18px] text-black/50 uppercase font-bold '>{name}</Link>
                     </motion.div>
                     </div>
                     )

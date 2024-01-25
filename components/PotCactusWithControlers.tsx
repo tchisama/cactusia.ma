@@ -8,6 +8,7 @@ import { Button } from './ui/button'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { collection, onSnapshot } from 'firebase/firestore'
 import { db } from '@/firebase'
+import useCactusStore from '@/store/market'
 
 type Cactus = {
   name: string
@@ -29,10 +30,12 @@ type Pot = {
   id: string
 }
 function PotCactusWithControllers({}: Props) {
-  const [cactuses , setCactuses] = useState<Cactus[]>([])
-  const [pots , setPots] = useState<Pot[]>([])
-  const [activeCactus , setActiveCactus] = useState(0)
-  const [activePot , setActivePot] = useState(0)
+
+  const {
+    cactuses, setCactuses, pots, setPots,
+    activeCactus, setActiveCactus,activePot, setActivePot
+  } = useCactusStore()
+
   useEffect(()=>{
     const unsub = onSnapshot(collection(db, "cactuses"), (doc) => {
         setCactuses(

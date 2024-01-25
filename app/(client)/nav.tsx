@@ -17,9 +17,11 @@ const Navbar: React.FC = () => {
         </Link>
       </div>
       <div className="flex gap-2 items-center">
-        <Button variant="secondary" className=' w-14 h-14 rounded-full ' size="icon">
-          <ShoppingBasket size={26} />
-        </Button>
+        <Link href={"/cart"} className=''>
+          <Button variant="secondary" className=' w-14 h-14 rounded-full ' size="icon">
+            <ShoppingBasket size={26} />
+          </Button>
+        </Link>
         <Menu />
       </div>
     </motion.nav>

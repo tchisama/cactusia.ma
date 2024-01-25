@@ -37,7 +37,7 @@ const page = (props: Props) => {
           <h1 className='text-3xl'>Pots</h1>
           <CreateNewPot />
       </div>
-      <div className='grid grid-cols-2 gap-2 mt-8'>
+      <div className='grid grid-cols-3 gap-2 mt-8'>
       {
         // [
         //   "https://firebasestorage.googleapis.com/v0/b/cactusia-983c2.appspot.com/o/1.png?alt=media&token=a1e0aa65-9270-4f04-b175-02e2a7ae919f",
@@ -55,7 +55,7 @@ const page = (props: Props) => {
               <div className=''>
                 <h1 className='text-xl'>{i+1}</h1>
                 <h2 className=' mb-2'>{pot.name}</h2>
-                <Switch />
+                <Switch checked={pot.inStock} />
               </div>
             </div>
           )

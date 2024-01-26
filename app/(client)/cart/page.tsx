@@ -7,14 +7,16 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import CartItemUi from './CartItem'
+import { getPriceByQuantity, getPriceWithDelivery } from '@/lib/pricing'
 
 type Props = {}
 
 function page({}: Props) {
   const {cart} = useCartStore()
-  console.log(cart)   
   return (
-    <div className='relative'>
+    <div className='relative py-4'>
+      {
+        cart.length > 0 ?
     <div className='container flex gap-8'>
       <div className='flex-1 flex flex-col gap-3'>
         {
@@ -25,35 +27,52 @@ function page({}: Props) {
           })
         }
       </div>
-      <div className='min-w-[600px] p-5 sticky top-10 bg-white rounded-xl border h-fit shadow '>
+      <div className='min-w-[500px] p-5 sticky top-10 bg-white rounded-xl border h-fit shadow '>
         <div className='flex flex-col gap-4'>
           <div className='flex gap-6'>
             <div>
               <h1>cactus Price</h1>
-              <h1 className='text-xl'>150 Dh</h1>
+              <h1 className='text-xl'>{cart.reduce((acc,item)=>acc +item.quantity,0)*65} Dh</h1>
             </div>
             <div className='h-[50px] w-[1px] bg-slate-300'></div>
             <div>
               <h1>delivery Price</h1>
-              <h1 className='text-xl'>30 Dh</h1>
+              <h1 className='text-xl'>{cart.reduce((acc,item)=>acc +item.quantity,0)>=3 ? <span className='text-primary'>Free</span> : "35 Dh" }</h1>
             </div>
           </div>
           <div>
             <h1>Total</h1>
             <div className='flex gap-2 items-end'>
-              <h1 className='text-5xl'>150 Dh</h1>
-              <h4 className='line-through  py-2'>180 Dh</h4>
+              <h1 className='text-5xl text-primary'>{
+                  getPriceWithDelivery(cart.reduce((acc,item)=>acc +item.quantity,0))
+                  } Dh</h1>
+                  {
+                    cart.reduce((acc,item)=>acc +item.quantity,0) >= 3 ?
+                    <h4 className='line-through text-red-400 py-2'>{
+                      cart.reduce((acc,item)=>acc +item.quantity,0) * 65 +35
+                    } Dh</h4>
+                    : null
+                  }
             </div>
           </div>
           <div className='flex flex-col gap-2'>
             <Link href={"/market"}>
-            <Button className=' py-6 flex flex-row-reverse w-fit gap-2' variant={"ghost"}>Continue Shopping <ArrowLeft size={16}/></Button>
+              <Button className=' py-6 flex flex-row-reverse w-fit gap-2' variant={"ghost"}>Continue Shopping <ArrowLeft size={16}/></Button>
             </Link>
-            <Button className='w-full py-6 flex gap-4'>Checkout <ArrowRight size={16}/></Button>
+            <Link href={"/checkout"}>
+              <Button className='w-full py-6 flex gap-4'>Checkout <ArrowRight size={16}/></Button>
+            </Link>
           </div>
         </div>
       </div>
     </div>
+      : <div className='py-12 flex items-center justify-center flex-col gap-4'>
+        <h1 className='text-center text-3xl'>Your Cart Is Empty</h1>
+        <Link href={"/market"}>
+          <Button size="lg" className='rounded-full text-xl p-6 flex gap-3'>Start Shopping<ArrowRight/></Button>
+        </Link>
+      </div>
+      }
     </div>
   )
 }

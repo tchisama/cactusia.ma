@@ -12,6 +12,10 @@ import useCartStore from '@/store/cart';
 const Navbar: React.FC = () => {
   const {cart} = useCartStore()
   return (
+    <>
+    <div className='bg-primary  text-white text-center text-md'>
+      <h1>Get free delivery on all orders above 3 cactus</h1>
+    </div>
     <motion.nav initial={{opacity:0,y:-10}} animate={{opacity:1,y:0}} className='flex gap-4 justify-between items-center p-4 md:p-8 bg-white max-w-screen-2xl mx-auto'>
       <div className="logo">
         <Link href="/">
@@ -31,6 +35,7 @@ const Navbar: React.FC = () => {
         <Menu />
       </div>
     </motion.nav>
+    </>
   );
 };
 

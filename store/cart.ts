@@ -12,10 +12,12 @@ interface CartStore {
   addToCart: (item: CartItem) => void;
   removeFromCart: (index: number) => void;
   updateQuantity: (index: number, quantity: number) => void;
+  clearCart : () => void
 }
 
 const useCartStore = create<CartStore>((set: SetState<CartStore>) => ({
   cart: [],
+  clearCart : () => set({cart: []}),
   updateQuantity: (index, quantity) => set((state) => {
     if(quantity <= 0) return { cart: state.cart.filter((_, i) => i !== index)}
     const updatedCart = [...state.cart];

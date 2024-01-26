@@ -1,5 +1,6 @@
 "use client"
 import { Button } from '@/components/ui/button'
+import { getPriceByQuantity } from '@/lib/pricing'
 import useCartStore, { CartItem } from '@/store/cart'
 import { Minus, Plus } from 'lucide-react'
 import Image from 'next/image'
@@ -21,8 +22,9 @@ function CartItemUi({item,index}: Props) {
                     </Image>
                 </div>
               <div className='flex-1 p-4'>
-                <h1 className='text-lg'>Name of the cactus</h1>
+                <h1 className='text-sm'>Name of the cactus</h1>
                 <h1 className='text-sm'>Color name</h1>
+                <h1 className='text-md font-medium'>{65*item.quantity} Dh</h1>
               </div>
               <div className='flex p-4 items-center gap-4'>
                   <Button onClick={()=>updateQuantity(index,item.quantity -1)} variant={"outline"} className='rounded-full' size="icon"><Minus size={16}/></Button>

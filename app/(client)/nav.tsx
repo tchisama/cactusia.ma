@@ -28,7 +28,7 @@ const Navbar: React.FC = () => {
             cart.length > 0 && 
             <div className='absolute right-0 top-0 bg-primary text-white rounded-full w-6 h-6 text-center items-center justify-center flex'>{cart.reduce ((acc, item) => acc + item.quantity, 0)}</div>
           }
-          <Button variant="secondary" className=' w-14 h-14 rounded-full ' size="icon">
+          <Button variant="secondary" className='border w-14 h-14 rounded-full ' size="icon">
             <ShoppingBasket size={26} />
           </Button>
         </Link>

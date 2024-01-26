@@ -20,6 +20,7 @@ import { addDoc, collection } from 'firebase/firestore'
 import { db } from '@/firebase'
 import useCartStore from '@/store/cart'
 import { getPriceWithDelivery } from '@/lib/pricing'
+import { useRouter } from 'next/navigation'
 
 const formSchema = z.object({
   firstName: z.string().min(2).max(50),
@@ -34,6 +35,7 @@ type Props = {}
 
 function Page({}: Props) {
   const {cart , clearCart} = useCartStore()
+  const route = useRouter()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -48,43 +50,48 @@ function Page({}: Props) {
         createdAt: new Date(),
         price: getPriceWithDelivery(cart.reduce((acc,item)=>acc +item.quantity,0)) ,
         cart,
+        status:"new"
       }
     ).then(()=>{
       clearCart()
+      route.push("/thank")
     })
   }
   return (
-    <div className='container'>
-      <h1 className='text-4xl'>
+    <div className='container flex flex-col gap-4 items-center'>
+      <h1 className='text-4xl w-full max-w-[700px]'>
         Checkout
+      </h1>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="  max-w-[700px]">
-            <FormField
-              control={form.control}
-              name="firstName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>First name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="first name" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="lastName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Last name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="first name" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full max-w-[700px]">
+            <div className='flex gap-4 w-full'>
+              <FormField
+                control={form.control}
+                name="firstName"
+                render={({ field }) => (
+                  <FormItem className='flex-1'>
+                    <FormLabel>First name</FormLabel>
+                    <FormControl>
+                      <Input placeholder="first name" className='flex-1' {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="lastName"
+                render={({ field }) => (
+                  <FormItem className='flex-1'>
+                    <FormLabel>Last name</FormLabel>
+                    <FormControl>
+                      <Input placeholder="first name"  className='flex-1' {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
             <FormField
               control={form.control}
               name="number"
@@ -93,6 +100,19 @@ function Page({}: Props) {
                   <FormLabel>Number</FormLabel>
                   <FormControl>
                     <Input type='number' placeholder="number" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="city"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className='font-bold text-sm'>City</FormLabel>
+                  <FormControl>
+                    <Input placeholder="city" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -111,23 +131,9 @@ function Page({}: Props) {
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="city"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>City</FormLabel>
-                  <FormControl>
-                    <Input placeholder="city" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button type="submit" className='mt-2 p-6 text-lg  flex gap-4'>Checkout <Check/></Button>
+            <Button type="submit" className='mt-6 p-6 text-lg  flex gap-4'>Checkout <Check/></Button>
           </form>
         </Form>
-      </h1>
     </div>
   )
 }

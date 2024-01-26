@@ -2,7 +2,7 @@
 import React from 'react'
 import cactus from "@/public/images/cactus.png"
 import Image from 'next/image'
-import { Leaf, Palette } from 'lucide-react'
+import { Leaf, Palette, ShoppingBasket } from 'lucide-react'
 import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/ui/button'
 import PotCactus from '@/components/PotCactus'
@@ -52,7 +52,7 @@ Score free delivery on 3+ cactus pots! 🌵🚚</p>
             </div>
             <Separator className='my-2 md:my-4 md:max-w-sm'/>
             <div className='md:my-8 my-2 w-full '>
-                <Button onClick={handelAddToCart} className='p-8 rounded-full w-full md:w-fit text-xl'>Add To Cart</Button>
+                <Button onClick={handelAddToCart} className='p-8 rounded-full flex flex-row-reverse gap-2 w-full md:w-fit text-lg items-center'>Add To Cart <ShoppingBasket size={26}/></Button>
             </div>
         </div>
     </div>

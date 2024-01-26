@@ -57,7 +57,7 @@ function page({}: Props) {
           </div>
           <div className='flex flex-col gap-2'>
             <Link href={"/market"}>
-              <Button className=' py-6 flex flex-row-reverse w-fit gap-2' variant={"ghost"}>Continue Shopping <ArrowLeft size={16}/></Button>
+              <Button className=' py-6 flex flex-row-reverse w-fit gap-2' variant={"outline"}>Continue Shopping <ArrowLeft size={16}/></Button>
             </Link>
             <Link href={"/checkout"}>
               <Button className='w-full py-6 flex gap-4'>Checkout <ArrowRight size={16}/></Button>

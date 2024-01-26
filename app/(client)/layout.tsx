@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter,Comfortaa } from "next/font/google";
 import "../globals.css";
 import Navbar from "./nav";
+import { Toaster } from "@/components/ui/sonner";
 const inter = Inter({ subsets: ["latin"] });
 const comfortaa = Comfortaa({ subsets: ["latin"] });
 
@@ -20,6 +21,7 @@ export default function RootLayout({
       <body className={comfortaa.className}>
         <Navbar />
         {children}
+        <Toaster />
       </body>
     </html>
   );

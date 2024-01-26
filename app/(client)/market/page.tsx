@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import cactus from "@/public/images/cactus.png"
 import Image from 'next/image'
@@ -8,9 +9,24 @@ import PotCactus from '@/components/PotCactus'
 import PotCactusWithControllers from '@/components/PotCactusWithControlers'
 import AboutCactus from '@/components/AboutCactus'
 import Reviews from '@/components/Reviews'
+import useCartStore from '@/store/cart'
+import useCactusStore from '@/store/market'
+import { toast } from 'sonner'
 type Props = {}
 
 const page = (props: Props) => {
+    const {activeCactus, setActiveCactus,activePot, setActivePot,cactuses, pots} = useCactusStore()
+    const {addToCart} = useCartStore()
+    const handelAddToCart = ()=>{
+      addToCart({
+        cactus: cactuses[activeCactus].image,
+        pot: pots[activePot].image,
+        quantity: 1
+      })
+      toast("Pot cactus added", {
+          description: "check your cart", 
+        })
+    }
   return (
     <div className='container px-4 md:px-6 '>
     <div className="flex flex-col md:flex-row items-center  md:gap-20">
@@ -36,7 +52,7 @@ Score free delivery on 3+ cactus pots! 🌵🚚</p>
             </div>
             <Separator className='my-2 md:my-4 md:max-w-sm'/>
             <div className='md:my-8 my-2 w-full '>
-                <Button className='p-8 rounded-full w-full md:w-fit text-xl'>Add To Cart</Button>
+                <Button onClick={handelAddToCart} className='p-8 rounded-full w-full md:w-fit text-xl'>Add To Cart</Button>
             </div>
         </div>
     </div>

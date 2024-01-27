@@ -3,6 +3,7 @@ import { Inter,Comfortaa } from "next/font/google";
 import "../globals.css";
 import Navbar from "./nav";
 import { Toaster } from "@/components/ui/sonner";
+import Footer from "./footer";
 const inter = Inter({ subsets: ["latin"] });
 const comfortaa = Comfortaa({ subsets: ["latin"] });
 
@@ -20,7 +21,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={comfortaa.className}>
         <Navbar />
-        {children}
+        <div className="min-h-[55vh]">
+          {children}
+        </div>
+        <Footer />
         <Toaster />
       </body>
     </html>

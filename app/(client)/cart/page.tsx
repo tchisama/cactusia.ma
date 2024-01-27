@@ -9,6 +9,7 @@ import React from 'react'
 import CartItemUi from './CartItem'
 import { getPriceByQuantity, getPriceWithDelivery } from '@/lib/pricing'
 
+
 type Props = {}
 
 function page({}: Props) {
@@ -19,6 +20,7 @@ function page({}: Props) {
         cart.length > 0 ?
     <div className='container flex gap-8'>
       <div className='flex-1 flex flex-col gap-3'>
+        <h1 className='text-xl text-end'>{cart.reduce((acc,item)=>acc +item.quantity,0)} cactuses</h1>
         {
           cart.map((_,i)=>{
             return(

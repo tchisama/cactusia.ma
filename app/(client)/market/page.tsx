@@ -24,7 +24,7 @@ const page = (props: Props) => {
         quantity: 1
       })
       toast("Pot cactus added", {
-          description: "check your cart", 
+        icon: "✅",
         })
     }
   return (

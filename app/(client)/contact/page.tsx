@@ -99,7 +99,11 @@ function Page({}: Props) {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit" disabled={leading}>
+        {
+          leading ? "Sending..." : "Send"
+        }
+        </Button>
       </form>
     </Form>
 

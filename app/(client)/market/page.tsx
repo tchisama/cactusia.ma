@@ -42,12 +42,12 @@ const page = (props: Props) => {
 Score free delivery on 3+ cactus pots! 🌵🚚</p>
                 <Separator className='my-2 md:my-4 md:max-w-sm'/>
                 <div className='flex justify-between'>
-                    <h1 className='text-lg md:text-xl flex items-center gap-2'><Leaf />Ferocactus Echidne</h1>
-                    <span className='text-gray-500'>1/5</span>
+                    <h1 className='text-lg md:text-xl flex items-center gap-2'><Leaf />{cactuses[activeCactus]?.name}</h1>
+                    <span className='text-gray-500'>{activeCactus+ 1}/{cactuses.length}</span>
                 </div>
                 <div className='flex justify-between'>
-                    <h1 className='text-lg md:text-xl flex items-center gap-2'><Palette />Vert foncé</h1>
-                    <span className='text-gray-500'>1/5</span>
+                    <h1 className='text-lg md:text-xl flex items-center gap-2'><Palette />{pots[activePot]?.name}</h1>
+                    <span className='text-gray-500'>{activePot+ 1}/{pots.length}</span>
                 </div>
             </div>
             <Separator className='my-2 md:my-4 md:max-w-sm'/>

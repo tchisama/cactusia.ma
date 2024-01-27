@@ -50,7 +50,7 @@ const Page = (props: Props) => {
             <TableHead className="">name</TableHead>
             <TableHead>number</TableHead>
             <TableHead>price</TableHead>
-            <TableHead className="">address</TableHead>
+            <TableHead className="">city</TableHead>
             <TableHead className="">actions</TableHead>
           </TableRow>
         </TableHeader>
@@ -64,7 +64,7 @@ const Page = (props: Props) => {
               <TableCell >{item.firstName} {item.lastName}</TableCell>
               <TableCell>{item.number}</TableCell>
               <TableCell>{item.price} Dh</TableCell>
-              <TableCell className="">{item.address}</TableCell>
+              <TableCell className="">{item.city}</TableCell>
               <TableCell className="flex gap-2">
                 <Button variant={"outline"} size={"icon"}><Trash size={16}/></Button>
                 <Link href={`/dashboard/orders/${item.id}`}>
@@ -80,7 +80,7 @@ const Page = (props: Props) => {
 }
 
 
-  const formatCreatedAt = (timestamp: Timestamp) => {
+ export const formatCreatedAt = (timestamp: Timestamp) => {
     const dateObject = timestamp.toDate();
     
     const options: Intl.DateTimeFormatOptions = {

@@ -14,7 +14,7 @@ type Props = {}
 function Reviews({}: Props) {
   return (
     <div className=' mt-20 md:w-full  '>
-        <h1 className='md:text-5xl text-3xl'>Cactus Reviews </h1>
+        <h1 className='md:text-5xl text-3xl'>Reviews </h1>
 <Carousel className='  py-8 w-[90%] mx-auto'>
     <CarouselContent>
       {

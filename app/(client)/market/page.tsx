@@ -12,6 +12,7 @@ import Reviews from '@/components/Reviews'
 import useCartStore from '@/store/cart'
 import useCactusStore from '@/store/market'
 import { toast } from 'sonner'
+import AddReview from '@/components/AddReview'
 type Props = {}
 
 const page = (props: Props) => {
@@ -58,6 +59,7 @@ Score free delivery on 3+ cactus pots! 🌵🚚</p>
     </div>
     <AboutCactus/>
     <Reviews />
+    <AddReview/>
     </div>
   )
 }

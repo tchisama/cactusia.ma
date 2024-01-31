@@ -4,6 +4,8 @@ import "../globals.css";
 import Navbar from "./nav";
 import { Toaster } from "@/components/ui/sonner";
 import Footer from "./footer";
+import { Suspense } from "react";
+import Loading from "@/components/Loading";
 const inter = Inter({ subsets: ["latin"] });
 const comfortaa = Comfortaa({ subsets: ["latin"] });
 
@@ -21,6 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={comfortaa.className}>
         <Navbar />
+
         <div className="min-h-[55vh]">
           {children}
         </div>

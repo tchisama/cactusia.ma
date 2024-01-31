@@ -49,6 +49,7 @@ const AddReview = (props: Props) => {
               name,
               image: name1,
               createdAt : new Date(),
+              review,
               rating,
               show:false
             }
@@ -72,7 +73,8 @@ const AddReview = (props: Props) => {
             createdAt : new Date(),
             rating,
             image:"no image",
-            show:false
+            show:false,
+            review,
           }
         ).then(()=>{
           setFile(null)

@@ -46,7 +46,7 @@ function Reviews({}: Props) {
                     new Array(review.rating).fill(0).map((s,i)=>(
                       <Star key={i}  size={14} className='fill-orange-400 text-orange-400'></Star>
                     ))
-                  }
+                    }
                   </div>
               <p className='text-xs pb-2 max-w-xl md:text-md'>{review.review.slice(0,400)}</p>
             </div>

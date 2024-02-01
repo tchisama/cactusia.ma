@@ -61,7 +61,7 @@ function Contact({}: Props) {
       <h1 className="text-5xl">Contact us</h1>
           <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2 max-w-4xl mt-8">
-        <div className="flex gap-6 ">
+        <div className="flex flex-col gap-2 md:flex-row md:gap-6 ">
         <FormField
           control={form.control}
           name="fullName"

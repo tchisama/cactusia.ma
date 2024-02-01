@@ -28,50 +28,67 @@ import img10 from '@/public/images/slider/10.jpg'
 import Reviews from "@/components/Reviews";
 import Contact from "@/components/Contact";
 import AddReview from "@/components/AddReview";
+import TextEditable from "@/components/TextEditable";
 
 
 
 export default function Home() {
   return (
-    <div className=" container relative space-y-8">
-      <div className="flex flex-col-reverse md:flex-row items-center justify-between ">
-        <motion.div initial={{opacity:0,x:-10}} animate={{opacity:1,x:0}} className="flex flex-1 gap-4 flex-col items-start">
-          <h1 className="md:text-6xl text-2xl text-center md:text-left font-extrabold text-gray-700 uppercase">Welcome to Your Cactus Haven!</h1>
-          <h3 className="md:text-2xl text-sm font-bold text-center md:text-left uppercase text-gray-700">Explore and Discover a Prickly Paradise of Unique Cacti</h3>
+    <div className="  relative space-y-8">
+      <div className="flex container flex-col-reverse md:flex-row items-center justify-between ">
+        <motion.div initial={{opacity:0,x:-10}} animate={{opacity:1,x:0}} className="flex flex-1 gap-4 flex-col items-center mb-6 md:items-start">
+          <h1 className="md:text-6xl text-2xl text-center md:text-left font-extrabold text-gray-700 uppercase">
+            <TextEditable reference={{page:"home",ref:"heroTitle"}}>
+            </TextEditable>
+          </h1>
+          <h3 className="md:text-2xl text-sm font-bold text-center md:text-left uppercase text-gray-700">
+            <TextEditable reference={{page:"home",ref:"heroSubTitle"}}>
+            </TextEditable>
+          </h3>
           <Link href={"/market"}>
-          <Button className="flex items-center sticky top-2 gap-4 text-xl rounded-full w-full md:w-fit p-8 md:p-10 ">Order Now <ArrowRight /></Button>
+          <Button className="flex items-center sticky top-2 gap-4 text-xl rounded-full w-full md:w-fit p-8 md:p-10 ">
+            Order Now 
+          <ArrowRight /></Button>
           </Link>
         </motion.div>
         <motion.div initial={{opacity:0,x:10}} animate={{opacity:1,x:0}} className=" flex-1 flex items-center justify-end ">
           <Image src={Cactus} alt="Cactus" className="-translate-x-4 " width={500} height={450}></Image>
         </motion.div>
       </div>
-      <motion.div initial={{opacity:0,y:100}} transition={{duration:0.6}} animate={{opacity:1,y:0}} className="">
-        <Carousel className="my-8 mb-24">
+      <motion.div initial={{opacity:0,y:100}} transition={{duration:0.6}} animate={{opacity:1,y:0}} className="md:container">
+        <Carousel
+      
+            opts={{
+              
+              loop: true,
+            }} 
+        className="my-8 mb-24">
           <CarouselContent>
               {
                 [
                   img7, img8, img9, img2, img3, img4, img5, img6,  img10, img1
                 ].map((_, index) => (
-            <CarouselItem className="basis-1/3" key={index}>
+            <CarouselItem className="basis-1/2 md:basis-1/3" key={index}>
                   <Image src={_} alt="Cactus" width={450} height={450} className="aspect-square object-cover rounded-xl border"></Image>
             </CarouselItem>
                 ))
               }
           </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
+          <div className="hidden md:block">
+            <CarouselPrevious />
+            <CarouselNext />
+          </div>
         </Carousel>
       </motion.div>
 
-      <motion.div initial={{opacity:0,y:100}} transition={{duration:0.6}} animate={{opacity:1,y:0}} className="flex my-28 items-center gap-8 ">
-        <Image src={home} alt="Cactus" width={350} height={350} className="aspect-square object-cover rounded-xl border"></Image>
+      <motion.div initial={{opacity:0,y:100}} transition={{duration:0.6}} animate={{opacity:1,y:0}} className="flex flex-col md:flex-row container my-28 items-center gap-8 ">
+        <Image src={home} alt="Cactus" width={350} height={350} className="aspect-square object-cover rounded-xl border w-full md:w-fit"></Image>
         <div className="flex flex-col items-start gap-8">
-          <p className="text-xl max-w-4xl">Lorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero cumque, in blanditiis possimus at voluptatem neque dolores eum officia ratione, minus accusantium deleniti! Nulla minima quos dolorum nam qui corporis? ipsum dolor sit amet, consectetur adipisicing elit. Commodi libero sequi magni maiores sit optio, facere praesentium neque earum eaque obcaecati magnam, soluta voluptas impedit eligendi in quam. Possimus, ex?</p>
+          <p className=" md:text-xl max-w-4xl">Lorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero cumque, in blanditiis possimus at voluptatem neque dolores eum officia ratione, minus accusantium deleniti! Nulla minima quos dolorum nam qui corporis? ipsum dolor sit amet, consectetur adipisicing elit. Commodi libero sequi magni maiores sit optio, facere praesentium neque earum eaque obcaecati magnam, soluta voluptas impedit eligendi in quam. Possimus, ex?</p>
           <Button className="text-lg p-6 flex gap-3" >Shop now<ArrowRight/></Button>
         </div>
       </motion.div>
-      <div className="my-10">
+      <div className="my-10 container">
       <Reviews />
       <AddReview />
       </div>

@@ -17,6 +17,7 @@ import { Input } from './ui/input'
 import { Textarea } from './ui/textarea'
 import { doc, getDoc, onSnapshot, setDoc, updateDoc } from 'firebase/firestore'
 import { db } from '@/firebase'
+import useContentEditor from '@/store/backend copy'
 
 type Reference = {
   page: string,
@@ -28,7 +29,10 @@ type Props = {
 }
 
 function TextEditable({reference}: Props) {
-  const [editMode , setEditMode] = useState(true)
+
+  const {editable , setEditable} = useContentEditor()
+
+
   const [text,setText] = useState("")
   useEffect(()=>{
     onSnapshot(doc(db,"content",reference.page),(doc)=>{
@@ -36,7 +40,7 @@ function TextEditable({reference}: Props) {
     })
   },[])
   return (
-    editMode?
+    editable?
     <div className='relative border border-[#fff0] group hover:border-primary duration-200'>
       {text}
       <EditDialog reference={reference} text={text}/>
@@ -66,7 +70,7 @@ const EditDialog = ({reference,text }: {reference:Reference,text:string})=>{
   return(
   <Dialog >
     <DialogTrigger onClick={p} asChild>
-      <Button  size={"icon"} className="absolute  top-0 -left-20"><Edit size={14}/></Button>
+      <Button  size={"icon"} className="absolute  top-0 -left-12"><Edit size={14}/></Button>
     </DialogTrigger>
     <DialogContent className='max-w-3xl'>
       <DialogHeader>

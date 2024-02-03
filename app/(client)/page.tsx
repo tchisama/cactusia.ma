@@ -84,7 +84,10 @@ export default function Home() {
       <motion.div initial={{opacity:0,y:100}} transition={{duration:0.6}} animate={{opacity:1,y:0}} className="flex flex-col md:flex-row container my-28 items-center gap-8 ">
         <Image src={home} alt="Cactus" width={350} height={350} className="aspect-square object-cover rounded-xl border w-full md:w-fit"></Image>
         <div className="flex flex-col items-start gap-8">
-          <p className=" md:text-xl max-w-4xl">Lorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero cumque, in blanditiis possimus at voluptatem neque dolores eum officia ratione, minus accusantium deleniti! Nulla minima quos dolorum nam qui corporis? ipsum dolor sit amet, consectetur adipisicing elit. Commodi libero sequi magni maiores sit optio, facere praesentium neque earum eaque obcaecati magnam, soluta voluptas impedit eligendi in quam. Possimus, ex?</p>
+          <p className=" md:text-xl max-w-4xl">
+            <TextEditable reference={{page:"home", ref:"homeParagraphSection"}}>
+            </TextEditable>
+          </p>
           <Button className="text-lg p-6 flex gap-3" >Shop now<ArrowRight/></Button>
         </div>
       </motion.div>

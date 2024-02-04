@@ -5,11 +5,23 @@ import { Timestamp, collection, doc, getDoc } from 'firebase/firestore';
 import { useParams } from 'next/navigation';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
-import { formatCreatedAt } from '../page';
 import Image from 'next/image';
 
 type Props = {}
 
+ const formatCreatedAt = (timestamp: Timestamp) => {
+    const dateObject = timestamp.toDate();
+    
+    const options: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+    };
+    
+    return dateObject.toLocaleString('en-US', options).replace(',', ' /');
+  };
 function page({}: Props) {
   const {orderid} = useParams<{ orderid: string }>()
   const [order,setOrder] = useState<Order>()

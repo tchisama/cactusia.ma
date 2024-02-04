@@ -80,7 +80,7 @@ const Page = (props: Props) => {
 }
 
 
- export const formatCreatedAt = (timestamp: Timestamp) => {
+ const formatCreatedAt = (timestamp: Timestamp) => {
     const dateObject = timestamp.toDate();
     
     const options: Intl.DateTimeFormatOptions = {

@@ -1,4 +1,3 @@
-
 "use client"
 import CreateNewPot from '@/components/CreateNewPot'
 import { Separator } from '@/components/ui/separator'

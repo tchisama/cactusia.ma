@@ -13,6 +13,7 @@ import { Star } from 'lucide-react'
 import { Review } from '@/app/dashboard/reviews/page'
 import { db } from '@/firebase'
 import { collection, onSnapshot } from 'firebase/firestore'
+import TextEditable from './TextEditable'
 type Props = {}
 
 function Reviews({}: Props) {
@@ -30,7 +31,7 @@ function Reviews({}: Props) {
   },[])
   return (
     <div className=' mt-20 md:w-full  '>
-        <h1 className='md:text-5xl text-3xl'>Reviews </h1>
+        <h1 className='md:text-5xl text-3xl'><TextEditable reference={{page:"home",ref:"reviewsTitle"}}></TextEditable> </h1>
 <Carousel className='  py-8 relative mx-auto'>
     <CarouselContent>
       {

@@ -27,6 +27,10 @@ type Reference = {
 type Props = {
   reference:Reference
 }
+type Props2 = {
+  reference:Reference
+  children:React.ReactNode
+}
 
 function TextEditable({reference}: Props) {
 
@@ -51,6 +55,26 @@ function TextEditable({reference}: Props) {
 }
 
 
+
+export function GetText ({reference}: Props) {
+  const [text,setText] = useState("")
+  useEffect(()=>{
+    onSnapshot(doc(db,"content",reference.page),(doc)=>{
+      setText(doc.data()?.[reference.ref] as string)
+    })
+  },[])
+  return text
+}
+
+
+export function ChangeText ({reference,children}: Props2) {
+  return <div className='relative'>
+    {children}
+    <EditDialog reference={reference} text={""}/>
+  </div>
+}
+
+
 const EditDialog = ({reference,text }: {reference:Reference,text:string})=>{
   const [textInput, setTextInput] = useState(text)
   const save = ()=>{
@@ -58,7 +82,7 @@ const EditDialog = ({reference,text }: {reference:Reference,text:string})=>{
       doc(db,"content",reference.page),
       {[reference.ref]:textInput}
     )
-  }
+}
 
 
   useEffect(()=>{
@@ -70,7 +94,7 @@ const EditDialog = ({reference,text }: {reference:Reference,text:string})=>{
   return(
   <Dialog >
     <DialogTrigger onClick={p} asChild>
-      <Button  size={"icon"} className="absolute  top-0 -left-12"><Edit size={14}/></Button>
+      <Button  variant={"outline"} size={"icon"} className="absolute  w-7 h-7 top-0 -left-8"><Edit size={14}/></Button>
     </DialogTrigger>
     <DialogContent className='max-w-3xl'>
       <DialogHeader>

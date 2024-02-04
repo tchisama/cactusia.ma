@@ -21,6 +21,7 @@ import { db, storage } from "@/firebase"
 import { addDoc, collection } from "firebase/firestore"
 import { toast } from "sonner"
 import { DialogClose } from "@radix-ui/react-dialog"
+import { ChangeText, GetText } from "./TextEditable"
 type Props = {}
 
 const AddReview = (props: Props) => {
@@ -93,7 +94,9 @@ const AddReview = (props: Props) => {
   return (
 <Dialog>
   <DialogTrigger asChild>
-      <Button className="p-6 text-lg">Add Review</Button>
+    <ChangeText reference={{page:"home",ref:"addReview"}}>
+      <Button className="p-6 text-lg"><GetText reference={{page:"home",ref:"addReview"}}/></Button>
+    </ChangeText>
   </DialogTrigger>
   <DialogContent className="max-w-4xl pt-8">
     <DialogHeader>

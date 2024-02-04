@@ -8,13 +8,14 @@ import { MenuIcon, ShoppingBasket } from 'lucide-react';
 import Menu from './Menu';
 import { motion } from 'framer-motion';
 import useCartStore from '@/store/cart';
+import TextEditable from '@/components/TextEditable';
 
 const Navbar: React.FC = () => {
   const {cart} = useCartStore()
   return (
     <>
-    <div className='bg-primary  text-white text-center text-md'>
-      <h1>Get free delivery on all orders above 3 cactus</h1>
+    <div className='bg-primary   text-center text-lg py-1'>
+      <h1 className='flex items-center justify-center text-white'><TextEditable reference={{page:"home",ref:"slider"}}></TextEditable></h1>
     </div>
     <motion.nav initial={{opacity:0,y:-10}} animate={{opacity:1,y:0}} className='flex gap-4 justify-between items-center p-4 md:p-8 bg-white max-w-screen-2xl mx-auto'>
       <div className="logo">

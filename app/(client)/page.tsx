@@ -28,7 +28,7 @@ import img10 from '@/public/images/slider/10.jpg'
 import Reviews from "@/components/Reviews";
 import Contact from "@/components/Contact";
 import AddReview from "@/components/AddReview";
-import TextEditable from "@/components/TextEditable";
+import TextEditable, { ChangeText, GetText } from "@/components/TextEditable";
 
 
 
@@ -45,11 +45,13 @@ export default function Home() {
             <TextEditable reference={{page:"home",ref:"heroSubTitle"}}>
             </TextEditable>
           </h3>
-          <Link href={"/market"}>
-          <Button className="flex items-center sticky top-2 gap-4 text-xl rounded-full w-full md:w-fit p-8 md:p-10 ">
-            Order Now 
-          <ArrowRight /></Button>
-          </Link>
+            <ChangeText reference={{page:"home",ref:"heroButton"}}>
+              <Link href={"/market"}>
+              <Button className="flex items-center sticky top-2 gap-4 text-xl rounded-full w-full md:w-fit p-8 md:p-10 ">
+                <GetText reference={{page:"home",ref:"heroButton"}}></GetText>
+              <ArrowRight /></Button>
+              </Link>
+            </ChangeText>
         </motion.div>
         <motion.div initial={{opacity:0,x:10}} animate={{opacity:1,x:0}} className=" flex-1 flex items-center justify-end ">
           <Image src={Cactus} alt="Cactus" className="-translate-x-4 " width={500} height={450}></Image>
@@ -88,7 +90,13 @@ export default function Home() {
             <TextEditable reference={{page:"home", ref:"homeParagraphSection"}}>
             </TextEditable>
           </p>
-          <Button className="text-lg p-6 flex gap-3" >Shop now<ArrowRight/></Button>
+          <ChangeText reference={{page:"home",ref:"homeButton"}}>
+              <Link href={"/market"}>
+            <Button className="text-lg p-6 flex gap-3" >
+              <GetText reference={{page:"home",ref:"homeButton"}}></GetText>
+              <ArrowRight/></Button>
+              </Link>
+          </ChangeText>
         </div>
       </motion.div>
       <div className="my-10 container">

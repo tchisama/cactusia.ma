@@ -19,6 +19,7 @@ import { addDoc, collection } from "firebase/firestore"
 import { db } from "@/firebase"
 import { toast } from "sonner"
 import { useState } from "react"
+import TextEditable, { ChangeText, GetText } from "./TextEditable"
 
 
 const formSchema = z.object({
@@ -58,7 +59,7 @@ function Contact({}: Props) {
   }
   return (
       <div className=''>
-      <h1 className="text-5xl">Contact us</h1>
+      <h1 className="text-5xl"><TextEditable reference={{page:"contact",ref:"Title"}}></TextEditable></h1>
           <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2 max-w-4xl mt-8">
         <div className="flex flex-col gap-2 md:flex-row md:gap-6 ">
@@ -67,7 +68,7 @@ function Contact({}: Props) {
           name="fullName"
           render={({ field }) => (
             <FormItem className="flex-1">
-              <FormLabel>Full name</FormLabel>
+              <FormLabel><TextEditable reference={{page:"contact",ref:"Name"}}></TextEditable></FormLabel>
               <FormControl>
                 <Input placeholder="full name" {...field} />
               </FormControl>
@@ -80,7 +81,7 @@ function Contact({}: Props) {
           name="number"
           render={({ field }) => (
             <FormItem className="flex-1">
-              <FormLabel>Number</FormLabel>
+              <FormLabel><TextEditable reference={{page:"contact",ref:"Number"}}></TextEditable></FormLabel>
               <FormControl>
                 <Input placeholder="number" {...field} />
               </FormControl>
@@ -95,7 +96,7 @@ function Contact({}: Props) {
           name="message"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Message</FormLabel>
+              <FormLabel><TextEditable reference={{page:"contact",ref:"Message"}}></TextEditable></FormLabel>
               <FormControl>
                 <Textarea placeholder="message" {...field} />
               </FormControl>
@@ -103,11 +104,13 @@ function Contact({}: Props) {
             </FormItem>
           )}
         />
-        <Button className="text-lg p-6" type="submit" disabled={leading}>
-        {
-          leading ? "Sending..." : "Send"
-        }
-        </Button>
+        <ChangeText reference={{page:"contact",ref:"Send"}}>
+          <Button className="text-lg p-6" type="submit" disabled={leading}>
+          {
+            leading ? "Sending..." : <GetText reference={{page:"contact",ref:"Send"}}></GetText>
+          }
+          </Button>
+        </ChangeText>
       </form>
     </Form>
 

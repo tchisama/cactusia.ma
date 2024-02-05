@@ -9,7 +9,7 @@ interface ContentEditor {
 }
 
 const useContentEditor = create<ContentEditor>((set: SetState<ContentEditor>) => ({
-    editable : false,
+    editable : true,
     setEditable : (editable) => set({editable})
 }));
 

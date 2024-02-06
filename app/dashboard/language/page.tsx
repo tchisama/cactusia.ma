@@ -1,4 +1,5 @@
 "use client"
+import useLocalStorage from '@/app/hooks/useLocalStorage'
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
 import { Switch } from '@/components/ui/switch'
@@ -10,7 +11,8 @@ import React from 'react'
 type Props = {}
 
 function page({}: Props) {
-  const {editable , setEditable} = useContentEditor()
+  // const {editable , setEditable} = useContentEditor()
+  const [editable, setEditable] = useLocalStorage<boolean>("editable", false)
   return (
     <div className='p-6 container'>
         <h1 className='text-4xl py-2'>Language and Content</h1>

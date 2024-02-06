@@ -2,6 +2,7 @@
 import { Button } from '@/components/ui/button'
 import { getPriceByQuantity } from '@/lib/pricing'
 import useCartStore, { CartItem } from '@/store/cart'
+import useCactusStore from '@/store/market'
 import { Minus, Plus } from 'lucide-react'
 import Image from 'next/image'
 import React from 'react'
@@ -13,6 +14,7 @@ type Props = {
 
 function CartItemUi({item,index}: Props) {
   const {updateQuantity} = useCartStore()
+  const {cactuses,pots} = useCactusStore()
   return (
             <div className='flex justify-between  gap-4 p-0 bg-white border rounded-xl shadow'>
                 <div className='relative pb-8 px-10  overflow-hidden   h-fit'>
@@ -22,8 +24,8 @@ function CartItemUi({item,index}: Props) {
                     </Image>
                 </div>
               <div className='flex-1 p-4'>
-                <h1 className='text-sm'>Name of the cactus</h1>
-                <h1 className='text-sm'>Color name</h1>
+                <h1 className='text-sm'>{cactuses.filter(cactus=>cactus.image === item.cactus)[0]?.name}</h1>
+                <h1 className='text-sm'>{pots.filter(pot=>pot.image === item.pot)[0]?.name}</h1>
                 <h1 className='text-md font-medium'>{65*item.quantity} Dh</h1>
               </div>
               <div className='flex p-4 items-center gap-4'>

@@ -18,6 +18,7 @@ import { Textarea } from './ui/textarea'
 import { doc, getDoc, onSnapshot, setDoc, updateDoc } from 'firebase/firestore'
 import { db } from '@/firebase'
 import useContentEditor from '@/store/backend copy'
+import useLocalStorage from '@/app/hooks/useLocalStorage'
 
 type Reference = {
   page: string,
@@ -34,8 +35,7 @@ type Props2 = {
 
 function TextEditable({reference}: Props) {
 
-  const {editable , setEditable} = useContentEditor()
-
+  const [editable, setEditable] = useLocalStorage("editable", false)
 
   const [text,setText] = useState("")
   useEffect(()=>{
@@ -68,9 +68,15 @@ export function GetText ({reference}: Props) {
 
 
 export function ChangeText ({reference,children}: Props2) {
+  const [editable, setEditable] = useLocalStorage("editable", false)
   return <div className='relative'>
     {children}
-    <EditDialog reference={reference} text={""}/>
+    {
+      editable?
+      <EditDialog reference={reference} text={""}/>
+      :
+      null
+    }
   </div>
 }
 

@@ -21,6 +21,7 @@ import { db } from '@/firebase'
 import useCartStore from '@/store/cart'
 import { getPriceWithDelivery } from '@/lib/pricing'
 import { useRouter } from 'next/navigation'
+import TextEditable, { ChangeText, GetText } from '@/components/TextEditable'
 
 const formSchema = z.object({
   firstName: z.string().min(2).max(50),
@@ -60,7 +61,7 @@ function Page({}: Props) {
   return (
     <div className='container flex flex-col gap-4 items-center'>
       <h1 className='text-4xl w-full max-w-[700px]'>
-        Checkout
+        <TextEditable reference={{page:"cart",ref:"checkoutTitle"}}></TextEditable>
       </h1>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full max-w-[700px]">
@@ -131,7 +132,9 @@ function Page({}: Props) {
                 </FormItem>
               )}
             />
-            <Button type="submit" className='mt-6 p-6 text-lg  flex gap-4'>Checkout <Check/></Button>
+            <ChangeText reference={{page:"cart",ref:"checkout checkoutPage"}}>
+            <Button type="submit" className='mt-6 p-6 text-lg  flex gap-4'> <GetText reference={{page:"cart",ref:"checkout checkoutPage"}}></GetText>  <Check/></Button>
+            </ChangeText>
           </form>
         </Form>
     </div>

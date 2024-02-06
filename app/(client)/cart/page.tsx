@@ -8,6 +8,7 @@ import Link from 'next/link'
 import React from 'react'
 import CartItemUi from './CartItem'
 import { getPriceByQuantity, getPriceWithDelivery } from '@/lib/pricing'
+import TextEditable, { ChangeText, GetText } from '@/components/TextEditable'
 
 
 type Props = {}
@@ -33,17 +34,17 @@ function page({}: Props) {
         <div className='flex flex-col gap-4'>
           <div className='flex gap-6'>
             <div>
-              <h1>cactus Price</h1>
+              <h1><TextEditable reference={{page:"cart",ref:"cactuses price"}}></TextEditable></h1>
               <h1 className='text-xl'>{cart.reduce((acc,item)=>acc +item.quantity,0)*65} Dh</h1>
             </div>
             <div className='h-[50px] w-[1px] bg-slate-300'></div>
             <div>
-              <h1>delivery Price</h1>
+              <h1><TextEditable reference={{page:"cart",ref:"delivery price"}}></TextEditable></h1>
               <h1 className='text-xl'>{cart.reduce((acc,item)=>acc +item.quantity,0)>=3 ? <span className='text-primary'>Free</span> : "35 Dh" }</h1>
             </div>
           </div>
           <div>
-            <h1>Total</h1>
+            <h1><TextEditable reference={{page:"cart",ref:"total price"}}></TextEditable></h1>
             <div className='flex gap-2 items-end'>
               <h1 className='text-5xl text-primary'>{
                   getPriceWithDelivery(cart.reduce((acc,item)=>acc +item.quantity,0))
@@ -58,12 +59,16 @@ function page({}: Props) {
             </div>
           </div>
           <div className='flex flex-col gap-2'>
-            <Link href={"/market"}>
-              <Button className=' py-6 flex flex-row-reverse w-fit gap-2' variant={"outline"}>Continue Shopping <ArrowLeft size={16}/></Button>
-            </Link>
-            <Link href={"/checkout"}>
-              <Button className='w-full py-6 flex gap-4'>Checkout <ArrowRight size={16}/></Button>
-            </Link>
+            <ChangeText reference={{page:"cart",ref:"continue shopping"}}>
+              <Link href={"/market"}>
+                <Button className=' py-6 flex flex-row-reverse w-fit gap-2' variant={"outline"}><GetText reference={{page:"cart",ref:"continue shopping"}}></GetText> <ArrowLeft size={16}/></Button>
+              </Link>
+            </ChangeText>
+            <ChangeText reference={{page:"cart",ref:"checkout"}}>
+              <Link href={"/checkout"}>
+                <Button className='w-full py-6 flex gap-4'><GetText reference={{page:"cart",ref:"checkout"}}></GetText>  <ArrowRight size={16}/></Button>
+              </Link>
+            </ChangeText>
           </div>
         </div>
       </div>

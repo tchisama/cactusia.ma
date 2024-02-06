@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Inter,Comfortaa } from "next/font/google";
-import "../globals.css";
-import Navbar from "./nav";
-import { Toaster } from "@/components/ui/sonner";
-import Footer from "./footer";
+import { Inter,Comfortaa,DM_Serif_Display } from "next/font/google"; import "../globals.css"; import Navbar from "./nav"; import { Toaster } from "@/components/ui/sonner"; import Footer from "./footer";
 import { Suspense } from "react";
 import Loading from "@/components/Loading";
+
+const kanit = DM_Serif_Display({ weight: "400", subsets: ["latin"],variable:"--font-kanit" });
+
+
 const inter = Inter({ subsets: ["latin"] });
 const comfortaa = Comfortaa({ subsets: ["latin"] });
 

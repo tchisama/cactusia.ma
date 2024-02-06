@@ -93,19 +93,19 @@ const AddReview = (props: Props) => {
     }
   return (
 <Dialog>
-  <DialogTrigger asChild>
     <ChangeText reference={{page:"home",ref:"addReview"}}>
+  <DialogTrigger asChild>
       <Button className="p-6 text-lg"><GetText reference={{page:"home",ref:"addReview"}}/></Button>
-    </ChangeText>
   </DialogTrigger>
-  <DialogContent className="max-w-4xl pt-8">
+    </ChangeText>
+  <DialogContent className="max-w-4xl pt-8 max-h-[80vh] overflow-auto">
     <DialogHeader>
-      <DialogDescription className="flex gap-4 ">
+      <DialogDescription className="flex flex-col  md:flex-row gap-4 ">
             <input type="file" onChange={handleChange} className='hidden' id='image' accept='image/*'></input>
             <label className='cursor-pointer' htmlFor='image'>
                 {
                   file ? 
-                  <Image className='z-[0] top-[170px] rounded-xl'  src={image} alt='' width={250} height={250}>
+                  <Image className='z-[0] top-[170px] rounded-xl w-full md:w-fit'  src={image} alt='' width={250} height={250}>
                   </Image>
                   :
                   <h3 className="p-6 text-white py-4 rounded-full bg-primary ">Upload Image</h3>
@@ -127,7 +127,7 @@ const AddReview = (props: Props) => {
         </div>
       </DialogDescription>
     </DialogHeader>
-    <DialogFooter>
+    <DialogFooter className="flex-row items-end justify-end gap-2">
       <DialogClose>
       <Button variant={"outline"}>Cancel</Button>
       </DialogClose>

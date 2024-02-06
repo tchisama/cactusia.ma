@@ -19,7 +19,7 @@ function page({}: Props) {
     <div className='relative py-4'>
       {
         cart.length > 0 ?
-    <div className='container flex gap-8'>
+    <div className='container flex flex-col gap-8'>
       <div className='flex-1 flex flex-col gap-3'>
         <h1 className='text-xl text-end'>{cart.reduce((acc,item)=>acc +item.quantity,0)} cactuses</h1>
         {
@@ -30,17 +30,17 @@ function page({}: Props) {
           })
         }
       </div>
-      <div className='min-w-[500px] p-5 sticky top-10 bg-white rounded-xl border h-fit shadow '>
+      <div className='md:min-w-[500px] p-5 sticky top-10 bg-white rounded-xl border h-fit shadow '>
         <div className='flex flex-col gap-4'>
           <div className='flex gap-6'>
             <div>
               <h1><TextEditable reference={{page:"cart",ref:"cactuses price"}}></TextEditable></h1>
-              <h1 className='text-xl'>{cart.reduce((acc,item)=>acc +item.quantity,0)*65} Dh</h1>
+              <h1 className='md:text-xl text-lg'>{cart.reduce((acc,item)=>acc +item.quantity,0)*65} Dh</h1>
             </div>
             <div className='h-[50px] w-[1px] bg-slate-300'></div>
             <div>
               <h1><TextEditable reference={{page:"cart",ref:"delivery price"}}></TextEditable></h1>
-              <h1 className='text-xl'>{cart.reduce((acc,item)=>acc +item.quantity,0)>=3 ? <span className='text-primary'>Free</span> : "35 Dh" }</h1>
+              <h1 className='md:text-xl text-lg'>{cart.reduce((acc,item)=>acc +item.quantity,0)>=3 ? <span className='text-primary'>Free</span> : "35 Dh" }</h1>
             </div>
           </div>
           <div>

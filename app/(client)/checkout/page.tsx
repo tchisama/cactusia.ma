@@ -65,7 +65,7 @@ function Page({}: Props) {
       </h1>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full max-w-[700px]">
-            <div className='flex gap-4 w-full'>
+            <div className='flex flex-col md:flex-row gap-4 w-full'>
               <FormField
                 control={form.control}
                 name="firstName"

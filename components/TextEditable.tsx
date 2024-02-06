@@ -50,7 +50,7 @@ function TextEditable({reference}: Props) {
       <EditDialog reference={reference} text={text}/>
     </div>
     :
-    <div>{text}</div>
+   text
   )
 }
 

@@ -37,11 +37,11 @@ export default function Home() {
     <div className="  relative space-y-8">
       <div className="flex container flex-col-reverse md:flex-row items-center justify-between ">
         <motion.div initial={{opacity:0,x:-10}} animate={{opacity:1,x:0}} className="flex flex-1 gap-4 flex-col items-center mb-6 md:items-start">
-          <h1 className="md:text-6xl text-2xl text-center md:text-left font-extrabold text-gray-700 uppercase">
+          <h1 className="md:text-5xl text-2xl text-center md:text-left font-extrabold text-gray-700 uppercase font-kanit">
             <TextEditable reference={{page:"home",ref:"heroTitle"}}>
             </TextEditable>
           </h1>
-          <h3 className="md:text-2xl text-sm font-bold text-center md:text-left uppercase text-gray-700">
+          <h3 className="md:text-xl text-sm font-bold text-center md:text-left uppercase text-gray-700">
             <TextEditable reference={{page:"home",ref:"heroSubTitle"}}>
             </TextEditable>
           </h3>

@@ -16,7 +16,7 @@ function CartItemUi({item,index}: Props) {
   const {updateQuantity} = useCartStore()
   const {cactuses,pots} = useCactusStore()
   return (
-            <div className='flex justify-between  gap-4 p-0 bg-white border rounded-xl shadow'>
+            <div className='flex justify-between  items-center md:items-start md:gap-4 p-0 bg-white border rounded-xl shadow'>
                 <div className='relative pb-8 px-10  overflow-hidden   h-fit'>
                     <Image  src={"https://firebasestorage.googleapis.com/v0/b/cactusia-983c2.appspot.com/o/cactuses%2F"+item.cactus+"?alt=media&token=bb288d03-287d-45f0-8b90-f9871f1a7567"} alt='' className='mb-8 z-10  relative' width={50} height={50}>
                     </Image>
@@ -24,14 +24,14 @@ function CartItemUi({item,index}: Props) {
                     </Image>
                 </div>
               <div className='flex-1 p-4'>
-                <h1 className='text-sm'>{cactuses.filter(cactus=>cactus.image === item.cactus)[0]?.name}</h1>
-                <h1 className='text-sm'>{pots.filter(pot=>pot.image === item.pot)[0]?.name}</h1>
-                <h1 className='text-md font-medium'>{65*item.quantity} Dh</h1>
+                <h1 className='md:text-sm text-xs'>{cactuses.filter(cactus=>cactus.image === item.cactus)[0]?.name}</h1>
+                <h1 className='md:text-sm text-xs'>{pots.filter(pot=>pot.image === item.pot)[0]?.name}</h1>
+                <h1 className='md:text-md text-sm mt-1 font-medium'>{65*item.quantity} Dh</h1>
               </div>
-              <div className='flex p-4 items-center gap-4'>
-                  <Button onClick={()=>updateQuantity(index,item.quantity -1)} variant={"outline"} className='rounded-full' size="icon"><Minus size={16}/></Button>
+              <div className='flex flex-col md:flex-row p-4 items-center md:gap-4'>
+                  <Button onClick={()=>updateQuantity(index,item.quantity -1)} variant={"outline"} className='rounded-full w-8 h-8 md:w-10 md:h-10' size="icon"><Minus size={16}/></Button>
                   <label className=''>{item.quantity}</label>
-                  <Button onClick={()=>updateQuantity(index,item.quantity +1)} variant={"outline"} className='rounded-full' size="icon"><Plus size={16}/></Button>
+                  <Button onClick={()=>updateQuantity(index,item.quantity +1)} variant={"outline"} className='rounded-full w-8 h-8 md:w-10 md:h-10' size="icon"><Plus size={16}/></Button>
               </div>
             </div>
   )

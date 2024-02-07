@@ -1,11 +1,15 @@
 "use client"
 import CreateNewPot from '@/components/CreateNewPot'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
 import { Switch } from '@/components/ui/switch'
 import { db } from '@/firebase'
-import { collection, onSnapshot } from 'firebase/firestore'
+import { collection, doc, onSnapshot, updateDoc } from 'firebase/firestore'
+import { ArrowLeftCircle, ArrowRightCircle, Check } from 'lucide-react'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
+import { MdEditSquare } from 'react-icons/md'
 
 type Props = {}
 
@@ -44,19 +48,7 @@ const page = (props: Props) => {
         pots.map((pot,i)=>{
           
           return(
-            <div key={i} className='bg-white  shadow border p-6 rounded-xl overflow-hidden flex gap-8'>
-              <div className='flex items-end'>
-              <div className='relative'>
-                <Image  src={`https://firebasestorage.googleapis.com/v0/b/cactusia-983c2.appspot.com/o/pots%2F${pot.image}?alt=media&token=bb288d03-287d-45f0-8b90-f9871f1a7567`} alt='' className=' z-10 relative h-[80px] object-contain' width={100} height={80}>
-                </Image>
-              </div>
-              </div>
-              <div className=''>
-                <h1 className='text-xl'>{i+1}</h1>
-                <h2 className=' mb-2'>{pot.name}</h2>
-                <Switch checked={pot.inStock} />
-              </div>
-            </div>
+            <PotItemComp key={i} pot={pot}/>
           )
         })
       }
@@ -64,5 +56,67 @@ const page = (props: Props) => {
     </div>
   )
 }
+
+
+
+const PotItemComp = ({pot}:{pot:Pot})=>{
+  const [editMode,setEditMode]= useState(false)
+  const [name,setName] = useState(pot.name)
+  const [showend, setShowend] = useState(pot.inStock)
+  const [order,setOrder] = useState(pot.order)
+  const upadate = ()=>{
+    updateDoc(doc(db, "pots", pot.id), {
+      name,
+      inStock : showend,
+      order,
+    })
+  }
+  return(
+            <div  className='bg-white relative shadow border p-6 rounded-xl overflow-hidden flex gap-8'>
+              <Button onClick={()=>{
+                setEditMode(!editMode)
+                if(editMode) upadate()
+              }} className='absolute top-2 right-2' size={"icon"}>
+                {
+                  editMode?
+                  <Check/>
+                  :
+                  <MdEditSquare size={20} />
+                }
+              </Button>
+              <div className='flex items-end'>
+              <div className='relative'>
+                <Image  src={`https://firebasestorage.googleapis.com/v0/b/cactusia-983c2.appspot.com/o/pots%2F${pot.image}?alt=media&token=bb288d03-287d-45f0-8b90-f9871f1a7567`} alt='' className=' z-10 relative h-[80px] object-contain' width={100} height={80}>
+                </Image>
+              </div>
+              </div>
+              <div className=''>
+                {
+                  editMode?
+                  <div className='flex gap-2 items-center py-2'>
+                    <Button onClick={()=>setOrder(order-1)} size={"icon"} variant={"outline"}><ArrowLeftCircle size={20} /></Button>
+                    <h1 className='text-xl'>{order}</h1>
+                    <Button onClick={()=>setOrder(order+1)} size={"icon"} variant={"outline"}><ArrowRightCircle size={20} /></Button>
+                  </div>
+                  :
+                  <h1 className='text-xl'>{pot.order}</h1>
+                }
+                {
+                  editMode ?
+                  <Input value={name} onChange={(e)=>setName(e.target.value)} />
+                  :
+                  <h2 className=' mb-2'>{pot.name}</h2>
+                }
+                {
+                  editMode?
+                  <Switch className='mt-2' checked={showend} onCheckedChange={()=>setShowend(!showend)} />
+                  :
+                  <Switch disabled checked={pot.inStock} />
+                }
+              </div>
+            </div>
+  )
+}
+
 
 export default page

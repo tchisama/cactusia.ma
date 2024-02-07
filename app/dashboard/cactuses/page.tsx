@@ -7,7 +7,7 @@ import { Switch } from '@/components/ui/switch'
 import { Textarea } from '@/components/ui/textarea'
 import { db } from '@/firebase'
 import { collection, doc, onSnapshot, updateDoc } from 'firebase/firestore'
-import { Check, X } from 'lucide-react'
+import { ArrowLeftCircle, ArrowRightCircle, Check, X } from 'lucide-react'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import { MdEditSquare } from "react-icons/md";
@@ -66,6 +66,7 @@ const CactusItemComp = ({cactus}:{cactus:Cactus})=>{
           const [name , setName] = useState(cactus.name)
           const [about , setAbout] = useState(cactus.about)
           const [showen , setShowen] = useState(cactus.inStock)
+          const [order , setOrder] = useState(cactus.order)
 
 
 
@@ -73,7 +74,8 @@ const CactusItemComp = ({cactus}:{cactus:Cactus})=>{
       updateDoc(doc(db,"cactuses",cactus.id),{
         name,
         about,
-        inStock : showen
+        inStock : showen,
+        order
       })
     }
 
@@ -101,22 +103,33 @@ return(
               <div className=''>
                 {
                   editMode?
+                  <div className='flex gap-2 items-center py-2'>
+                    <Button onClick={()=>setOrder(order-1)} size={"icon"} variant={"outline"}><ArrowLeftCircle size={20} /></Button>
+                    <h1 className='text-lg'>{order}</h1>
+                    <Button onClick={()=>setOrder(order+1)} size={"icon"} variant={"outline"}><ArrowRightCircle size={20} /></Button>
+                  </div>
+                  :
+                  <h1 className='text-lg'>order : {cactus.order}</h1>
+                }
+                {
+                  editMode?
                   <Input value={name} onChange={(e)=>setName(e.target.value)} className='w-full mb-2' />
                   :
                   <h2 className='w-[180px] mb-2'>{cactus.name}</h2>
                 }
                 {
                   editMode?
-                  <Switch checked={showen} onChange={(e)=>setShowen(e.target.checked )}/>
+                  <Switch checked={showen} onCheckedChange={()=>setShowen(!showen)}/>
                   :
-                  <Switch checked={cactus.inStock}/>
+                  <Switch disabled checked={cactus.inStock}/>
                 }
               </div>
               <div className='flex-1'>
                   <h2 className='text-sm  mb-2 text-gray-600'>About cactus</h2>
                 {
                   editMode?
-                  <Textarea  value={cactus.about} onChange={(e)=>setAbout(e.target.value)} className='w-full min-h-[300px]' />
+<Textarea value={about} onChange={(e) => setAbout(e.target.value)} className='w-full min-h-[300px]' />
+
                   :
                 <p className='text-xs'>{cactus.about}</p>
                 }

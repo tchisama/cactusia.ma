@@ -17,7 +17,9 @@ import { Button } from '@/components/ui/button'
 import { ArrowRight, Delete, Trash } from 'lucide-react'
 import useOrdersStore, { Order } from '@/store/backend'
 import Link from 'next/link'
-
+import StateChanger from '@/components/StateChanger'
+import DeleteOrder from '@/components/DeleteOrder'
+import { FaWhatsapp } from "react-icons/fa";
 type Props = {}
 
 const Page = (props: Props) => {
@@ -49,7 +51,7 @@ const Page = (props: Props) => {
             <TableHead className="">date</TableHead>
             <TableHead className="">name</TableHead>
             <TableHead>number</TableHead>
-            <TableHead>price</TableHead>
+            <TableHead>items</TableHead>
             <TableHead className="">city</TableHead>
             <TableHead className="">actions</TableHead>
           </TableRow>
@@ -57,16 +59,19 @@ const Page = (props: Props) => {
         <TableBody>
           {orders.map((item) => (
             <TableRow key={item.id}>
-              <TableCell >{item.status}</TableCell>
+              <TableCell ><StateChanger state={item.status} id={item.id}/></TableCell>
               <TableCell >
                   {formatCreatedAt(item.createdAt as Timestamp)}
               </TableCell>
               <TableCell >{item.firstName} {item.lastName}</TableCell>
               <TableCell>{item.number}</TableCell>
-              <TableCell>{item.price} Dh</TableCell>
+              <TableCell>{item.cart.reduce((acc,item)=>acc +item.quantity,0)} pots</TableCell>
               <TableCell className="">{item.city}</TableCell>
               <TableCell className="flex gap-2">
-                <Button variant={"outline"} size={"icon"}><Trash size={16}/></Button>
+                <DeleteOrder id={item.id}/>
+                <Link href={"https://api.whatsapp.com/send/?phone=%2B212"+item.number.slice(1)}>
+                  <Button size={"icon"} variant={"outline"}><FaWhatsapp size={20}/></Button>
+                </Link>
                 <Link href={`/dashboard/orders/${item.id}`}>
                   <Button variant={"outline"} size={"icon"}><ArrowRight size={16}/></Button>
                 </Link>
@@ -82,7 +87,6 @@ const Page = (props: Props) => {
 
  const formatCreatedAt = (timestamp: Timestamp) => {
     const dateObject = timestamp.toDate();
-    
     const options: Intl.DateTimeFormatOptions = {
       year: 'numeric',
       month: '2-digit',
@@ -90,7 +94,6 @@ const Page = (props: Props) => {
       hour: '2-digit',
       minute: '2-digit',
     };
-    
     return dateObject.toLocaleString('en-US', options).replace(',', ' /');
   };
 

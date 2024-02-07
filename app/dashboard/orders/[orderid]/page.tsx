@@ -6,6 +6,10 @@ import { useParams } from 'next/navigation';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image';
+import StateChanger from '@/components/StateChanger';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { FaWhatsapp } from 'react-icons/fa';
 
 type Props = {}
 
@@ -35,14 +39,17 @@ function page({}: Props) {
     order ?
     <div className='container'>
       <h1 className='text-3xl py-4'>Order Infos</h1>
-      <div className='my-4 p-6 bg-white rounded-xl w-fit min-w-[800px] border shadow grid grid-cols-4'>
+      <div className='my-4 relative p-6 bg-white rounded-xl w-fit min-w-[800px] border shadow grid grid-cols-4'>
           <span className='font-bold  text-gray-800'>Price :</span> <div className='col-span-3  text-2xl text-gray-600 flex gap-4'>{order?.price} Dh</div>
-          <span className='font-bold text-gray-800'>State :</span> <div className='col-span-3 text-gray-600 flex gap-4'>{order?.status} </div>
+          <span className='font-bold text-gray-800'>State :</span> <div className='col-span-3 text-gray-600 flex my-2 gap-4'><StateChanger state={order?.status} id={order?.id}/></div>
           <span className='font-bold text-gray-800'>Date :</span> <div className='col-span-3 text-gray-600 flex gap-4'>{formatCreatedAt(order?.createdAt as Timestamp)}</div>
           <span className='font-bold text-gray-800'>Name :</span> <div className='col-span-3 text-gray-600 flex gap-4'>{order?.firstName} . {order?.lastName}</div>
           <span className='font-bold text-gray-800'>Number :</span> <div className='col-span-3 text-gray-600 flex gap-4'>{order?.number} </div>
           <span className='font-bold text-gray-800'>Address :</span> <div className='col-span-3 text-gray-600 flex gap-4'>{order?.address} </div>
           <span className='font-bold text-gray-800'>city :</span> <div className='col-span-3 text-gray-600 flex gap-4'>{order?.city} </div>
+                <Link className='absolute right-4 top-4' href={"https://api.whatsapp.com/send/?phone=%2B212"+order.number.slice(1)}>
+                  <Button size={"icon"} variant={"outline"}><FaWhatsapp size={20}/></Button>
+                </Link>
       </div>
       <div className='grid grid-cols-6 gap-4 p-4'>
         {

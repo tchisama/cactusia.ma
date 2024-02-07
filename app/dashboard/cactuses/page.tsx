@@ -1,12 +1,16 @@
 "use client"
 import CreateNewCactus from '@/components/CreateNewCactus'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
 import { Switch } from '@/components/ui/switch'
+import { Textarea } from '@/components/ui/textarea'
 import { db } from '@/firebase'
-import { collection, doc, onSnapshot } from 'firebase/firestore'
+import { collection, doc, onSnapshot, updateDoc } from 'firebase/firestore'
+import { Check, X } from 'lucide-react'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
-
+import { MdEditSquare } from "react-icons/md";
 type Props = {}
 
 
@@ -31,12 +35,12 @@ const page = (props: Props) => {
     return()=> unsub()
   },[])
   return (
-    <div className='p-4 font-bold text-gray-700 h-screen flex flex-col'>
+    <div className=' relative p-4 font-bold text-gray-700 h-screen flex flex-col'>
       <div className='flex justify-between items-center'>
         <h1 className='text-3xl'>Cactuses</h1>
         <CreateNewCactus />
       </div>
-      <div className='grid grid-cols-1 p-2 gap-2 mt-8 flex-1 overflow-auto'>
+      <div className='flex flex-col p-2 gap-2 mt-8 flex-1 overflow-auto'>
       {
         // [
         //   "https://firebasestorage.googleapis.com/v0/b/cactusia-adf86.appspot.com/o/cactus%2F1.png?alt=media&token=f98a2dc0-1971-4014-b82a-0c5cb8a55cce",
@@ -44,10 +48,49 @@ const page = (props: Props) => {
         // ]
         cactuses
         .map((cactus,i)=>{
-          
           return(
-            <div key={i} className='bg-white h-[180px]  shadow border p-4 rounded-xl overflow-hidden flex gap-8'>
-              <div className='relative overflow-hidden bg-slate-100 rounded-2xl border'>
+            <CactusItemComp key={i} cactus={cactus}/>
+          )
+        })
+      }
+      </div>
+    </div>
+  )
+}
+
+
+
+
+const CactusItemComp = ({cactus}:{cactus:Cactus})=>{
+          const [editMode,setEditMode] = useState(false)
+          const [name , setName] = useState(cactus.name)
+          const [about , setAbout] = useState(cactus.about)
+          const [showen , setShowen] = useState(cactus.inStock)
+
+
+
+    const upadate = ()=>{
+      updateDoc(doc(db,"cactuses",cactus.id),{
+        name,
+        about,
+        inStock : showen
+      })
+    }
+
+return(
+            <div className='bg-white items-start h-fit relative shadow border p-4 rounded-xl  flex gap-8'>
+              <Button onClick={()=>{
+                setEditMode(!editMode)
+                if(editMode) upadate()
+              }} className='absolute top-2 right-2' size={"icon"}>
+                {
+                  editMode?
+                  <Check/>
+                  :
+                  <MdEditSquare size={20} />
+                }
+              </Button>
+              <div className='relative aspect-square overflow-hidden bg-slate-100 rounded-2xl border'>
                 <div className='px-3'>
                   <Image  src={`https://firebasestorage.googleapis.com/v0/b/cactusia-983c2.appspot.com/o/cactuses%2F${cactus.image}?alt=media&token=bb288d03-287d-45f0-8b90-f9871f1a7567`} alt='' className='mb-2 z-10 relative' width={100} height={100}>
                   </Image>
@@ -56,20 +99,30 @@ const page = (props: Props) => {
                 </div>
               </div>
               <div className=''>
-                <h2 className='w-[180px] mb-2'>{cactus.name}</h2>
-                <Switch checked={cactus.inStock}/>
+                {
+                  editMode?
+                  <Input value={name} onChange={(e)=>setName(e.target.value)} className='w-full mb-2' />
+                  :
+                  <h2 className='w-[180px] mb-2'>{cactus.name}</h2>
+                }
+                {
+                  editMode?
+                  <Switch checked={showen} onChange={(e)=>setShowen(e.target.checked )}/>
+                  :
+                  <Switch checked={cactus.inStock}/>
+                }
               </div>
               <div className='flex-1'>
-                <h2 className='text-sm  mb-2 text-gray-600'>About cactus</h2>
+                  <h2 className='text-sm  mb-2 text-gray-600'>About cactus</h2>
+                {
+                  editMode?
+                  <Textarea  value={cactus.about} onChange={(e)=>setAbout(e.target.value)} className='w-full min-h-[300px]' />
+                  :
                 <p className='text-xs'>{cactus.about}</p>
+                }
               </div>
             </div>
-          )
-        })
-      }
-      </div>
-    </div>
-  )
+)
 }
 
 export default page

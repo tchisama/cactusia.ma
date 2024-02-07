@@ -5,6 +5,10 @@ import Link from 'next/link'
 import { Instagram } from 'lucide-react'
 import TextEditable, { ChangeText, GetText } from '@/components/TextEditable'
 
+import { FaInstagram } from "react-icons/fa";
+import { FaWhatsapp } from "react-icons/fa";
+import { FaFacebook } from "react-icons/fa";
+
 type Props = {}
 
 function Footer({}: Props) {
@@ -20,10 +24,10 @@ function Footer({}: Props) {
           </p>
         </div>
         <div className='flex gap-8 '>
-          <div className='flex flex-col gap-1 '>
-            <Link href={"/"} className='text-sm md:text-md'>  Instagram</Link>
-            <Link href={"/"} className='text-sm md:text-md'>  Facebook</Link>
-            <Link href={"/"} className='text-sm md:text-md'>  Whatsapp</Link>
+          <div className='flex flex-col gap-2 '>
+            <Link href={"/"} className='text-sm md:text-md flex items-center gap-2'><FaInstagram/> Instagram </Link>
+            <Link href={"/"} className='text-sm md:text-md flex items-center gap-2'><FaFacebook/>  Facebook </Link>
+            <Link href={"/"} className='text-sm md:text-md flex items-center gap-2'><FaWhatsapp/>  Whatsapp </Link>
           </div>
           <div className='h-[100px] bg-slate-200 w-[1px] '></div>
           <div className='grid grid-cols-1 gap-x-3 gap-1 w-full'>

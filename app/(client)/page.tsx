@@ -70,9 +70,9 @@ export default function Home() {
                 [
                   img7, img8, img9, img2, img3, img4, img5, img6,  img10, img1
                 ].map((_, index) => (
-            <CarouselItem className="basis-1/2 md:basis-1/3" key={index}>
-                  <Image src={_} alt="Cactus" width={450} height={450} className="aspect-square object-cover rounded-xl border"></Image>
-            </CarouselItem>
+                  <CarouselItem className="basis-1/2 md:basis-1/3" key={index}>
+                        <Image src={_} alt="Cactus" width={450} height={450} className="aspect-square bg-slate-200 object-cover rounded-xl border"></Image>
+                  </CarouselItem>
                 ))
               }
           </CarouselContent>

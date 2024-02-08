@@ -40,9 +40,6 @@ const page = (props: Props) => {
             <div className='md:ml-2 space-y-2'>
                 <h3 className='text-gray-500'><TextEditable reference={{page:"market",ref:"price"}}></TextEditable></h3>
                 <h1 className='text-5xl font-light'>65.00 Dh</h1>
-                <p className='p-2 px-3 w-fit rounded-xl bg-green-100 text-sm md:text-md text-green-800'>
-                  <TextEditable reference={{page:"market",ref:"description"}}></TextEditable>
-</p>
                 <Separator className='my-2 md:my-4 md:max-w-sm'/>
                 <div className='flex justify-between'>
                     <h1 className='text-lg md:text-xl flex items-center gap-2'><Leaf />{cactuses[activeCactus]?.name}</h1>
@@ -54,7 +51,10 @@ const page = (props: Props) => {
                 </div>
             </div>
             <Separator className='my-2 md:my-4 md:max-w-sm'/>
-            <div className='md:my-8 my-2 w-full '>
+            <p className='p-2 px-3 w-fit rounded-xl bg-green-100 text-sm md:text-md text-green-800'>
+              <TextEditable reference={{page:"market",ref:"description"}}></TextEditable>
+            </p>
+          <div className='md:my-4 my-1 w-full '>
               <ChangeText reference={{page:"market",ref:"add to cart"}}>
                 <Button onClick={handelAddToCart} className='p-8 rounded-full flex flex-row-reverse gap-2 w-full md:w-fit text-lg items-center'><GetText reference={{page:"market",ref:"add to cart"}}></GetText> <ShoppingBasket size={26}/></Button>
               </ChangeText>

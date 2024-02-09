@@ -39,9 +39,15 @@ const page = (props: Props) => {
         </div>
         <div className=' md:flex-[2] w-full'>
             <div className='md:ml-2 space-y-2'>
+<<<<<<< HEAD
                 <h3 className='text-gray-500 text-sm md:text-md'><TextEditable reference={{page:"market",ref:"price"}}></TextEditable></h3>
                 <h1 className='md:text-5xl text-3xl'>65.00 Dh</h1>
                 {/* <Separator className='my-2 md:my-4 md:max-w-sm'/> */}
+=======
+                <h3 className='text-gray-500'><TextEditable reference={{page:"market",ref:"price"}}></TextEditable></h3>
+                <h1 className='text-5xl font-light'>65.00 Dh</h1>
+                <Separator className='my-2 md:my-4 md:max-w-sm'/>
+>>>>>>> 8b6d57a0317f3926b7aad7f5f9a4be1fd8be280b
                 <div className='flex justify-between'>
                     <h1 className=' flex items-center gap-2  text-md md:text-lg'><Leaf size={18}/>{cactuses[activeCactus]?.name}</h1>
                     <span className='text-gray-500 text-sm md:text-md'>{activeCactus+ 1}/{cactuses.length}</span>
@@ -51,8 +57,16 @@ const page = (props: Props) => {
                     <span className='text-gray-500 text-sm md:text-md'>{activePot+ 1}/{pots.length}</span>
                 </div>
             </div>
+<<<<<<< HEAD
             <Separator className='md:my-4 md:max-w-sm'/>
             <div className='md:my-2 my-2 w-full '>
+=======
+            <Separator className='my-2 md:my-4 md:max-w-sm'/>
+            <p className='p-2 px-3 w-fit rounded-xl bg-green-100 text-sm md:text-md text-green-800'>
+              <TextEditable reference={{page:"market",ref:"description"}}></TextEditable>
+            </p>
+          <div className='md:my-4 my-1 w-full '>
+>>>>>>> 8b6d57a0317f3926b7aad7f5f9a4be1fd8be280b
               <ChangeText reference={{page:"market",ref:"add to cart"}}>
                 <Button onClick={handelAddToCart} className='p-8 rounded-full flex flex-row-reverse gap-2 w-full md:w-fit text-lg items-center'><GetText reference={{page:"market",ref:"add to cart"}}></GetText> <ShoppingBasket size={26}/></Button>
               </ChangeText>

@@ -41,7 +41,7 @@ export default function Home() {
             <TextEditable reference={{page:"home",ref:"heroTitle"}}>
             </TextEditable>
           </h1>
-          <h3 className="md:text-xl text-sm font-bold text-center md:text-left uppercase text-gray-700">
+          <h3 className="md:text-xl text-sm font-medium text-center md:text-left text-gray-600">
             <TextEditable reference={{page:"home",ref:"heroSubTitle"}}>
             </TextEditable>
           </h3>

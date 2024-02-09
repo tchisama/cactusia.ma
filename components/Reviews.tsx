@@ -37,9 +37,12 @@ function Reviews({}: Props) {
       {
         reviews.map((review, index) => (
           <CarouselItem key={index} className=' md:basis-2/3'>
-            <div className='p-2  bg-white rounded-2xl  flex  flex-col md:flex-row gap-8 md:items-center relative'>
-              <Image  src={`https://firebasestorage.googleapis.com/v0/b/cactusia-983c2.appspot.com/o/reviews%2F${review.image}?alt=media&token=bb288d03-287d-45f0-8b90-f9871f1a7567`} alt='' className=' z-10 relative w-full md:w-fit aspect-square rounded-xl object-cover ' width={200} height={200}>
-              </Image>
+            <div className='p-2  bg-white rounded-2xl min-h-[200px] flex  flex-col md:flex-row gap-8 md:items-center relative'>
+              {
+                  review.image!=="no image" &&
+                  <Image  src={`https://firebasestorage.googleapis.com/v0/b/cactusia-983c2.appspot.com/o/reviews%2F${review.image}?alt=media&token=bb288d03-287d-45f0-8b90-f9871f1a7567`} alt='' className=' z-10 relative w-full md:w-fit aspect-square rounded-xl object-cover ' width={200} height={200}>
+                  </Image>
+              }
             <div className='flex-1 '>
               <h1 className='text-xl md:text-2xl uppercase '>{review.name}</h1>
                 <div className='flex py-2'>

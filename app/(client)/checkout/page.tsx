@@ -1,5 +1,5 @@
 "use client"
-import React from 'react'
+import React, { useRef } from 'react'
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -22,7 +22,7 @@ import useCartStore from '@/store/cart'
 import { getPriceWithDelivery } from '@/lib/pricing'
 import { useRouter } from 'next/navigation'
 import TextEditable, { ChangeText, GetText } from '@/components/TextEditable'
-
+import emailjs from "@emailjs/browser"
 const formSchema = z.object({
   firstName: z.string().min(2).max(50),
   lastName: z.string().min(2).max(50),
@@ -30,6 +30,8 @@ const formSchema = z.object({
   address: z.string().min(5).max(100),
   city : z.string().min(2).max(50),
 })
+
+
 
 
 type Props = {}
@@ -43,6 +45,22 @@ function Page({}: Props) {
       firstName: "",
     },
   })
+  const form_ = useRef(null)
+  const sendEmail = (e:any) => {
+    if(!form_.current) return
+      emailjs
+        .sendForm('service_6crx1s4', 'template_67pg8nb' ,form_.current, {
+          publicKey: 'YOfwR2uwUYxGg1WAb',
+        })
+        .then(
+          () => {
+            console.log('SUCCESS!');
+          },
+          (error) => {
+            console.log('FAILED...', error.text);
+          },
+        );
+  };
   function onSubmit(values: z.infer<typeof formSchema>) {
     addDoc(
       collection(db, "orders"),
@@ -56,15 +74,17 @@ function Page({}: Props) {
     ).then(()=>{
       clearCart()
       route.push("/thank")
+      sendEmail(values)
     })
   }
   return (
-    <div className='container flex flex-col gap-4 items-center'>
+    <div className='container px-4 flex flex-col gap-4 items-center'>
       <h1 className='text-4xl w-full max-w-[700px]'>
         <TextEditable reference={{page:"cart",ref:"checkoutTitle"}}></TextEditable>
+        
       </h1>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full max-w-[700px]">
+          <form ref={form_} onSubmit={form.handleSubmit(onSubmit)} className="md:space-y-4 space-y-0 w-full max-w-[700px]">
             <div className='flex flex-col md:flex-row gap-4 w-full'>
               <FormField
                 control={form.control}
@@ -100,7 +120,7 @@ function Page({}: Props) {
                 <FormItem>
                   <FormLabel>Number</FormLabel>
                   <FormControl>
-                    <Input type='number' placeholder="number" {...field} />
+                    <Input type='tel' placeholder="number" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -133,7 +153,7 @@ function Page({}: Props) {
               )}
             />
             <ChangeText reference={{page:"cart",ref:"checkout checkoutPage"}}>
-            <Button type="submit" className='mt-6 p-6 text-lg  flex gap-4'> <GetText reference={{page:"cart",ref:"checkout checkoutPage"}}></GetText>  <Check/></Button>
+            <Button type="submit" className='mt-6 p-8 px-10 w-full md:w-fit text-lg  flex gap-4'> <GetText reference={{page:"cart",ref:"checkout checkoutPage"}}></GetText>  <Check/></Button>
             </ChangeText>
           </form>
         </Form>

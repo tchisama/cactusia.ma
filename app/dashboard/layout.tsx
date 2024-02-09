@@ -1,6 +1,6 @@
 import Nav from "./nav"
 import "../globals.css"
-import { Comfortaa , Kanit } from "next/font/google";
+import { Comfortaa , Kanit,Inter } from "next/font/google";
 
 const comfortaa = Comfortaa({ subsets: ["latin"] });
 export const metadata = {

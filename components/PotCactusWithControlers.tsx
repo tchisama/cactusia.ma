@@ -85,13 +85,13 @@ function PotCactusWithControllers({}: Props) {
 
   return (
     <div className='relative pt-20'>
-        <div className='absolute md:-top-[150px] -top-[75px] left-0 '>
+        <div className='absolute md:-top-[150px] -top-[80px] left-0 '>
            <div className='relative'>
               <Button onClick={changeLeft} className='absolute text-primary top-1/2 w-14 h-14 rounded-full -left-7 border' variant="ghost" size="icon"><ChevronLeft size={35} /></Button>
               <Button onClick={changeRight} className='absolute text-primary top-1/2 w-14 h-14 rounded-full -right-7 border' variant="ghost" size="icon"><ChevronRight size={35} /></Button>
               <Image 
                 src={`https://firebasestorage.googleapis.com/v0/b/cactusia-983c2.appspot.com/o/cactuses%2F${cactuses[activeCactus]?.image}?alt=media&token=bb288d03-287d-45f0-8b90-f9871f1a7567`} 
-                alt="Cactus" width={350} height={350} className='w-full md:h-[350px] md:w-[350px] scale-90 object-contain h-[230px]'></Image>
+                alt="Cactus" width={350} height={350} className='w-full md:h-[350px] md:w-[350px] scale-90 object-contain h-[230px] '></Image>
            </div>
         </div>
         <Button onClick={changePotLeft} className='absolute text-primary top-1/2 w-14 h-14 rounded-full -left-12 border' variant="ghost" size="icon"><ChevronLeft size={35} /></Button>

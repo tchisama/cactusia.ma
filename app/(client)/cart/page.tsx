@@ -19,7 +19,7 @@ function page({}: Props) {
     <div className='relative py-4'>
       {
         cart.length > 0 ?
-    <div className='container flex flex-col gap-8'>
+    <div className='container px-2 flex flex-col-reverse md:flex-row gap-8'>
       <div className='flex-1 flex flex-col gap-3'>
         <h1 className='text-xl text-end'>{cart.reduce((acc,item)=>acc +item.quantity,0)} cactuses</h1>
         {
@@ -30,7 +30,7 @@ function page({}: Props) {
           })
         }
       </div>
-      <div className='md:min-w-[500px] p-5 sticky top-10 bg-white rounded-xl border h-fit shadow '>
+      <div className='md:min-w-[500px] p-4 sticky top-0 md:top-10 bg-white z-10 md:rounded-xl border-b  md:border h-fit shadow '>
         <div className='flex flex-col gap-4'>
           <div className='flex gap-6'>
             <div>

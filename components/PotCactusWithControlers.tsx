@@ -6,7 +6,7 @@ import Pot from "@/public/potsImages/3.png"
 import Image from 'next/image'
 import { Button } from './ui/button'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { collection, onSnapshot } from 'firebase/firestore'
+import { collection, onSnapshot, orderBy, query, where } from 'firebase/firestore'
 import { db } from '@/firebase'
 import useCactusStore from '@/store/market'
 
@@ -37,7 +37,8 @@ function PotCactusWithControllers({}: Props) {
   } = useCactusStore()
 
   useEffect(()=>{
-    const unsub = onSnapshot(collection(db, "cactuses"), (doc) => {
+    const q = query(collection(db, "cactuses") , where("inStock", "==", true) , orderBy("order"));
+    const unsub = onSnapshot(q, (doc) => {
         setCactuses(
           doc.docs.map(d=>({...d.data() as Cactus ,id : d.id }))
         )
@@ -45,7 +46,9 @@ function PotCactusWithControllers({}: Props) {
     return()=> unsub()
   },[])
   useEffect(()=>{
-    const unsub = onSnapshot(collection(db, "pots"), (doc) => {
+    // i want to order with the .order and i want to get only inStock
+    const q = query(collection(db, "pots") , where("inStock", "==", true) , orderBy("order"));
+    const unsub = onSnapshot(q, (doc) => {
         setPots(
           doc.docs.map(d=>({...d.data() as Cactus ,id : d.id }))
         )

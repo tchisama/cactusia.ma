@@ -1,13 +1,14 @@
 "use client"
 import CreateNewCactus from '@/components/CreateNewCactus'
+import DeleteDialog from '@/components/DeleteDialog'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
 import { Switch } from '@/components/ui/switch'
 import { Textarea } from '@/components/ui/textarea'
 import { db } from '@/firebase'
-import { collection, doc, onSnapshot, updateDoc } from 'firebase/firestore'
-import { ArrowLeftCircle, ArrowRightCircle, Check, X } from 'lucide-react'
+import { collection, deleteDoc, doc, onSnapshot, updateDoc } from 'firebase/firestore'
+import { ArrowLeftCircle, ArrowRightCircle, Check, Trash, Trash2, X } from 'lucide-react'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import { MdEditSquare } from "react-icons/md";
@@ -47,9 +48,9 @@ const page = (props: Props) => {
         //   "https://firebasestorage.googleapis.com/v0/b/cactusia-adf86.appspot.com/o/cactus%2F10.png?alt=media&token=f07fe8a1-d600-4985-b263-c4a3f89d919c"
         // ]
         cactuses
-        .map((cactus,i)=>{
+        .sort((a,b)=>a.order - b.order).map((cactus,i)=>{
           return(
-            <CactusItemComp key={i} cactus={cactus}/>
+            <CactusItemComp key={cactus.id} cactus={cactus}/>
           )
         })
       }
@@ -122,6 +123,17 @@ return(
                   <Switch checked={showen} onCheckedChange={()=>setShowen(!showen)}/>
                   :
                   <Switch disabled checked={cactus.inStock}/>
+                }
+                {
+                  editMode?
+                  <DeleteDialog DeleteFunction={
+                    ()=>{
+                      deleteDoc(doc(db,"cactuses",cactus.id))
+                    }
+                  } >
+                    <Button className='flex mt-4 gap-2' variant={"destructive"}>Delete <Trash2 size={20} /></Button>
+                  </DeleteDialog>
+                  :null
                 }
               </div>
               <div className='flex-1'>

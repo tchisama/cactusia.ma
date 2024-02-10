@@ -79,7 +79,7 @@ const ReviewComp = ({review}:{review:Review})=>{
     })
   }
   return(
-            <div key={review.id} className='gap-8 bg-white border rounded-xl shadow '>
+            <div key={review.id} className='gap-8 h-fit bg-white border rounded-xl shadow '>
               <div className='relative'>
                 <Image  src={`https://firebasestorage.googleapis.com/v0/b/cactusia-983c2.appspot.com/o/reviews%2F${review.image}?alt=media&token=bb288d03-287d-45f0-8b90-f9871f1a7567`} alt='' className=' z-10 relative aspect-square w-full  object-cover ' width={300} height={300}>
                 </Image>
@@ -128,7 +128,7 @@ const ReviewComp = ({review}:{review:Review})=>{
                     editMode ?
                     <Textarea className='min-h-[250px]' value={reviewText} onChange={e=>setReviewText(e.target.value)} />
                     :
-                    <p className='text-sm'>{review.review}</p>
+                    <p className='text-xs'>{review.review}</p>
                   }
               </div>
             </div>

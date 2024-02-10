@@ -1,12 +1,13 @@
 "use client"
 import CreateNewPot from '@/components/CreateNewPot'
+import DeleteDialog from '@/components/DeleteDialog'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
 import { Switch } from '@/components/ui/switch'
 import { db } from '@/firebase'
-import { collection, doc, onSnapshot, updateDoc } from 'firebase/firestore'
-import { ArrowLeftCircle, ArrowRightCircle, Check } from 'lucide-react'
+import { collection, deleteDoc, doc, onSnapshot, updateDoc } from 'firebase/firestore'
+import { ArrowLeftCircle, ArrowRightCircle, Check, Trash2 } from 'lucide-react'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import { MdEditSquare } from 'react-icons/md'
@@ -45,10 +46,10 @@ const page = (props: Props) => {
         // [
         //   "https://firebasestorage.googleapis.com/v0/b/cactusia-983c2.appspot.com/o/1.png?alt=media&token=a1e0aa65-9270-4f04-b175-02e2a7ae919f",
         // ]
-        pots.map((pot,i)=>{
+        pots.sort((a,b)=>a.order - b.order).map((pot,i)=>{
           
           return(
-            <PotItemComp key={i} pot={pot}/>
+            <PotItemComp key={pot.id} pot={pot}/>
           )
         })
       }
@@ -72,7 +73,7 @@ const PotItemComp = ({pot}:{pot:Pot})=>{
     })
   }
   return(
-            <div  className='bg-white relative shadow border p-6 rounded-xl overflow-hidden flex gap-8'>
+            <div  className='bg-white h-fit relative shadow border p-6 rounded-xl overflow-hidden flex gap-8'>
               <Button onClick={()=>{
                 setEditMode(!editMode)
                 if(editMode) upadate()
@@ -107,12 +108,25 @@ const PotItemComp = ({pot}:{pot:Pot})=>{
                   :
                   <h2 className=' mb-2'>{pot.name}</h2>
                 }
+                <div className='flex gap-4 items-center'>
                 {
                   editMode?
                   <Switch className='mt-2' checked={showend} onCheckedChange={()=>setShowend(!showend)} />
                   :
                   <Switch disabled checked={pot.inStock} />
                 }
+                {
+                  editMode?
+                  <DeleteDialog DeleteFunction={
+                    ()=>{
+                      deleteDoc(doc(db,"pots",pot.id))
+                    }
+                  } >
+                    <Button className='flex mt-4 gap-2' variant={"destructive"}>Delete <Trash2 size={20} /></Button>
+                  </DeleteDialog>
+                  :null
+                }
+                </div>
               </div>
             </div>
   )

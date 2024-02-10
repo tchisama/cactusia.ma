@@ -105,7 +105,7 @@ const AddReview = (props: Props) => {
             <label className='cursor-pointer' htmlFor='image'>
                 {
                   file ? 
-                  <Image className='z-[0] top-[170px] rounded-xl w-full md:w-fit'  src={image} alt='' width={250} height={250}>
+                  <Image className='z-[0] top-[170px] rounded-xl w-full md:w-[300px] p-2'  src={image} alt='' width={250} height={250}>
                   </Image>
                   :
                   <h3 className="p-6 text-white py-4 rounded-full bg-primary ">Upload Image</h3>

@@ -22,7 +22,7 @@ type Props = {
 const states = [
   {
     name: "New",
-    color: "#7cb518",
+    color: "#7b904b",
     id: 1
   },
   {
@@ -32,17 +32,17 @@ const states = [
   },
   {
     name: "Prêt",
-    color: "#4D908E",
+    color: "#6e44ff",
     id: 3
   },
   {
     name: "En livraison",
-    color: "#985277",
+    color: "#a44a3f",
     id: 4
   },
   {
     name: "Livré",
-    color: "#5c8001",
+    color: "#588157",
     id: 5
   },
   {
@@ -88,10 +88,10 @@ function StateChanger({state,id}: Props) {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger style={{ backgroundColor: selectedState.color+"20",color:selectedState.color }} className="px-4 py-1 border rounded-full">{selectedState.name}</DropdownMenuTrigger>
+      <DropdownMenuTrigger style={{ backgroundColor: selectedState.color+"aa",color:"white" }} className="px-4 py-1 border rounded-full">{selectedState.name}</DropdownMenuTrigger>
       <DropdownMenuContent>
         {states.map((state) => (
-          <DropdownMenuItem className="mt-1" style={{ backgroundColor: state.color+"20",color:state.color }} key={state.id} onClick={() => handleStateChange(state)}>
+          <DropdownMenuItem className="mt-1" style={{ backgroundColor: state.color+"aa",color:"white"  }} key={state.id} onClick={() => handleStateChange(state)}>
             {state.name}
           </DropdownMenuItem>
         ))}

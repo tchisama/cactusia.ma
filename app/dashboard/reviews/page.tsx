@@ -81,9 +81,13 @@ const ReviewComp = ({review}:{review:Review})=>{
   return(
             <div key={review.id} className='gap-8 h-fit bg-white border rounded-xl shadow '>
               <div className='relative'>
+                {
+                  review.image != "no image"?
                 <Image  src={`https://firebasestorage.googleapis.com/v0/b/cactusia-983c2.appspot.com/o/reviews%2F${review.image}?alt=media&token=bb288d03-287d-45f0-8b90-f9871f1a7567`} alt='' className=' z-10 relative aspect-square w-full  object-cover ' width={300} height={300}>
                 </Image>
-                <div className='absolute top-0 left-0 flex z-10 gap-1 p-2'>
+                :<div className='h-[50px]'></div>
+                }
+                <div className='absolute top-0 right-0 flex z-10 gap-1 p-2'>
                   <Button variant={"outline"} onClick={
                     ()=>{
                       setEditMode(p=>!p)

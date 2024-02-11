@@ -29,10 +29,22 @@ import Reviews from "@/components/Reviews";
 import Contact from "@/components/Contact";
 import AddReview from "@/components/AddReview";
 import TextEditable, { ChangeText, GetText } from "@/components/TextEditable";
+import { useEffect, useState } from "react";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "@/firebase";
 
 
 
 export default function Home() {
+
+  const [sliderImages, setSliderImages] = useState<string[]>([])
+  const [aboutImage,setAboutImage] = useState("")
+  useEffect(() => {
+    getDoc(doc(db, "config", "HomeSlider")).then((doc) => {
+      setSliderImages(doc.data()?.images as string[])
+      setAboutImage(doc.data()?.aboutImage as string)
+    })
+  },[])
   return (
     <div className="  relative space-y-8">
       <div className="flex container flex-col-reverse md:flex-row items-center justify-between ">
@@ -67,9 +79,9 @@ export default function Home() {
         className="my-8 mb-24">
           <CarouselContent>
               {
-                [
-                  img7, img8, img9, img2, img3, img4, img5, img6,  img10, img1
-                ].map((_, index) => (
+                sliderImages &&
+                sliderImages
+                .map((_, index) => (
                   <CarouselItem className="basis-1/2 md:basis-1/3" key={index}>
                         <Image src={_} alt="Cactus" width={450} height={450} className="aspect-square bg-slate-200 object-cover rounded-xl border"></Image>
                   </CarouselItem>
@@ -84,7 +96,7 @@ export default function Home() {
       </motion.div>
 
       <motion.div initial={{opacity:0,y:100}} transition={{duration:0.6}} animate={{opacity:1,y:0}} className="flex flex-col md:flex-row container my-28 items-center gap-8 ">
-        <Image src={home} alt="Cactus" width={350} height={350} className="aspect-square object-cover rounded-xl border w-full md:w-fit"></Image>
+        <Image src={aboutImage} alt="Cactus" width={350} height={350} className="aspect-square object-cover rounded-xl border w-full md:w-fit"></Image>
         <div className="flex flex-col items-start gap-8">
           <p className=" md:text-xl max-w-4xl">
             <TextEditable reference={{page:"home", ref:"homeParagraphSection"}}>

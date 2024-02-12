@@ -18,7 +18,8 @@ export type Order = {
   price: number;
   createdAt: Timestamp;
   cart: CartItem[];
-  status:"New"|"Confirmé"|"Prêt"|"En livraison"|"Livré"|"Injoignable"|"Reporté"|"Annulé"|"Fake"
+  status:"New"|"Confirmé"|"Prêt"|"En livraison"|"Livré"|"Injoignable"|"Reporté"|"Annulé"|"Fake",
+  note:string
 };
 
 interface OrdersStore {

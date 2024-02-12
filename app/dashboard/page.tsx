@@ -7,6 +7,7 @@ const DashboardPage: React.FC = () => {
   const [monthsOrders,setMonthsOrders] = React.useState(0)
   const [confirmedOrders,setConfirmedOrders] = React.useState(0)
   const [confirmedProfit,setConfirmedProfit] = React.useState(0)
+  const [users,setUsers] = React.useState(0)
   const {orders,setOrders} = useOrdersStore()
   // start is month before 
   const start = new Date(new Date().setDate(new Date().getDate() - 30));
@@ -20,6 +21,9 @@ const DashboardPage: React.FC = () => {
       setConfirmedOrders(docs.filter((d)=>d.status === "Livré").length)
       setConfirmedProfit(docs.filter((d)=>d.status === "Livré").reduce((a,b)=>a + b.price,0))
     })
+    getDocs(collection(db,"users")).then((querySnapshot)=>{
+      setUsers(querySnapshot.docs.length)
+    })
   },[])
 
 
@@ -27,18 +31,22 @@ const DashboardPage: React.FC = () => {
     <div className="container p-6">
       <div>
         <h1 className='text-3xl pb-8'>Dashboard</h1>
-        <div className='flex gap-4'>
+        <div className='grid grid-cols-3 gap-4'>
           <div className='p-5 bg-white flex-1 rounded-xl border shadow'>
             <h1 className='text-xl'>month orders</h1>
             <h1 className='text-6xl'>{monthsOrders}</h1>
           </div>
           <div className='p-5 bg-white flex-1 rounded-xl border shadow'>
-            <h1 className='text-xl'>confirmed orders</h1>
+            <h1 className='text-xl'>delivered orders</h1>
             <h1 className='text-6xl'>{confirmedOrders}</h1>
           </div>
           <div className='p-5 bg-white flex-1 rounded-xl border shadow'>
             <h1 className='text-xl'>confirmed profit</h1>
-            <h1 className='text-5xl'>{confirmedProfit} dh</h1>
+            <h1 className='text-6xl'>{confirmedProfit} Dh</h1>
+          </div>
+          <div className='p-5 bg-white flex-1 rounded-xl border shadow'>
+            <h1 className='text-xl'>users</h1>
+            <h1 className='text-6xl'>{users}</h1>
           </div>
         </div>
       </div>

@@ -22,7 +22,7 @@ type Props = {
 const states = [
   {
     name: "New",
-    color: "#7b904b",
+    color: "#8ac926",
     id: 1
   },
   {
@@ -32,7 +32,7 @@ const states = [
   },
   {
     name: "Prêt",
-    color: "#6e44ff",
+    color: "#5a189a",
     id: 3
   },
   {
@@ -42,7 +42,7 @@ const states = [
   },
   {
     name: "Livré",
-    color: "#588157",
+    color: "#488157",
     id: 5
   },
   {

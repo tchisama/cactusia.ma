@@ -47,7 +47,7 @@ const Navbar: React.FC = () => {
       <p className='flex items-center justify-center text-white'><TextEditable reference={{page:"home",ref:"slider"}}></TextEditable></p>
       </Marquee>
     </div>
-    <motion.nav initial={{opacity:0,y:-10}} animate={{opacity:1,y:0}} className='flex relative z-[100] gap-4 justify-between items-center p-4 md:p-8 bg-white max-w-screen-2xl mx-auto'>
+    <motion.nav initial={{opacity:0,y:-10}} animate={{opacity:1,y:0}} className='flex relative z-[100] gap-4 justify-between items-center p-4 md:p-8 max-w-screen-2xl mx-auto'>
       <div className="logo">
         <Link href="/">
           <Image width={50} height={50} src={Logo} alt="Logo" />

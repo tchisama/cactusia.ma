@@ -42,19 +42,19 @@ const Navbar: React.FC = () => {
 
   return (
     <>
-    <div className='bg-primary   text-center text-lg py-1'>
+    <div className='bg-primary  relative z-[1000] text-center text-lg py-1'>
       <Marquee>
       <p className='flex items-center justify-center text-white'><TextEditable reference={{page:"home",ref:"slider"}}></TextEditable></p>
       </Marquee>
     </div>
-    <motion.nav initial={{opacity:0,y:-10}} animate={{opacity:1,y:0}} className='flex gap-4 justify-between items-center p-4 md:p-8 bg-white max-w-screen-2xl mx-auto'>
+    <motion.nav initial={{opacity:0,y:-10}} animate={{opacity:1,y:0}} className='flex relative z-[100] gap-4 justify-between items-center p-4 md:p-8 bg-white max-w-screen-2xl mx-auto'>
       <div className="logo">
         <Link href="/">
           <Image width={50} height={50} src={Logo} alt="Logo" />
         </Link>
       </div>
       <div className="flex  gap-2 items-center">
-        <Link href={"/cart"} className='relative z-10'>
+        <Link href={"/cart"} className='relative z-50'>
           {
             cart.length > 0 && 
             <div className='absolute right-0 top-0 bg-primary text-white rounded-full w-6 h-6 text-center items-center justify-center flex'>{cart.reduce ((acc, item) => acc + item.quantity, 0)}</div>

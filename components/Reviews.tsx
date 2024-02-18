@@ -72,7 +72,12 @@ function Reviews({}: Props) {
     <div className=' mt-20 md:w-full  '>
         <h1 className='md:text-5xl text-3xl'><TextEditable reference={{page:"home",ref:"reviewsTitle"}}></TextEditable> </h1>
 <Carousel 
+      opts={
+        {
+          loop: true,
 
+        }
+      }
       plugins={[
         Autoplay({
           delay: 2000,

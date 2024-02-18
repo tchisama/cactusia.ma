@@ -1,6 +1,6 @@
 "use client"
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Logo from "@/public/images/logo.jpeg"
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -10,8 +10,36 @@ import { motion } from 'framer-motion';
 import useCartStore from '@/store/cart';
 import TextEditable from '@/components/TextEditable';
 import Marquee from "react-fast-marquee";
+import useLocalStorage from '../hooks/useLocalStorage';
+import { addDoc, collection, doc } from 'firebase/firestore';
+import { db } from '@/firebase';
 const Navbar: React.FC = () => {
   const {cart} = useCartStore()
+
+
+  // useLocalstorage
+
+  useEffect(()=>{
+    const userId =  localStorage.getItem("cactusiaUserId")
+    if(!userId ){
+      const id = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
+      localStorage.setItem("cactusiaUserId",id)
+      addDoc(
+        collection(db,"users"),{
+          id
+        }
+      )
+      addDoc(
+       collection( db,"visit"),{
+          user:id,
+          date:new Date()
+        })
+    }
+  },[])
+
+
+
+
   return (
     <>
     <div className='bg-primary   text-center text-lg py-1'>

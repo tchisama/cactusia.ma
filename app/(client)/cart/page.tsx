@@ -29,8 +29,13 @@ function page({}: Props) {
             )
           })
         }
+        <ChangeText reference={{page:"cart",ref:"continue shopping"}}>
+          <Link href={"/market"}>
+            <Button className=' py-6 flex flex-row-reverse w-fit gap-2' variant={"outline"}><GetText reference={{page:"cart",ref:"continue shopping"}}></GetText> <ArrowLeft size={16}/></Button>
+          </Link>
+        </ChangeText>
       </div>
-      <div className='md:min-w-[500px] p-4 sticky top-0 md:top-10 bg-white z-10 md:rounded-xl border-b  md:border h-fit shadow '>
+      <div className='md:min-w-[600px] p-4 sticky top-0 md:top-10 bg-white z-10 md:rounded-xl border-b  md:border h-fit shadow '>
         <div className='flex flex-col gap-4'>
           <div className='flex gap-6'>
             <div>
@@ -52,18 +57,13 @@ function page({}: Props) {
                   {
                     cart.reduce((acc,item)=>acc +item.quantity,0) >= 3 ?
                     <h4 className='line-through text-red-400 py-2'>{
-                      cart.reduce((acc,item)=>acc +item.quantity,0) * 65 +35
+                      cart.reduce((acc,item)=>acc +item.quantity,0) * 65 
                     } Dh</h4>
                     : null
                   }
             </div>
           </div>
           <div className='flex flex-col gap-2'>
-            <ChangeText reference={{page:"cart",ref:"continue shopping"}}>
-              <Link href={"/market"}>
-                <Button className=' py-6 flex flex-row-reverse w-fit gap-2' variant={"outline"}><GetText reference={{page:"cart",ref:"continue shopping"}}></GetText> <ArrowLeft size={16}/></Button>
-              </Link>
-            </ChangeText>
             <ChangeText reference={{page:"cart",ref:"checkout"}}>
               <Link href={"/checkout"}>
                 <Button className='w-full py-6 flex gap-4'><GetText reference={{page:"cart",ref:"checkout"}}></GetText>  <ArrowRight size={16}/></Button>

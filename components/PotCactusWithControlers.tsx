@@ -11,6 +11,7 @@ import { db } from '@/firebase'
 import useCactusStore from '@/store/market'
 import shadow from '@/public/Ellipse 1.png'
 import logo from "@/public/images/logo.jpeg"
+import { cn } from '@/lib/utils'
 
 type Cactus = {
   name: string
@@ -37,6 +38,13 @@ function PotCactusWithControllers({}: Props) {
     cactuses, setCactuses, pots, setPots,
     activeCactus, setActiveCactus,activePot, setActivePot
   } = useCactusStore()
+
+
+
+const [loadingPot, setLoadingPot] = useState(true)
+const [loadingCactus, setLoadingCactus] = useState(true)
+
+
 
   useEffect(()=>{
     const q = query(collection(db, "cactuses") , where("inStock", "==", true) , orderBy("order"));
@@ -74,6 +82,7 @@ function PotCactusWithControllers({}: Props) {
   }
 
   const changePotLeft = () => {
+    setLoadingPot(true)
     if(activePot > 0){
       setActivePot(activePot - 1)
     }else{
@@ -81,6 +90,7 @@ function PotCactusWithControllers({}: Props) {
     }
   }
   const changePotRight = () => {
+    setLoadingPot(true)
     if(activePot < pots.length - 1){
       setActivePot(activePot + 1)
     }else{
@@ -101,9 +111,26 @@ function PotCactusWithControllers({}: Props) {
         </div>
         <Button onClick={changePotLeft} className='absolute text-primary top-1/2 w-14 h-14 rounded-full -left-16 border' variant="ghost" size="icon"><ChevronLeft size={35} /></Button>
         <Button onClick={changePotRight} className='absolute text-primary top-1/2 w-14 h-14 rounded-full -right-16 border' variant="ghost" size="icon"><ChevronRight size={35} /></Button>
-        <Image 
+
+
+
+
+
+
+            <Image 
             src={`https://firebasestorage.googleapis.com/v0/b/cactusia-983c2.appspot.com/o/pots%2F${pots[activePot]?.image}?alt=media&token=bb288d03-287d-45f0-8b90-f9871f1a7567`} 
-            alt="Cactus" width={250} height={250} className='w-[200px] md:h-[350px] relative top-4 md:w-[350px] object-contain h-[200px] z-10 '></Image>
+            onLoadingComplete={()=>{setLoadingPot(false)}}
+            alt="Cactus" width={250} height={250} 
+            className={cn('w-[200px]   md:h-[350px] relative top-4 md:w-[350px] object-contain h-[200px] z-10 ', loadingPot && 'absolute opacity-0 w-0 h-0')}></Image>
+            <Image 
+            src={`https://firebasestorage.googleapis.com/v0/b/cactusia-983c2.appspot.com/o/pots%2F${pots[activePot]?.image}?alt=media&token=bb288d03-287d-45f0-8b90-f9871f1a7567`} 
+            alt="Cactus" width={80} height={80} 
+            className={cn(' absolute opacity-0 w-0 h-0  md:h-[350px] top-4 md:w-[350px] object-contain  z-10 ', loadingPot && ' opacity-100 relative w-[200px] h-[200px] ')}></Image>
+
+
+
+
+
         <Image 
           src={shadow} 
           alt="Cactus" width={250} height={250} className='w-full md:h-[350px] md:w-[350px] scale-90 object-contain absolute -bottom-[115px] md:-bottom-[165px] opacity-60 z-0   h-[230px] '></Image>

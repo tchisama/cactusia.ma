@@ -67,6 +67,7 @@ const [loadingCactus, setLoadingCactus] = useState(true)
   },[])
 
   const changeLeft = () => {
+    setLoadingCactus(true)
     if(activeCactus > 0){
       setActiveCactus(activeCactus - 1)
     }else{
@@ -74,6 +75,7 @@ const [loadingCactus, setLoadingCactus] = useState(true)
     }
   }
   const changeRight = () => {
+    setLoadingCactus(true)
     if(activeCactus < cactuses.length - 1){
       setActiveCactus(activeCactus + 1)
     }else{
@@ -104,10 +106,30 @@ const [loadingCactus, setLoadingCactus] = useState(true)
            <div className='relative '>
               <Button onClick={changeLeft} className='absolute text-primary top-1/2 w-14 h-14 rounded-full -left-12 border' variant="ghost" size="icon"><ChevronLeft size={35} /></Button>
               <Button onClick={changeRight} className='absolute text-primary top-1/2 w-14 h-14 rounded-full -right-12 border' variant="ghost" size="icon"><ChevronRight size={35} /></Button>
-              <Image 
+              
+              
+              
+              {/* <Image 
                 src={`https://firebasestorage.googleapis.com/v0/b/cactusia-983c2.appspot.com/o/cactuses%2F${cactuses[activeCactus]?.image}?alt=media&token=bb288d03-287d-45f0-8b90-f9871f1a7567`} 
                 alt="Cactus" width={250} height={250} className='w-[200px] h-[200px] md:h-[350px] md:w-[350px] scale-90 object-contain  z-20 relative '></Image>
-           </div>
+            
+             */}
+
+
+            <Image 
+            src={`https://firebasestorage.googleapis.com/v0/b/cactusia-983c2.appspot.com/o/cactuses%2F${cactuses[activeCactus]?.image}?alt=media&token=bb288d03-287d-45f0-8b90-f9871f1a7567`} 
+            onLoadingComplete={()=>{setLoadingCactus(false)}}
+            alt="Cactus" width={180} height={180} 
+            className={cn('w-[200px] h-[200px] md:h-[350px] opacity-100 md:w-[350px] scale-90 object-contain  z-20 relative  ', loadingCactus && 'absolute opacity-0 w-0 h-0')}></Image>
+            <Image 
+            src={`https://firebasestorage.googleapis.com/v0/b/cactusia-983c2.appspot.com/o/cactuses%2F${cactuses[activeCactus]?.image}?alt=media&token=bb288d03-287d-45f0-8b90-f9871f1a7567`} 
+            alt="Cactus" width={80} height={80} 
+            className={cn('absolute  md:h-[350px] opacity-0 w-0 h-0 md:w-[350px] scale-90 object-contain  z-20   ', loadingCactus && ' opacity-100 relative w-[200px] h-[200px] ')}></Image>
+
+
+            
+            
+            </div>
         </div>
         <Button onClick={changePotLeft} className='absolute text-primary top-1/2 w-14 h-14 rounded-full -left-16 border' variant="ghost" size="icon"><ChevronLeft size={35} /></Button>
         <Button onClick={changePotRight} className='absolute text-primary top-1/2 w-14 h-14 rounded-full -right-16 border' variant="ghost" size="icon"><ChevronRight size={35} /></Button>
@@ -120,7 +142,7 @@ const [loadingCactus, setLoadingCactus] = useState(true)
             <Image 
             src={`https://firebasestorage.googleapis.com/v0/b/cactusia-983c2.appspot.com/o/pots%2F${pots[activePot]?.image}?alt=media&token=bb288d03-287d-45f0-8b90-f9871f1a7567`} 
             onLoadingComplete={()=>{setLoadingPot(false)}}
-            alt="Cactus" width={250} height={250} 
+            alt="Cactus" width={180} height={180} 
             className={cn('w-[200px]   md:h-[350px] relative top-4 md:w-[350px] object-contain h-[200px] z-10 ', loadingPot && 'absolute opacity-0 w-0 h-0')}></Image>
             <Image 
             src={`https://firebasestorage.googleapis.com/v0/b/cactusia-983c2.appspot.com/o/pots%2F${pots[activePot]?.image}?alt=media&token=bb288d03-287d-45f0-8b90-f9871f1a7567`} 

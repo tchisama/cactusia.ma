@@ -14,10 +14,12 @@ function LoadingProvider({children}: Props) {
   const [loading, setLoading] = useState(true)
   const pathname = usePathname()
   useEffect(() => {
-    setLoading(true)
-    setTimeout(() => {
-     setLoading(false)    
-    }, 2000)
+    if(["/market","/"].includes(pathname)) {
+      setLoading(true)
+      setTimeout(() => {
+      setLoading(false)    
+      }, 2000)
+    }
   },[pathname])
   return (
     <div>

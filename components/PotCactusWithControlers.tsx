@@ -96,17 +96,17 @@ function PotCactusWithControllers({}: Props) {
               <Button onClick={changeRight} className='absolute text-primary top-1/2 w-14 h-14 rounded-full -right-12 border' variant="ghost" size="icon"><ChevronRight size={35} /></Button>
               <Image 
                 src={`https://firebasestorage.googleapis.com/v0/b/cactusia-983c2.appspot.com/o/cactuses%2F${cactuses[activeCactus]?.image}?alt=media&token=bb288d03-287d-45f0-8b90-f9871f1a7567`} 
-                alt="Cactus" width={350} height={350} className='w-[200px] h-[200px] md:h-[350px] md:w-[350px] scale-90 object-contain  z-20 relative '></Image>
+                alt="Cactus" width={250} height={250} className='w-[200px] h-[200px] md:h-[350px] md:w-[350px] scale-90 object-contain  z-20 relative '></Image>
            </div>
         </div>
         <Button onClick={changePotLeft} className='absolute text-primary top-1/2 w-14 h-14 rounded-full -left-16 border' variant="ghost" size="icon"><ChevronLeft size={35} /></Button>
         <Button onClick={changePotRight} className='absolute text-primary top-1/2 w-14 h-14 rounded-full -right-16 border' variant="ghost" size="icon"><ChevronRight size={35} /></Button>
         <Image 
             src={`https://firebasestorage.googleapis.com/v0/b/cactusia-983c2.appspot.com/o/pots%2F${pots[activePot]?.image}?alt=media&token=bb288d03-287d-45f0-8b90-f9871f1a7567`} 
-            alt="Cactus" width={350} height={350} className='w-[200px] md:h-[350px] relative top-4 md:w-[350px] object-contain h-[200px] z-10 '></Image>
+            alt="Cactus" width={250} height={250} className='w-[200px] md:h-[350px] relative top-4 md:w-[350px] object-contain h-[200px] z-10 '></Image>
         <Image 
           src={shadow} 
-          alt="Cactus" width={350} height={350} className='w-full md:h-[350px] md:w-[350px] scale-90 object-contain absolute -bottom-[115px] md:-bottom-[165px] opacity-60 z-0   h-[230px] '></Image>
+          alt="Cactus" width={250} height={250} className='w-full md:h-[350px] md:w-[350px] scale-90 object-contain absolute -bottom-[115px] md:-bottom-[165px] opacity-60 z-0   h-[230px] '></Image>
         <Image 
           src={logo} 
           alt="Cactus" width={50} height={50} className='  scale-90 object-contain absolute bottom-[80px]  bg-blend-overlay  md:w-[60px] md:h-[60px] md:bottom-[140px] w-[40px] z-40 left-1/2 translate-x-[-50%]  h-[40px] '></Image>

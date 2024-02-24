@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter,Comfortaa,DM_Serif_Display } from "next/font/google"; import "../globals.css"; import Navbar from "./nav"; import { Toaster } from "@/components/ui/sonner"; import Footer from "./footer";
 import { Suspense } from "react";
 import Loading from "@/components/Loading";
+import LoadingProvider from "@/components/LoadingProvider";
 
 const kanit = DM_Serif_Display({ weight: "400", subsets: ["latin"],variable:"--font-kanit" });
 
@@ -23,10 +24,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Navbar />
-
+        <LoadingProvider>
         <div className="min-h-[55vh]">
           {children}
         </div>
+        </LoadingProvider>
         <Footer />
         <Toaster />
       </body>

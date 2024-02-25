@@ -44,7 +44,7 @@ function Page({}: Props) {
         <Input onChange={(e)=>setUser({...user , name: e.target.value})} value={user.name} placeholder="Name" />
         <Input onChange={(e)=>setUser({...user , email: e.target.value})} value={user.email} placeholder="Email" />
         <Input onChange={(e)=>setUser({...user , password: e.target.value})} value={user.password} placeholder="Password" />
-        <Select cla onValueChange={(e:any)=>setUser({...user , rule: e})} value={user.rule} placeholder="Rule">
+        <Select  onValueChange={(e:any)=>setUser({...user , rule: e})} value={user.rule} >
             <SelectTrigger className="w-full">
               <SelectValue placeholder="Theme" />
             </SelectTrigger>

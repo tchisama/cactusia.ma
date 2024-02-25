@@ -5,7 +5,7 @@ import { db } from '@/firebase'
 import { useUserStore } from '@/store/users'
 import { and, collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore'
 import { useRouter } from 'next/navigation'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 type Props = {children: React.ReactNode}
 
@@ -22,6 +22,8 @@ function DashboardLogin({children}: Props) {
         if(d.length > 0 ){ 
           setLoggedIn(true)
           setUser(d[0])
+          // save in local storage
+          localStorage.setItem("user",JSON.stringify(d[0]))
           if((d[0] as any).rule === "creator"){
             router.push("/dashboard/pots")
           }else if((d[0] as any).rule === "confirmor"){
@@ -33,6 +35,13 @@ function DashboardLogin({children}: Props) {
         }
     })
   }
+  useEffect(()=>{
+    const user = localStorage.getItem("user")
+    if(user){
+      setLoggedIn(true)
+      setUser(JSON.parse(user))
+    }
+  },[])
   return (
     <div>{
       loggedIn ? children :

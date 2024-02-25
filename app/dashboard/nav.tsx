@@ -1,6 +1,6 @@
 "use client"
 import { useUserStore } from '@/store/users'
-import { Box, Home, Languages, LayoutList, Leaf, Palette, Star, Users } from 'lucide-react'
+import { Box, Home, Languages, LayoutList, Leaf, LogOut, Palette, Star, Users } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React from 'react'
@@ -37,6 +37,7 @@ function Nav({}: Props) {
             <Link  href={"/dashboard"+href} key={name}  className={' p-2  flex gap-2 items-center rounded-xl px-4 text-gray-600  font-bold '+((pathname === "/dashboard"+(href == "/" ? "":href)) ? " bg-primary text-white " : " bg-gray-50")}>{icon}{name}</Link> 
           ))
         }
+        <button onClick={()=>{localStorage.removeItem("user");window.location.reload()}} className='mt-auto  p-2  flex gap-2 items-center mb-2 bg-slate-100 rounded-xl px-4 text-gray-600  font-bold '><LogOut size={size}/> Logout</button>
     </div>
   )
 }

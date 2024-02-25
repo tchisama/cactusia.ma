@@ -66,6 +66,7 @@ const PotItemComp = ({pot}:{pot:Pot})=>{
   const [showend, setShowend] = useState(pot.inStock)
   const [order,setOrder] = useState(pot.order)
   const upadate = ()=>{
+    
     updateDoc(doc(db, "pots", pot.id), {
       name,
       inStock : showend,

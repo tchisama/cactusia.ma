@@ -159,7 +159,7 @@ const [loadingCactus, setLoadingCactus] = useState(true)
           alt="Cactus" width={250} height={250} className='w-full md:h-[350px] md:w-[350px] scale-90 object-contain absolute -bottom-[115px] md:-bottom-[165px] opacity-60 z-0   h-[230px] '></Image>
         <Image 
           src={logo} 
-          alt="Cactus" width={50} height={50} className='  scale-90 object-contain absolute bottom-[80px]  bg-blend-overlay  md:w-[60px] md:h-[60px] md:bottom-[140px] w-[40px] z-40 left-1/2 translate-x-[-50%]  h-[40px] '></Image>
+          alt="Cactus" width={50} height={50} className=' bg-white p-2 opacity-70 rounded-xl scale-90 object-contain absolute bottom-[80px]  bg-blend-overlay  md:w-[60px] md:h-[60px] md:bottom-[140px] w-[40px] z-40 left-1/2 translate-x-[-50%]  h-[40px] '></Image>
     </div>
   )
 }

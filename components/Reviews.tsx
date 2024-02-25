@@ -88,7 +88,7 @@ function Reviews({}: Props) {
       {
         reviews.map((review, index) => (
           <CarouselItem key={index} className=' md:basis-2/5'>
-            <div className='p-2  bg-white rounded-2xl border px-6  min-h-[200px] flex  flex-row md:flex-row gap-2 md:gap-8 md:items-center relative'>
+            <div className='p-2  bg-white rounded-2xl border px-6 py-6  min-h-[200px] flex  flex-row md:flex-row gap-2 md:gap-8 md:items-center relative'>
               {
                   review.image!=="no image" ?
                   // <Image  src={`https://firebasestorage.googleapis.com/v0/b/cactusia-983c2.appspot.com/o/reviews%2F${review.image}?alt=media&token=bb288d03-287d-45f0-8b90-f9871f1a7567`} alt='' className=' z-10 relative w-[30%] md:w-fit aspect-square rounded-xl object-cover ' width={200} height={200}>
@@ -97,7 +97,7 @@ function Reviews({}: Props) {
                   :null
               }
             <div className='flex-1 '>
-              <h1 className='text-xl md:text-2xl uppercase '>{review.name}</h1>
+              <h1 className='text-xl md:text-2xl capitalize '>{review.name}</h1>
                 <div className='flex py-2'>
                   {
                     new Array(review.rating).fill(0).map((s,i)=>(
@@ -105,7 +105,7 @@ function Reviews({}: Props) {
                     ))
                     }
                   </div>
-              <p className='text-xs pb-2 max-w-xl md:text-md'>{review.review.slice(0,400)}</p>
+              <p className=' pb-2 max-w-xl md:text-md'>{review.review.slice(0,400)}</p>
             </div>
             </div>
           </CarouselItem>

@@ -1,6 +1,7 @@
 import Nav from "./nav"
 import "../globals.css"
 import { Comfortaa , Kanit,Inter } from "next/font/google";
+import DashboardLogin from "./DashboardLogin";
 
 const comfortaa = Comfortaa({ subsets: ["latin"] });
 export const metadata = {
@@ -16,12 +17,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={comfortaa.className}>
+          <DashboardLogin>
         <div className="flex h-screen w-full">
-        <Nav />
-        <div className="flex-1 overflow-y-auto h-screen">
-        {children}
+              <Nav />
+              <div className="flex-1 overflow-y-auto h-screen">
+                  {children}
+              </div>
         </div>
-        </div>
+          </DashboardLogin>
       </body>
     </html>
   )

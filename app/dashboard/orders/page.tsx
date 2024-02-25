@@ -69,8 +69,10 @@ const Page = (props: Props) => {
               <TableCell className="">{item.city}</TableCell>
               <TableCell className="flex gap-2">
                 <DeleteOrder id={item.id}/>
-                <Link href={"https://api.whatsapp.com/send/?phone=%2B212"+item.number.slice(1)}>
-                  <Button size={"icon"} variant={"outline"}><FaWhatsapp size={20}/></Button>
+                <Link 
+  href={`https://api.whatsapp.com/send/?phone=%2B212${item.number.slice(1)}&text=Bonjour%20${item.firstName}%20${item.lastName},%20J'espère%20que%20vous%20allez%20bien.%20Vous%20avez%20passé%20commande%20chez%20cactusia%0A%0A-1%20Coffret%20d'un%20montant%20total%20de%20*${item.price}%20DH*.%20%0A%0AMerci%20bien%20de%20me%20confirmer%20votre%20commande%20afin%20de%20vous%20envoyer%20le%20colis%20dans%20les%20plus%20brefs%20délais.%20%0A%0AHiba%20de%20cactusia`}
+>
+                                  <Button size={"icon"} variant={"outline"}><FaWhatsapp size={20}/></Button>
                 </Link>
                 <Link href={`/dashboard/orders/${item.id}`}>
                   <Button variant={"outline"} size={"icon"}><ArrowRight size={16}/></Button>

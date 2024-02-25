@@ -109,7 +109,8 @@ const [loadingCactus, setLoadingCactus] = useState(true)
               
               
               
-              {/* <Image 
+              {/* 
+                <Image 
                 src={`https://firebasestorage.googleapis.com/v0/b/cactusia-983c2.appspot.com/o/cactuses%2F${cactuses[activeCactus]?.image}?alt=media&token=bb288d03-287d-45f0-8b90-f9871f1a7567`} 
                 alt="Cactus" width={250} height={250} className='w-[200px] h-[200px] md:h-[350px] md:w-[350px] scale-90 object-contain  z-20 relative '></Image>
             

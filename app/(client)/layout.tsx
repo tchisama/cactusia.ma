@@ -3,7 +3,7 @@ import { Inter,Comfortaa,DM_Serif_Display } from "next/font/google"; import "../
 import { Suspense } from "react";
 import Loading from "@/components/Loading";
 import LoadingProvider from "@/components/LoadingProvider";
-import PixelEvents from "@/components/facebook pixel/PixelEvents";
+// import PixelEvents from "@/components/facebook pixel/PixelEvents";
 import Head from "next/head";
 import Script from "next/script";
 

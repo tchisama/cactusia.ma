@@ -54,11 +54,11 @@ function page({}: Props) {
           <Message order={order}/>
       </div>
 
-      <div className='grid grid-cols-6 gap-4 p-4'>
+      <div className='  p-4'>
         {
           order.cart.map((item)=>{
             return(
-              <div className='relative overflow-hidden bg-slate-100 rounded-2xl border'>
+              <div className='relative inline-block m-2 px-12  overflow-hidden bg-slate-100 rounded-2xl border'>
                 <div className='w-6 h-6 bg-primary text-white rounded-full absolute right-1 top-1 flex text-lg justify-center items-center'>{item.quantity}</div>
                 <div className='px-3 flex items-center w-full'>
                   <Image  src={`https://firebasestorage.googleapis.com/v0/b/cactusia-983c2.appspot.com/o/cactuses%2F${item.cactus}?alt=media&token=bb288d03-287d-45f0-8b90-f9871f1a7567`} alt='' className='mb-28 mx-auto z-10 relative' width={100} height={100}>

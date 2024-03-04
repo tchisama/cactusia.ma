@@ -122,7 +122,7 @@ return(
                   editMode?
                   <Switch checked={showen} onCheckedChange={()=>setShowen(!showen)}/>
                   :
-                  <Switch disabled checked={cactus.inStock}/>
+                  showen ? <Check size={20} className='w-6 h-6 rounded-lg bg-green-800 text-white '/> : <X size={20} className='w-6 h-6 rounded-lg bg-red-600 text-white '/>
                 }
                 {
                   editMode?

@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/table"
 import { CartItem } from '@/store/cart'
 import { db } from '@/firebase'
-import { Timestamp, collection, onSnapshot } from 'firebase/firestore'
+import { Timestamp, collection, onSnapshot, orderBy, query } from 'firebase/firestore'
 import { Button } from '@/components/ui/button'
 import { ArrowRight, Delete, Trash } from 'lucide-react'
 import useOrdersStore, { Order } from '@/store/backend'
@@ -21,13 +21,14 @@ import StateChanger from '@/components/StateChanger'
 import DeleteOrder from '@/components/DeleteOrder'
 import { FaWhatsapp } from "react-icons/fa";
 import { useUserStore } from '@/store/users'
+import Bar from '@/components/Chart'
 type Props = {}
 
 const Page = (props: Props) => {
   const {orders,setOrders} = useOrdersStore()
   const {user} = useUserStore()
   useEffect(()=>{
-    const unsub = onSnapshot(collection(db, "orders"), (doc) => {
+    const unsub = onSnapshot(query(collection(db, "orders"),orderBy("createdAt","desc")), (doc) => {
         setOrders(
           doc.docs.map(d=>({...d.data() as Order ,id : d.id }))
         )
@@ -40,10 +41,19 @@ const Page = (props: Props) => {
 
 
   return (
-    <div className='p-4 font-bold text-gray-700 h-screen flex flex-col'>
-      <div className='flex justify-between items-center'>
+    orders.length > 0 &&
+    <div className='p-4 font-bold text-gray-700 min-h-screen flex flex-col'>
+        <div className='flex justify-between items-center'>
         <h1 className='text-3xl'>Orders</h1>
         </div>
+        {
+          orders &&
+          <div className='h-[300px] my-2 max-w-3xl bg-white shadow rounded-3xl border p-4'>
+            <div className='w-full h-full'>
+            <Bar docs={orders}/>
+            </div>
+          </div>
+        }
         <Table className='mt-8 bg-white border rounded-xl p-2'>
         <TableCaption>A list of your recent invoices.</TableCaption>
         <TableHeader>

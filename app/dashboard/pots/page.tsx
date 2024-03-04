@@ -7,7 +7,7 @@ import { Separator } from '@/components/ui/separator'
 import { Switch } from '@/components/ui/switch'
 import { db } from '@/firebase'
 import { collection, deleteDoc, doc, onSnapshot, updateDoc } from 'firebase/firestore'
-import { ArrowLeftCircle, ArrowRightCircle, Check, Trash2 } from 'lucide-react'
+import { ArrowLeftCircle, ArrowRightCircle, Check, Trash2, X } from 'lucide-react'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import { MdEditSquare } from 'react-icons/md'
@@ -114,7 +114,7 @@ const PotItemComp = ({pot}:{pot:Pot})=>{
                   editMode?
                   <Switch className='mt-2' checked={showend} onCheckedChange={()=>setShowend(!showend)} />
                   :
-                  <Switch disabled checked={pot.inStock} />
+                  showend ? <Check size={20} className='w-6 h-6 rounded-lg bg-green-800 text-white '/> : <X size={20} className='w-6 h-6 rounded-lg bg-red-600 text-white '/>
                 }
                 {
                   editMode?

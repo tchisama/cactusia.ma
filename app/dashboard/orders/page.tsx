@@ -27,6 +27,7 @@ type Props = {}
 const Page = (props: Props) => {
   const {orders,setOrders} = useOrdersStore()
   const {user} = useUserStore()
+  
   useEffect(()=>{
     const unsub = onSnapshot(query(collection(db, "orders"),orderBy("createdAt","desc")), (doc) => {
         setOrders(
@@ -50,7 +51,7 @@ const Page = (props: Props) => {
           orders &&
           <div className='h-[300px] my-2 max-w-3xl bg-white shadow rounded-3xl border p-4'>
             <div className='w-full h-full'>
-            <Bar docs={orders}/>
+            <Bar />
             </div>
           </div>
         }

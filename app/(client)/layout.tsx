@@ -25,7 +25,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Head>
         <Script
           id='fb-pixel'
           strategy="afterInteractive"
@@ -45,7 +44,6 @@ export default function RootLayout({
           }}
         >
         </Script>
-      </Head>
       <body className={inter.className}>
         <Navbar />
         <LoadingProvider>

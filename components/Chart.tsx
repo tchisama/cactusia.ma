@@ -1,4 +1,7 @@
 "use client"
+import { db } from "@/firebase";
+import { Order } from "@/store/backend";
+import { collection, getDocs, onSnapshot, orderBy, query } from "firebase/firestore";
 import { Timestamp } from "firebase/firestore/lite";
 // import ResizableBox from "../ResizableBox";
 import React, { useEffect, useState } from "react";
@@ -7,7 +10,16 @@ import { AxisOptions, Chart } from "react-charts";
 
  type MyDatum = { date: Date, docs: number }
  
-export default function Bar({docs}:any) {
+export default function Bar() {
+
+
+
+
+
+
+
+
+
 
   const [data,setData] = useState<{label:string,data:MyDatum[]}[]>([
     {
@@ -21,6 +33,11 @@ export default function Bar({docs}:any) {
   ])
 
   useEffect(()=>{
+      getDocs(query(collection(db, "orders"),orderBy("createdAt","desc"))).then( (doc) => {
+          return (
+            doc.docs.map(d=>({...d.data() as Order ,id : d.id }))
+          )
+      }).then(docs=>{
     const dailyCounts: { [key: string]: number }= {};
     console.log(docs)
     // Assuming 'docs' is an array of documents with '_30mw_createdAt' as a Firebase Timestamp field
@@ -46,6 +63,9 @@ export default function Bar({docs}:any) {
        data: newData,
      },
    ] as any)
+      });
+
+
 
   //   console.log([
   //     {
@@ -53,7 +73,7 @@ export default function Bar({docs}:any) {
   //      data: newData,
   //    },
   //  ])
-  },[docs])
+  },[])
 
  
    const primaryAxis = React.useMemo(
@@ -69,8 +89,7 @@ export default function Bar({docs}:any) {
        {
          getValue: datum => datum.docs,
         //  stacked:true,
-         elementType:"area"
-        //  min:10
+         elementType:"area",
        },
      ],
      []

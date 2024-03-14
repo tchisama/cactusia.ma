@@ -25,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-        <Script
+        {/* <Script
           id='fb-pixel'
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
@@ -43,7 +43,7 @@ export default function RootLayout({
           `
           }}
         >
-        </Script>
+        </Script> */}
       <body className={inter.className}>
         <Navbar />
         <LoadingProvider>

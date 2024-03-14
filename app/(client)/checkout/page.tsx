@@ -105,7 +105,8 @@ function Page({ }: Props) {
                 }
               }
             ],
-            // "test_event_code": "TEST25321"
+            
+            // "test_event_code": process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_TEST_EVENT_CODE
           }
         )
       })

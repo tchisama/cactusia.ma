@@ -1,5 +1,5 @@
 "use client"
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -15,7 +15,7 @@ import * as z from "zod"
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { Check } from 'lucide-react'
+import { Check, Loader, Loader2 } from 'lucide-react'
 import { addDoc, collection } from 'firebase/firestore'
 import { db } from '@/firebase'
 import useCartStore from '@/store/cart'
@@ -39,6 +39,10 @@ type Props = {}
 function Page({}: Props) {
   const {cart , clearCart} = useCartStore()
   const route = useRouter()
+  const [loading,setLoading] = useState(false)
+
+
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -62,6 +66,7 @@ function Page({}: Props) {
         );
   };
   function onSubmit(values: z.infer<typeof formSchema>) {
+    setLoading(true)
     addDoc(
       collection(db, "orders"),
       {
@@ -153,7 +158,9 @@ function Page({}: Props) {
               )}
             />
             <ChangeText reference={{page:"cart",ref:"checkout checkoutPage"}}>
-            <Button type="submit" className='mt-6 p-8 px-10 w-full md:w-fit text-lg  flex gap-4'> <GetText reference={{page:"cart",ref:"checkout checkoutPage"}}></GetText>  <Check/></Button>
+            <Button disabled={loading} type="submit" className='mt-6 p-8 px-10 w-full md:w-fit text-lg  flex gap-4'>
+              { loading && <Loader2 size={16} className='animate-spin' />}
+               <GetText reference={{page:"cart",ref:"checkout checkoutPage"}}></GetText>  <Check/></Button>
             </ChangeText>
           </form>
         </Form>

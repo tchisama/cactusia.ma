@@ -1,13 +1,17 @@
 "use client"
 import TextEditable, { ChangeText, GetText } from '@/components/TextEditable'
 import { Button } from '@/components/ui/button'
+import useCartStore from '@/store/cart'
 import { ArrowLeft, Heart } from 'lucide-react'
 import Link from 'next/link'
-import React from 'react'
+import { useRouter } from 'next/navigation'
+import React, { useEffect } from 'react'
 
 type Props = {}
 
-function page({}: Props) {
+function Page({}: Props) {
+  const {cart} = useCartStore()
+  const router = useRouter()
   return (
     <div className='container items-center flex flex-col gap-4 py-16'>
        <Heart size={100} strokeWidth='1' className='text-primary' />
@@ -22,4 +26,4 @@ function page({}: Props) {
   )
 }
 
-export default page
+export default Page

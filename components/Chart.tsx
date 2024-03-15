@@ -3,6 +3,7 @@ import { db } from "@/firebase";
 import { Order } from "@/store/backend";
 import { collection, getDocs, onSnapshot, orderBy, query } from "firebase/firestore";
 import { Timestamp } from "firebase/firestore/lite";
+import { color } from "framer-motion";
 // import ResizableBox from "../ResizableBox";
 import React, { useEffect, useState } from "react";
 import { AxisOptions, Chart } from "react-charts";
@@ -45,8 +46,6 @@ export default function Bar() {
       const dateKey = new Date((doc.createdAt?.seconds ?? 0) * 1000).toISOString().split('T')[0];
       dailyCounts[dateKey] = (dailyCounts[dateKey ]  || 0) + 1 ;
     });
-    console.log(dailyCounts)
-    // Update the data object with the daily document counts
 
     const newData:any[] = []
     Object.keys(dailyCounts).forEach((dateKey) => {
@@ -55,6 +54,9 @@ export default function Bar() {
         docs: dailyCounts[dateKey],
       });
     });
+
+
+
 
     console.log(newData)
     setData([

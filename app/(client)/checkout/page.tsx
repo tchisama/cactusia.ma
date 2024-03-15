@@ -98,7 +98,13 @@ function Page({ }: Props) {
                   "fn":[sha256(values.firstName)],
                   "ln":[sha256(values.lastName)],
                   "ph":[sha256(values.number)],
+                  "ct":[sha256(values.city)],
+                  "client_user_agent":[navigator.userAgent],
+                  // "client_ip_address":[]
+                  // "fbp":[_fbp]
+                  
                 },
+
                 "custom_data": {
                   "currency": "USD",
                   "value": (getPriceWithDelivery(cart.reduce((acc, item) => acc + item.quantity, 0)) ?? 0) / 10,

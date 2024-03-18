@@ -15,16 +15,6 @@ import {
 } from "@/components/ui/carousel"
 
 
-import img1 from '@/public/images/slider/1.jpg'
-import img2 from '@/public/images/slider/2.jpg'
-import img3 from '@/public/images/slider/3.jpg'
-import img4 from '@/public/images/slider/4.jpg'
-import img5 from '@/public/images/slider/5.jpg'
-import img6 from '@/public/images/slider/6.jpg'
-import img7 from '@/public/images/slider/7.jpg'
-import img8 from '@/public/images/slider/8.jpg'
-import img9 from '@/public/images/slider/9.jpg'
-import img10 from '@/public/images/slider/10.jpg'
 import Reviews from "@/components/Reviews";
 import Contact from "@/components/Contact";
 import AddReview from "@/components/AddReview";
@@ -32,6 +22,7 @@ import TextEditable, { ChangeText, GetText } from "@/components/TextEditable";
 import { useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/firebase";
+import PotCactus from "@/components/PotCactus";
 
 
 
@@ -66,7 +57,8 @@ export default function Home() {
             </ChangeText>
         </motion.div>
         <motion.div initial={{opacity:0,x:10}} animate={{opacity:1,x:0}} className=" flex-1 flex items-center justify-end ">
-          <Image src={Cactus} alt="Cactus" className="-translate-x-4 " width={500} height={450}></Image>
+          {/* <Image src={Cactus} alt="Cactus" className="-translate-x-4 " width={500} height={450}></Image> */}
+          <PotCactus ></PotCactus>
         </motion.div>
       </div>
       <motion.div initial={{opacity:0,y:100}} transition={{duration:0.6}} animate={{opacity:1,y:0}} className="md:container">

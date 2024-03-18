@@ -26,7 +26,7 @@ import emailjs from "@emailjs/browser"
 const formSchema = z.object({
   firstName: z.string().min(2).max(50),
   lastName: z.string().min(2).max(50),
-  number: z.string().min(2).max(50),
+  number: z.string().length(10),
   address: z.string().min(5).max(100),
   city: z.string().min(2).max(50),
 })

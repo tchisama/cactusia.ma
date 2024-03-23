@@ -23,6 +23,7 @@ import { getPriceWithDelivery } from '@/lib/pricing'
 import { useRouter } from 'next/navigation'
 import TextEditable, { ChangeText, GetText } from '@/components/TextEditable'
 import emailjs from "@emailjs/browser"
+import findUserIpAddress from '@/lib/findUserIpAddress'
 const formSchema = z.object({
   firstName: z.string().min(2).max(50),
   lastName: z.string().min(2).max(50),
@@ -79,6 +80,7 @@ function Page({ }: Props) {
     ).then(() => {
       clearCart()
       route.push("/thank")
+      const userIp = findUserIpAddress();
       fetch(`https://graph.facebook.com/v19.0/${process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID
         }/events?access_token=${process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ACCESS_TOKEN
         }`, {
@@ -99,8 +101,8 @@ function Page({ }: Props) {
                   "ln":[sha256(values.lastName)],
                   "ph":[sha256(values.number)],
                   "ct":[sha256(values.city)],
-                  "client_user_agent":[navigator.userAgent],
-                  // "client_ip_address":[]
+                  "client_user_agent":navigator.userAgent,
+                  "client_ip_address": userIp  || "0.0.0.0"
                   // "fbp":[_fbp]
                   
                 },

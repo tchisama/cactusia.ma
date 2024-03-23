@@ -14,6 +14,7 @@ import useCactusStore from '@/store/market'
 import { toast } from 'sonner'
 import AddReview from '@/components/AddReview'
 import TextEditable, { ChangeText, GetText } from '@/components/TextEditable'
+import findUserIpAddress from '@/lib/findUserIpAddress'
 type Props = {}
 
 const page = (props: Props) => {
@@ -25,6 +26,7 @@ const page = (props: Props) => {
         pot: pots[activePot].image,
         quantity: 1
       })
+      const userIp = findUserIpAddress();
       fetch(`https://graph.facebook.com/v19.0/${process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID
         }/events?access_token=${process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ACCESS_TOKEN
         }`, {
@@ -41,7 +43,9 @@ const page = (props: Props) => {
                 "event_time": Math.floor(Date.now() / 1000),
                 "action_source": "website",
                 "user_data": {
-                  "em": [null]
+                  "em": [null],
+                  "client_user_agent": navigator.userAgent,
+                  "client_ip_address": userIp || "0.0.0.0"
                 },
                 "custom_data": {
                   "currency": "USD",

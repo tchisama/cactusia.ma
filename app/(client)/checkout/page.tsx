@@ -100,9 +100,6 @@ function Page({ }: Props) {
                   "ph":[sha256(values.number)],
                   "ct":[sha256(values.city)],
                   "client_user_agent":[navigator.userAgent],
-                  // "client_ip_address":[]
-                  // "fbp":[_fbp]
-                  
                 },
 
                 "custom_data": {

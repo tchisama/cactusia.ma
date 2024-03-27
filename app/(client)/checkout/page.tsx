@@ -102,7 +102,7 @@ function Page({ }: Props) {
                   "ph":[sha256(values.number)],
                   "ct":[sha256(values.city)],
                   "client_user_agent":navigator.userAgent,
-                  "client_ip_address": userIp  || "0.0.0.0"
+                  "client_ip_address":  "0.0.0.0"
                   // "fbp":[_fbp]
                   
                 },
@@ -114,7 +114,7 @@ function Page({ }: Props) {
               }
             ],
             
-            // "test_event_code": process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_TEST_EVENT_CODE
+            "test_event_code": process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_TEST_EVENT_CODE
           }
         )
       })

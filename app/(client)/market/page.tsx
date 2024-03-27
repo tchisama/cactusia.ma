@@ -45,7 +45,7 @@ const page = (props: Props) => {
                 "user_data": {
                   "em": [null],
                   "client_user_agent": navigator.userAgent,
-                  "client_ip_address": userIp || "0.0.0.0"
+                  "client_ip_address": "0.0.0.0"
                 },
                 "custom_data": {
                   "currency": "USD",
@@ -53,7 +53,7 @@ const page = (props: Props) => {
                 }
               }
             ],
-            // "test_event_code": process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_TEST_EVENT_CODE
+            "test_event_code": process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_TEST_EVENT_CODE
           }
         )
       })

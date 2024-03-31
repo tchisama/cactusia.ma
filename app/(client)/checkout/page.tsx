@@ -127,6 +127,14 @@ function Page({ }: Props) {
         <TextEditable reference={{ page: "cart", ref: "checkoutTitle" }}></TextEditable>
 
       </h1>
+      <div className='flex gap-2 flex-col items-start w-full max-w-[700px]'>
+          <h1 className='text-xl w-full '>
+            Total Price
+          </h1>
+          <h2 className='text-3xl'>
+            {getPriceWithDelivery(cart.reduce((acc, item) => acc + item.quantity, 0))} Dh
+          </h2>
+      </div>
       <Form {...form}>
         <form ref={form_} onSubmit={form.handleSubmit(onSubmit)} className="md:space-y-4 space-y-0 w-full max-w-[700px]">
           <div className='flex flex-col md:flex-row gap-4 w-full'>

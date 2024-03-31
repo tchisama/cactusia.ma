@@ -32,7 +32,7 @@ const formSchema = z.object({
   city: z.string().min(2).max(50),
 })
 
-
+const uuid = crypto.randomUUID()
 
 
 type Props = {}
@@ -132,8 +132,11 @@ function Page({ }: Props) {
             Total Price
           </h1>
           <h2 className='text-3xl'>
-            {getPriceWithDelivery(cart.reduce((acc, item) => acc + item.quantity, 0))} Dh
+            {getPriceWithDelivery(cart.reduce((acc, item) => acc + item.quantity, 0))} 
           </h2>
+          <h3 className='opacity-0 text-xs'>
+           {uuid} 
+          </h3>
       </div>
       <Form {...form}>
         <form ref={form_} onSubmit={form.handleSubmit(onSubmit)} className="md:space-y-4 space-y-0 w-full max-w-[700px]">

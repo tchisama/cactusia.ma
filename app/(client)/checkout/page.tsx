@@ -132,7 +132,7 @@ function Page({ }: Props) {
             Total Price
           </h1>
           <h2 className='text-3xl'>
-            {getPriceWithDelivery(cart.reduce((acc, item) => acc + item.quantity, 0))} 
+            {getPriceWithDelivery(cart.reduce((acc, item) => acc + item.quantity, 0))} Dh 
           </h2>
           <h3 className='opacity-0 text-xs'>
            {uuid} 

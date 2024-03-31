@@ -6,6 +6,7 @@ import LoadingProvider from "@/components/LoadingProvider";
 // import PixelEvents from "@/components/facebook pixel/PixelEvents";
 import Head from "next/head";
 import Script from "next/script";
+import { FacebookPixelEvents } from "@/components/FacebookPixel";
 
 const kanit = DM_Serif_Display({ weight: "400", subsets: ["latin"],variable:"--font-kanit" });
 
@@ -54,7 +55,9 @@ export default function RootLayout({
         </LoadingProvider>
         <Footer />
         <Toaster />
-
+                <Suspense fallback={null}>
+          <FacebookPixelEvents />
+        </Suspense>
       </body>
     </html>
   );

@@ -26,42 +26,42 @@ const page = (props: Props) => {
         pot: pots[activePot].image,
         quantity: 1
       })
-      const userIp = findUserIpAddress();
-      fetch(`https://graph.facebook.com/v19.0/${process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID
-        }/events?access_token=${process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ACCESS_TOKEN
-        }`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(
-          {
-            "data": [
-              {
-                "event_name": "AddToCart",
-                "event_id": crypto.randomUUID(),
-                "event_time": Math.floor(Date.now() / 1000),
-                "action_source": "website",
-                "user_data": {
-                  "em": [null],
-                  "client_user_agent": navigator.userAgent,
-                  "client_ip_address": userIp || "0.0.0.0"
-                },
-                "custom_data": {
-                  "currency": "USD",
-                  "value": 65 / 10,
-                }
-              }
-            ],
-            // "test_event_code": process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_TEST_EVENT_CODE
-          }
-        )
-      })
-      // alert(process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_TEST_EVENT_CODE)
-      toast("Pot cactus added", {
-        icon: "✅",
-        duration: 700
-        })
+      const userIp = "0.0.0.0";
+    //   fetch(`https://graph.facebook.com/v19.0/${process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID
+    //     }/events?access_token=${process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ACCESS_TOKEN
+    //     }`, {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(
+    //       {
+    //         "data": [
+    //           {
+    //             "event_name": "AddToCart",
+    //             "event_id": crypto.randomUUID(),
+    //             "event_time": Math.floor(Date.now() / 1000),
+    //             "action_source": "website",
+    //             "user_data": {
+    //               "em": [null],
+    //               "client_user_agent": navigator.userAgent,
+    //               "client_ip_address": userIp || "0.0.0.0"
+    //             },
+    //             "custom_data": {
+    //               "currency": "USD",
+    //               "value": 65 / 10,
+    //             }
+    //           }
+    //         ],
+    //         // "test_event_code": process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_TEST_EVENT_CODE
+          // }
+        // )
+      // })
+    //   // alert(process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_TEST_EVENT_CODE)
+    //   toast("Pot cactus added", {
+    //     icon: "✅",
+    //     duration: 700
+    //     })
     }
   return (
     <div className='container px-4 md:px-6 '>

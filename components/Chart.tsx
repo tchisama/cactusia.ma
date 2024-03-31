@@ -19,9 +19,6 @@ export default function Bar() {
 
 
 
-
-
-
   const [data,setData] = useState<{label:string,data:MyDatum[]}[]>([
     {
      label: 'products',

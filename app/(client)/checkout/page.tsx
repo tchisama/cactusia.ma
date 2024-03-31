@@ -81,43 +81,43 @@ function Page({ }: Props) {
       clearCart()
       route.push("/thank")
       const userIp = findUserIpAddress();
-      fetch(`https://graph.facebook.com/v19.0/${process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID
-        }/events?access_token=${process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ACCESS_TOKEN
-        }`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(
-          {
-            "data": [
-              {
-                "event_name": "Purchase",
-                "event_id": crypto.randomUUID(),
-                "event_time": Math.floor(Date.now() / 1000),
-                "action_source": "website",
-                "user_data": {
-                  "fn":[sha256(values.firstName)],
-                  "ln":[sha256(values.lastName)],
-                  "ph":[sha256(values.number)],
-                  "ct":[sha256(values.city)],
-                  "client_user_agent":navigator.userAgent,
-                  "client_ip_address": userIp  || "0.0.0.0"
-                  // "fbp":[_fbp]
+      // fetch(`https://graph.facebook.com/v19.0/${process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID
+      //   }/events?access_token=${process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ACCESS_TOKEN
+      //   }`, {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify(
+      //     {
+      //       "data": [
+      //         {
+      //           "event_name": "Purchase",
+      //           "event_id": crypto.randomUUID(),
+      //           "event_time": Math.floor(Date.now() / 1000),
+      //           "action_source": "website",
+      //           "user_data": {
+      //             "fn":[sha256(values.firstName)],
+      //             "ln":[sha256(values.lastName)],
+      //             "ph":[sha256(values.number)],
+      //             "ct":[sha256(values.city)],
+      //             "client_user_agent":navigator.userAgent,
+      //             "client_ip_address": userIp  || "0.0.0.0"
+      //             // "fbp":[_fbp]
                   
-                },
+      //           },
 
-                "custom_data": {
-                  "currency": "USD",
-                  "value": (getPriceWithDelivery(cart.reduce((acc, item) => acc + item.quantity, 0)) ?? 0) / 10,
-                }
-              }
-            ],
+      //           "custom_data": {
+      //             "currency": "USD",
+      //             "value": (getPriceWithDelivery(cart.reduce((acc, item) => acc + item.quantity, 0)) ?? 0) / 10,
+      //           }
+      //         }
+      //       ],
             
-            // "test_event_code": process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_TEST_EVENT_CODE
-          }
-        )
-      })
+      //       // "test_event_code": process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_TEST_EVENT_CODE
+      //     }
+      //   )
+      // })
       sendEmail(values)
     })
   }

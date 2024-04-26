@@ -9,6 +9,7 @@ export interface CartItem {
 }
 
 export type Order = {
+  selected:  boolean;
   id: string;
   firstName: string;
   lastName: string;

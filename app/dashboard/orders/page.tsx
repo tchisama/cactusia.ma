@@ -14,7 +14,7 @@ import { CartItem } from '@/store/cart'
 import { db } from '@/firebase'
 import { Timestamp, collection, onSnapshot, orderBy, query } from 'firebase/firestore'
 import { Button } from '@/components/ui/button'
-import { ArrowRight, Delete, Trash } from 'lucide-react'
+import { ArrowRight, CheckIcon, Delete, Trash } from 'lucide-react'
 import useOrdersStore, { Order } from '@/store/backend'
 import Link from 'next/link'
 import StateChanger from '@/components/StateChanger'
@@ -22,6 +22,7 @@ import DeleteOrder from '@/components/DeleteOrder'
 import { FaWhatsapp } from "react-icons/fa";
 import { useUserStore } from '@/store/users'
 import Bar from '@/components/Chart'
+import xlsx from "json-as-xlsx"
 type Props = {}
 
 const Page = (props: Props) => {
@@ -31,12 +32,37 @@ const Page = (props: Props) => {
   useEffect(()=>{
     const unsub = onSnapshot(query(collection(db, "orders"),orderBy("createdAt","desc")), (doc) => {
         setOrders(
-          doc.docs.map(d=>({...d.data() as Order ,id : d.id }))
+          doc.docs.map(d=>({...d.data() as Order ,id : d.id , selected : false}))
         )
     });
     return()=> unsub()
   },[])
 
+
+
+  const exportExcel =()=>{
+    const data = [{
+      sheet: "orders",
+      columns:[
+        {label:"firstName",value:"firstName"},
+        {label:"lastName",value:"lastName"},
+        {label:"number",value:"number"},
+        {label:"city",value:"city"},
+        {label:"price",value:"price"},
+      ],
+      content: orders.filter(o=>o.selected==true).map(o=>({
+        firstName: o.firstName,
+        lastName: o.lastName,
+        number: o.number,
+        city: o.city,
+        price: o.price
+      }))
+    }]
+
+    xlsx(data,{
+      fileName : "orders",
+    })
+  }
 
 
 
@@ -55,10 +81,21 @@ const Page = (props: Props) => {
             </div>
           </div>
         }
-        <Table className='mt-8 bg-white border rounded-xl p-2'>
+        <div className="my-8 flex gap-2">
+          {
+            orders.filter(o=>o.selected==true).length > 0 &&
+            <Button onClick={exportExcel}> Export Excel</Button>
+          }
+          {
+            orders.filter(o=>o.selected==true).length > 0 &&
+            <Button variant="outline" onClick={()=>setOrders(orders.map(o=>({...o,selected:false})))}> Unselect All</Button>
+          }
+        </div>
+        <Table className='bg-white border rounded-xl p-2'>
         <TableCaption>A list of your recent invoices.</TableCaption>
         <TableHeader>
           <TableRow>
+            <TableHead className="">select</TableHead>
             <TableHead className="">status</TableHead>
             <TableHead className="">date</TableHead>
             <TableHead className="">name</TableHead>
@@ -71,6 +108,15 @@ const Page = (props: Props) => {
         <TableBody>
           {orders.map((item) => (
             <TableRow key={item.id}>
+              <TableCell >
+                  <Button
+                    onClick={()=>setOrders(orders.map(o=>o.id === item.id ? {...o,selected:!o.selected} : o))}
+                    variant="outline" size="icon">
+                    {item.selected &&
+                    <CheckIcon/>
+                    }
+                  </Button>
+              </TableCell>
               <TableCell ><StateChanger state={item.status} id={item.id}/></TableCell>
               <TableCell >
                   {formatCreatedAt(item.createdAt as Timestamp)}

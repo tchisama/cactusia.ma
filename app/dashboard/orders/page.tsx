@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/table"
 import { CartItem } from '@/store/cart'
 import { db } from '@/firebase'
-import { Timestamp, collection, onSnapshot, orderBy, query } from 'firebase/firestore'
+import { Timestamp, collection, deleteDoc,doc, onSnapshot, orderBy, query } from 'firebase/firestore'
 import { Button } from '@/components/ui/button'
 import { ArrowRight, CheckIcon, Delete, Trash } from 'lucide-react'
 import useOrdersStore, { Order } from '@/store/backend'
@@ -62,6 +62,8 @@ const Page = (props: Props) => {
     xlsx(data,{
       fileName : "orders",
     })
+
+    setOrders(orders.map(o=>({...o,selected:false})))
   }
 
 
@@ -81,21 +83,28 @@ const Page = (props: Props) => {
             </div>
           </div>
         }
-        <div className="my-8 flex gap-2">
           {
             orders.filter(o=>o.selected==true).length > 0 &&
-            <Button onClick={exportExcel}> Export Excel</Button>
-          }
-          {
-            orders.filter(o=>o.selected==true).length > 0 &&
-            <Button variant="outline" onClick={()=>setOrders(orders.map(o=>({...o,selected:false})))}> Unselect All</Button>
-          }
-        </div>
-        <Table className='bg-white border rounded-xl p-2'>
-        <TableCaption>A list of your recent invoices.</TableCaption>
-        <TableHeader>
-          <TableRow>
-            <TableHead className="">select</TableHead>
+            <div className="my-8 flex gap-2">
+                  <Button onClick={exportExcel}> Export Excel</Button>
+                  <Button variant="outline" onClick={()=>setOrders(orders.map(o=>({...o,selected:false})))}> Unselect All</Button>
+                  <Button className="flex gap-2" onClick={()=>{
+
+            orders.filter(o=>o.selected==true).forEach(o=>{
+                deleteDoc(doc(db,"orders",o.id)).then(()=>{
+                  setOrders(orders.filter(oo=>oo.id !== o.id))
+                })
+            })
+
+
+            }} variant="destructive" > <Trash size={16}/> Delete</Button>
+          </div>
+        }
+      <Table className='bg-white border rounded-xl p-2'>
+      <TableCaption>A list of your recent invoices.</TableCaption>
+      <TableHeader>
+        <TableRow>
+          <TableHead className="">select</TableHead>
             <TableHead className="">status</TableHead>
             <TableHead className="">date</TableHead>
             <TableHead className="">name</TableHead>

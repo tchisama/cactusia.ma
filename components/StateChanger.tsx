@@ -19,7 +19,7 @@ type Props = {
 }
 
 
-const states = [
+export const states = [
   {
     name: "New",
     color: "#8ac926",

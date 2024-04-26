@@ -17,17 +17,25 @@ import { Button } from '@/components/ui/button'
 import { ArrowRight, CheckIcon, Delete, Trash } from 'lucide-react'
 import useOrdersStore, { Order } from '@/store/backend'
 import Link from 'next/link'
-import StateChanger from '@/components/StateChanger'
+import StateChanger, { states } from '@/components/StateChanger'
 import DeleteOrder from '@/components/DeleteOrder'
 import { FaWhatsapp } from "react-icons/fa";
 import { useUserStore } from '@/store/users'
 import Bar from '@/components/Chart'
 import xlsx from "json-as-xlsx"
+import { Input } from '@/components/ui/input'
+import { Select } from '@radix-ui/react-select'
+import { SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 type Props = {}
 
 const Page = (props: Props) => {
   const {orders,setOrders} = useOrdersStore()
   const {user} = useUserStore()
+
+
+
+  const [currentState,setCurrentState] = useState("Tout");
+  const [search,setSearch] = useState("");
   
   useEffect(()=>{
     const unsub = onSnapshot(query(collection(db, "orders"),orderBy("createdAt","desc")), (doc) => {
@@ -83,14 +91,48 @@ const Page = (props: Props) => {
             </div>
           </div>
         }
+
+
+
+        <div className="flex justify-end gap-4 py-2">
+          <Select 
+            onValueChange={(value)=>setCurrentState(value)}
+            value={currentState}
+          >
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Theme" />
+            </SelectTrigger>
+            <SelectContent>
+              {
+                [{
+
+                  name: "Tout",
+                  color: "#fff",
+                  id: 0
+                },...states].map((state)=>(
+                  <SelectItem key={state.id} value={state.name}>{state.name}</SelectItem>
+                ))
+              }
+            </SelectContent>
+          </Select>
+          <Input  value={search} onInput={(e:any)=>setSearch(e.target.value)} placeholder="search on all feilds"></Input>
+        </div>
+
+
+
+
+
+
           {
-            orders.filter(o=>o.selected==true).length > 0 &&
-            <div className="my-8 flex gap-2">
+            orders
+            .filter(o=>o.selected==true).length > 0 &&
+            <div className="my-4 flex gap-2">
                   <Button onClick={exportExcel}> Export Excel</Button>
                   <Button variant="outline" onClick={()=>setOrders(orders.map(o=>({...o,selected:false})))}> Unselect All</Button>
                   <Button className="flex gap-2" onClick={()=>{
 
-            orders.filter(o=>o.selected==true).forEach(o=>{
+            orders
+            .filter(o=>o.selected==true).forEach(o=>{
                 deleteDoc(doc(db,"orders",o.id)).then(()=>{
                   setOrders(orders.filter(oo=>oo.id !== o.id))
                 })
@@ -115,7 +157,11 @@ const Page = (props: Props) => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {orders.map((item) => (
+          {
+              orders
+              .filter(o=>currentState === "Tout" ? true :  o.status.toLowerCase() === currentState.toLowerCase())
+              .filter(o=>JSON.stringify(o).toLowerCase().includes(search.toLowerCase()))
+              .map((item) => (
             <TableRow key={item.id}>
               <TableCell >
                   <Button

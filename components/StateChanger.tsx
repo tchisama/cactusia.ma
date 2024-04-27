@@ -88,7 +88,7 @@ function StateChanger({state,id}: Props) {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger style={{ backgroundColor: selectedState.color+"aa",color:"white" }} className="px-4 py-1 border rounded-full">{selectedState.name}</DropdownMenuTrigger>
+      <DropdownMenuTrigger  style={{ backgroundColor: selectedState.color+"aa",color:"white" }} className="px-4 w-[140px] py-1 border rounded-full">{selectedState.name}</DropdownMenuTrigger>
       <DropdownMenuContent>
         {states.map((state) => (
           <DropdownMenuItem className="mt-1" style={{ backgroundColor: state.color+"aa",color:"white"  }} key={state.id} onClick={() => handleStateChange(state)}>

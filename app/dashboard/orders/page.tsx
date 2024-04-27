@@ -14,7 +14,7 @@ import { CartItem } from '@/store/cart'
 import { db } from '@/firebase'
 import { Timestamp, collection, deleteDoc,doc, onSnapshot, orderBy, query } from 'firebase/firestore'
 import { Button } from '@/components/ui/button'
-import { ArrowRight, CheckIcon, Delete, Trash } from 'lucide-react'
+import { ArrowRight, CheckIcon, Delete, NotebookIcon, Trash } from 'lucide-react'
 import useOrdersStore, { Order } from '@/store/backend'
 import Link from 'next/link'
 import StateChanger, { states } from '@/components/StateChanger'
@@ -153,6 +153,7 @@ const Page = (props: Props) => {
             <TableHead>number</TableHead>
             <TableHead>items</TableHead>
             <TableHead className="">city</TableHead>
+            <TableHead className="">note</TableHead>
             <TableHead className="">actions</TableHead>
           </TableRow>
         </TableHeader>
@@ -180,7 +181,15 @@ const Page = (props: Props) => {
               <TableCell>{item.number}</TableCell>
               <TableCell>{item.cart.reduce((acc,item)=>acc +item.quantity,0)} pots</TableCell>
               <TableCell className="">{item.city}</TableCell>
+              <TableCell className="">
+                    {(item.note??" ----- ").slice(0,15)}
+              </TableCell>
               <TableCell className="flex gap-2">
+
+                  {/* { */}
+                  {/*     item.note && */}
+                  {/*     <Button size="icon" variant="outline" ><NotebookIcon size={18}/></Button> */}
+                  {/* } */}
                 <DeleteOrder id={item.id}/>
                 <Link 
   href={`https://api.whatsapp.com/send/?phone=%2B212${item.number.slice(1)}&text=Bonjour%20${item.firstName}%20${item.lastName},%20J'espère%20que%20vous%20allez%20bien.%20Vous%20avez%20passé%20commande%20chez%20cactusia%0A%0A-1%20Coffret%20d'un%20montant%20total%20de%20*${item.price}%20DH*.%20%0A%0AMerci%20bien%20de%20me%20confirmer%20votre%20commande%20afin%20de%20vous%20envoyer%20le%20colis%20dans%20les%20plus%20brefs%20délais.%20%0A%0A${user.name}%20de%20cactusia`}

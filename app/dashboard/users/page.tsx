@@ -14,7 +14,7 @@ type User = {
   name: string
   email: string
   password: string
-  rule: "admin" | "confirmor" | "creator"
+  rule: "admin" | "confirmor" | "creator" | "orders-pots-cactuses"
   createdAt: Date
 }
 
@@ -52,6 +52,7 @@ function Page({}: Props) {
             <SelectItem value="admin">Admin</SelectItem>
             <SelectItem value="confirmor">Confirmor</SelectItem>
             <SelectItem value="creator">Creator</SelectItem>
+            <SelectItem value="orders-pots-cactuses">orders-pots-cactuses</SelectItem>
           </SelectContent>
         </Select>
         <Button onClick={()=>createUsesr()} className='w-full'>Add User</Button>

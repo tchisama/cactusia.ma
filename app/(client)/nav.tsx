@@ -11,8 +11,16 @@ import useCartStore from '@/store/cart';
 import TextEditable from '@/components/TextEditable';
 import Marquee from "react-fast-marquee";
 import useLocalStorage from '../hooks/useLocalStorage';
-import { addDoc, collection, doc } from 'firebase/firestore';
+import { addDoc, collection, doc, getDoc } from 'firebase/firestore';
 import { db } from '@/firebase';
+
+
+
+
+
+
+
+
 const Navbar: React.FC = () => {
   const {cart} = useCartStore()
 
@@ -34,9 +42,11 @@ const Navbar: React.FC = () => {
           user:id,
           date:new Date()
         })
-    }
-  },[])
 
+    }else{
+    }
+
+  },[])
 
 
 

@@ -3,14 +3,47 @@ import { useUserStore } from '@/store/users'
 import { Box, Home, Languages, LayoutList, Leaf, LogOut, Palette, Star, Users } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import React from 'react'
+import React, { useEffect, useMemo } from 'react'
 
 type Props = {}
+
+
+const usersRules = {
+  "admin":["dashboard","orders","cactuses","pots","reviews","language","sections","users"],
+  "creator":["pots","cactuses","language","sections","reviews"],
+  "confirmor":["orders"],
+  "orders-pots-cactuses":["orders","cactuses","pots"]
+}
+
 
 function Nav({}: Props) {
   const size = 20
    const pathname = usePathname()
    const {user}  = useUserStore()
+
+
+
+  useMemo(()=>{
+    console.log(user)
+    const _user = localStorage.getItem("user");
+    console.log(pathname)
+    if(_user){
+      const JSONuser = JSON.parse(_user)
+      if(JSONuser.rule === "creator"){
+        if(!usersRules.creator.includes(pathname.replace("/dashboard/",""))){
+          window.location.href = "/dashboard/pots"
+        }
+      }else if(JSONuser.rule === "confirmor"){
+        if(!usersRules.confirmor.includes(pathname.replace("/dashboard/",""))){
+          window.location.href = "/dashboard/orders"
+        }
+      }else if(JSONuser.rule === "orders-pots-cactuses"){
+        if(!usersRules["orders-pots-cactuses"].includes(pathname.replace("/dashboard/",""))){
+          window.location.href = "/dashboard/orders"
+        }
+      }
+    }
+  },[])
   return (
     <div className='bg-white border-r pt-20 shadow-xl flex flex-col gap-2 p-2 w-[250px]'>
         {
@@ -32,6 +65,10 @@ function Nav({}: Props) {
             {name:"Sections",href:"/sections" ,icon:<LayoutList size={size}/>},
           ]: user.rule === "confirmor" ? [
             {name:"Orders",href:"/orders" ,icon:<Box size={size}/>},
+          ]: user.rule === "orders-pots-cactuses" ? [
+            {name:"Orders",href:"/orders" ,icon:<Box size={size}/>},
+            {name:"Cactuses",href:"/cactuses",icon:<Leaf size={size}/>},
+            {name:"Pots",href:"/pots" ,icon:<Palette size={size}/>},
           ]:[])
           .map(({name,href,icon},i) =>(
             <Link  href={"/dashboard"+href} key={name}  className={' p-2  flex gap-2 items-center rounded-xl px-4 text-gray-600  font-bold '+((pathname === "/dashboard"+(href == "/" ? "":href)) ? " bg-primary text-white " : " bg-gray-50")}>{icon}{name}</Link> 

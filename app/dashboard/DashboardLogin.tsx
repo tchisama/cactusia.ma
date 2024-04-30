@@ -28,6 +28,8 @@ function DashboardLogin({children}: Props) {
             router.push("/dashboard/pots")
           }else if((d[0] as any).rule === "confirmor"){
             router.push("/dashboard/orders")
+          }else if((d[0] as any).rule === "orders-pots-cactuses"){
+            router.push("/dashboard/orders")
           }
         }else{
           setLoggedIn(false)

@@ -20,7 +20,7 @@ type Props = {
   id:string
 }
 
-
+  
 export const states = [
   {
     name: "New",

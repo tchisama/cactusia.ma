@@ -1,6 +1,6 @@
 "use client"
 import { useUserStore } from '@/store/users'
-import { Box, Home, Languages, LayoutList, Leaf, LogOut, Palette, Star, Users } from 'lucide-react'
+import { BellIcon, Box, Home, Languages, LayoutList, Leaf, LogOut, Palette, Star, Users } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useEffect, useMemo } from 'react'
@@ -50,6 +50,7 @@ function Nav({}: Props) {
           user &&
           (user.rule === "admin" ? [
             {name:"Dashboard",href:"/",icon:<Home size={size}/>},
+            {name:"Notifications",href:"/notifications",icon:<BellIcon size={size}/>},
             {name:"Orders",href:"/orders" ,icon:<Box size={size}/>},
             {name:"Cactuses",href:"/cactuses",icon:<Leaf size={size}/>},
             {name:"Pots",href:"/pots" ,icon:<Palette size={size}/>},

@@ -8,7 +8,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { db } from "@/firebase"
-import { doc, updateDoc } from "firebase/firestore"
+import useOrdersStore from "@/store/backend"
+import { useUserStore } from "@/store/users"
+import { Timestamp, addDoc, collection, doc, updateDoc } from "firebase/firestore"
 
 import React, { useEffect, useState } from 'react'
 
@@ -70,20 +72,36 @@ export const states = [
 function StateChanger({state,id}: Props) {
   const [selectedState, setSelectedState] = useState(states[1]); // Default state
 
-
-
   useEffect(() => {
     setSelectedState(states.find((s) => (s.name as string ).toLowerCase() === state.toLocaleLowerCase()) || states[2]);
   }, [state])
 
+  const {user } = useUserStore()
+  const {orders} = useOrdersStore()
 
   
 
   const handleStateChange = (state: typeof states[number]) => {
+    const oldState = selectedState;
     setSelectedState(state);
     // Here you can perform any additional logic, such as updating the backend
     // or triggering other actions based on the selected state
     updateDoc(doc(db,"orders",id),{status:state.name})
+    // add notification
+
+    const currentOrder = orders.find((order)=>order.id === id)
+    addDoc(collection(db,"notifications"),{
+      message:`Order of ${[currentOrder?.firstName,currentOrder?.lastName].join(" ")} , status changed from ${oldState.name} to ${state.name}`,
+      date: Timestamp.now(),
+      type:"order-state-change",
+      from:oldState.name,
+      to:state.name,
+      order:currentOrder,
+      user: {
+        name:user.name,
+        email:user.email,
+      }
+    })
   };
 
   return (

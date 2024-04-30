@@ -1,9 +1,11 @@
 "use client"
 import { states } from '@/components/StateChanger'
+import { Button } from '@/components/ui/button'
 import { db } from '@/firebase'
-import { collection, onSnapshot, orderBy, query } from 'firebase/firestore'
+import { collection, deleteDoc, doc, onSnapshot, orderBy, query } from 'firebase/firestore'
 import { Timestamp } from 'firebase/firestore/lite'
-import { ArrowRight, ArrowRightLeft } from 'lucide-react'
+import { ArrowRight, ArrowRightLeft, ArrowUpRight, X } from 'lucide-react'
+import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 
 
@@ -17,6 +19,9 @@ type Notification = {
   id:string
   from:state
   to:state
+  order:{
+    id:string
+  }
   user:{
     name:string
     email:string
@@ -49,10 +54,21 @@ function page({}: Props) {
                   <p className="text-sm">{n.user.name} | {new Date(n.date.toDate()).toString().slice(0,24)}</p>
 
                   <p className="my-2">{n.user.name} has update the {n.message}</p>
-                  <div className="flex gap-2">
+                  <div className="flex items-start gap-2">
                     <p className="px-3 text-sm py-1 rounded-xl" style={{backgroundColor:(states.find(c=>c.name==n.from))?.color+"44"}}>{n.from}</p>
                     <ArrowRight  />
                     <p className="px-3 text-sm py-1 rounded-xl" style={{backgroundColor:(states.find(c=>c.name==n.to))?.color+"44"}}>{n.to}</p>
+                    <div> | </div>
+                    <Link href={"/dashboard/orders/"+n.order.id}>
+                      <Button variant="outline" size="sm" className="flex gap-2"><ArrowUpRight size={18}/> Open Order</Button>
+                    </Link>
+                      <Button onClick={
+                      ()=>{
+                        if(confirm("Are you sure you want to delete this notification ?")){
+                          deleteDoc(doc(db,"notifications",n.id))
+                        }
+                      }
+                    } variant="outline" className="flex gap-2" size="sm"><X size={18}/>Clear</Button>
                   </div>
                 </div>
               </div>

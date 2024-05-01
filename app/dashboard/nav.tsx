@@ -12,7 +12,7 @@ const usersRules = {
   "admin":["dashboard","orders","cactuses","pots","reviews","language","sections","users"],
   "creator":["pots","cactuses","language","sections","reviews"],
   "confirmor":["orders"],
-  "orders-pots-cactuses":["orders","cactuses","pots"]
+  "orders-pots-cactuses":["orders","cactuses","pots","notifications"]
 }
 
 
@@ -67,6 +67,7 @@ function Nav({}: Props) {
           ]: user.rule === "confirmor" ? [
             {name:"Orders",href:"/orders" ,icon:<Box size={size}/>},
           ]: user.rule === "orders-pots-cactuses" ? [
+            {name:"Notifications",href:"/notifications",icon:<BellIcon size={size}/>},
             {name:"Orders",href:"/orders" ,icon:<Box size={size}/>},
             {name:"Cactuses",href:"/cactuses",icon:<Leaf size={size}/>},
             {name:"Pots",href:"/pots" ,icon:<Palette size={size}/>},

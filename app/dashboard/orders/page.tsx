@@ -56,14 +56,18 @@ const Page = (props: Props) => {
         {label:"lastName",value:"lastName"},
         {label:"number",value:"number"},
         {label:"city",value:"city"},
+        {label:"address",value:"address"},
         {label:"price",value:"price"},
+        {label:"quantity",value:"quantity"},
       ],
       content: orders.filter(o=>o.selected==true).map(o=>({
         firstName: o.firstName,
         lastName: o.lastName,
         number: o.number,
         city: o.city,
-        price: o.price
+        address: o.address,
+        price: o.price,
+        quantity: o.cart.reduce((acc,item)=>acc +item.quantity,0)
       }))
     }]
 

@@ -14,6 +14,12 @@ function AboutCactus({}: Props) {
         <h3 className='md:text-2xl text-xl text-green-600 flex gap-4 items-center'><Leaf/> {cactuses[activeCactus]?.name}</h3>
         <p className='max-w-5xl md:text-lg text-sm mt-2'>
           {cactuses[activeCactus]?.about}
+
+
+
+
+
+
         </p>
     </div>
   )

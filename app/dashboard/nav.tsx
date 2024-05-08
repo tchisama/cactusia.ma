@@ -45,6 +45,7 @@ function Nav({}: Props) {
     }
   },[])
   return (
+    pathname !== "/dashboard/orders-tickets" &&
     <div className='bg-white border-r pt-20 shadow-xl flex flex-col gap-2 p-2 w-[250px]'>
         {
           user &&

@@ -133,6 +133,9 @@ const Page = (props: Props) => {
             <div className="my-4 flex gap-2">
                   <Button onClick={exportExcel}> Export Excel</Button>
                   <Button variant="outline" onClick={()=>setOrders(orders.map(o=>({...o,selected:false})))}> Unselect All</Button>
+                  <Link href="/dashboard/orders-tickets">
+                    <Button variant="outline"  >Tickets</Button>
+                  </Link>
                   <Button className="flex ml-auto gap-2" onClick={()=>{
 
             if(!confirm("Are you sure you want to delete the selected orders?")) return

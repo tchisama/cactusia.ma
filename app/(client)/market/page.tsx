@@ -15,6 +15,7 @@ import { toast } from 'sonner'
 import AddReview from '@/components/AddReview'
 import TextEditable, { ChangeText, GetText } from '@/components/TextEditable'
 import findUserIpAddress from '@/lib/findUserIpAddress'
+import AddToCartCom from './AddToCartCom'
 type Props = {}
 
 const page = (props: Props) => {
@@ -86,9 +87,8 @@ const page = (props: Props) => {
             </div>
             <Separator className='my-2 md:my-4 md:max-w-sm'/>
           <div className='md:my-4 my-1 w-full '>
-              <ChangeText reference={{page:"market",ref:"add to cart"}}>
-                <Button onClick={handelAddToCart} className='p-8 rounded-full flex flex-row-reverse gap-2 w-full md:w-fit text-lg items-center'><GetText reference={{page:"market",ref:"add to cart"}}></GetText> <ShoppingBasket size={26}/></Button>
-              </ChangeText>
+
+            <AddToCartCom/>
             </div>
             <p className='p-2 px-3 w-fit rounded-xl bg-green-100 text-sm md:text-md text-green-800'>
               <TextEditable reference={{page:"market",ref:"description"}}></TextEditable>

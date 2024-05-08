@@ -82,13 +82,13 @@ function StateChanger({state,id}: Props) {
   
 
   const handleStateChange = (state: typeof states[number]) => {
-    const oldState = selectedState;
     setSelectedState(state);
     // Here you can perform any additional logic, such as updating the backend
     // or triggering other actions based on the selected state
     updateDoc(doc(db,"orders",id),{status:state.name})
     // add notification
 
+    const oldState = selectedState;
     const currentOrder = orders.find((order)=>order.id === id)
     addDoc(collection(db,"notifications"),{
       message:`Order of ${[currentOrder?.firstName,currentOrder?.lastName].join(" ")} , status changed from ${oldState.name} to ${state.name}`,

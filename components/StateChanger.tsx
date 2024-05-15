@@ -11,6 +11,7 @@ import { db } from "@/firebase"
 import useOrdersStore from "@/store/backend"
 import { useUserStore } from "@/store/users"
 import { Timestamp, addDoc, collection, doc, updateDoc } from "firebase/firestore"
+import { CheckCheckIcon, CheckIcon, SmileIcon, StarsIcon, TriangleIcon, TruckIcon, XIcon } from "lucide-react"
 
 import React, { useEffect, useState } from 'react'
 
@@ -25,47 +26,56 @@ export const states = [
   {
     name: "New",
     color: "#8ac926",
-    id: 1
+    id: 1,
+    icon:<StarsIcon/>
   },
   {
     name: "Confirmé",
-    color: "#277DA1",
-    id: 2
+    color: "#378Db1",
+    id: 2,
+    icon:<CheckIcon/>
   },
   {
     name: "Prêt",
     color: "#5a189a",
-    id: 3
+    id: 3,
+    icon:<CheckCheckIcon/>
   },
   {
     name: "En livraison",
-    color: "#a44a3f",
-    id: 4
+    color: "#002288",
+    id: 4,
+    icon:<TruckIcon/>
   },
   {
     name: "Livré",
     color: "#488157",
-    id: 5
+    id: 5,
+    icon:<SmileIcon/>
   },
   {
     name: "Injoignable",
     color: "#bb4d00",
-    id: 6
+    id: 6,
+    icon:<TriangleIcon/>
   },
   {
     name: "Reporté",
     color: "#D69E2E",
-    id: 7
+    id: 7,
+    icon:<TriangleIcon/>
   },
   {
     name: "Annulé",
-    color: "#c32f27",
-    id: 8
+    color: "#f32f27",
+    id: 8,
+    icon:<XIcon/>
   },
   {
     name: "Fake",
     color: "#333333",
-    id: 9
+    id: 9,
+    icon:<TriangleIcon/>
   }
 ];
 
@@ -106,11 +116,13 @@ function StateChanger({state,id}: Props) {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger  style={{ backgroundColor: selectedState.color+"aa",color:"white" }} className="px-4 w-[140px] py-1 border rounded-full">{selectedState.name}</DropdownMenuTrigger>
+      <DropdownMenuTrigger style={{ backgroundColor: selectedState.color+"aa",color:"white" }} className="px-4 flex gap-2 items-center justify-between w-[160px] py-1 border rounded-full">{selectedState.name} {
+        selectedState?.icon
+      }</DropdownMenuTrigger>
       <DropdownMenuContent>
         {states.map((state) => (
-          <DropdownMenuItem className="mt-1" style={{ backgroundColor: state.color+"aa",color:"white"  }} key={state.id} onClick={() => handleStateChange(state)}>
-            {state.name}
+          <DropdownMenuItem className="mt-1 flex gap-2 items-center" style={{ backgroundColor: state.color+"aa",color:"white"  }} key={state.id} onClick={() => handleStateChange(state)}>
+            {state.name} 
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

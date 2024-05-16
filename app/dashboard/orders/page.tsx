@@ -38,7 +38,7 @@ const Page = (props: Props) => {
   const [search,setSearch] = useState("");
   
   useEffect(()=>{
-    const unsub = onSnapshot(query(collection(db, "orders"),orderBy("createdAt","desc"),limit(40)), (Doc) => {
+    const unsub = onSnapshot(query(collection(db, "orders"),orderBy("createdAt","desc"),limit(150)), (Doc) => {
         setOrders(
           Doc.docs.map(d=>({...d.data() as Order ,id : d.id , selected : false}))
 

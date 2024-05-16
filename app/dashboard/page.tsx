@@ -1,10 +1,11 @@
 "use client"
 import Bar from '@/components/Chart';
 import { Input } from '@/components/ui/input';
+import { Progress } from '@/components/ui/progress';
 import { db } from '@/firebase';
 import useOrdersStore, { Order } from '@/store/backend';
 import { Timestamp, collection, doc, getDocs, onSnapshot, orderBy, query, where } from 'firebase/firestore';
-import { CheckIcon, DollarSignIcon, SmileIcon, StarIcon, StarsIcon, TruckIcon } from 'lucide-react';
+import { CheckIcon, DollarSignIcon, SmileIcon, StarIcon, StarsIcon, ThumbsUp, TruckIcon } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react';
 const DashboardPage: React.FC = () => {
   const [monthsOrders,setMonthsOrders] = React.useState(0)
@@ -54,7 +55,7 @@ const DashboardPage: React.FC = () => {
           </div>
         }
 
-        <div className='grid mt-2 grid-cols-2 gap-2'>
+        <div className='grid mt-2 grid-cols-3 gap-2'>
           <div className='p-5  bg-white flex-1 rounded-xl border shadow'>
             <div className="flex justify-between items-center w-full">
               <h1 className='text-xl flex-1'>Total Orders</h1>
@@ -73,6 +74,30 @@ const DashboardPage: React.FC = () => {
               .filter((d)=>d.status === "Livré").reduce((a,b)=>a + b.price,0)
           } Dh</h1>
           </div>
+
+
+
+          <div className='p-5 bg-white flex-1 rounded-xl relative border shadow'>
+            <h1 className='text-xl'>Correct Orders</h1>
+            <ThumbsUp className="absolute top-2 right-2 text-xl" size={40} strokeWidth={1}/>
+            <h1 className="text-4xl">
+              {
+                Math.floor(orders
+                .filter((d)=>d.status === "Livré").length
+                / orders.length * 100)
+              } %
+            </h1>
+            <Progress className="mt-2" value={
+              // with 100% 
+              orders
+              .filter((d)=>d.status === "Livré").length
+              / orders.length * 100
+            } />
+
+          </div>
+
+
+
           </div>
 
 

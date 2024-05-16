@@ -1,8 +1,8 @@
 "use client"
 import { db } from "@/firebase";
 import { Order } from "@/store/backend";
-import { collection, getDocs, onSnapshot, orderBy, query } from "firebase/firestore";
-import { Timestamp } from "firebase/firestore/lite";
+import { Timestamp, collection, getDocs, limit, onSnapshot, orderBy, query, where } from "firebase/firestore";
+import { Timestamp as TS } from "firebase/firestore/lite";
 import { color } from "framer-motion";
 // import ResizableBox from "../ResizableBox";
 import React, { useEffect, useState } from "react";
@@ -31,7 +31,10 @@ export default function Bar() {
   ])
 
   useEffect(()=>{
-      getDocs(query(collection(db, "orders"),orderBy("createdAt","desc"))).then( (doc) => {
+    // i want just the orders of the last 30 days
+      getDocs(query(collection(db, "orders"),orderBy("createdAt","desc")
+      ,where("createdAt",">",Timestamp.fromDate(new Date(new Date().setDate(new Date().getDate() - 30))))
+    )).then( (doc) => {
           return (
             doc.docs.map(d=>({...d.data() as Order ,id : d.id }))
           )

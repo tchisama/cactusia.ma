@@ -4,14 +4,15 @@ import { Input } from '@/components/ui/input';
 import { Progress } from '@/components/ui/progress';
 import { db } from '@/firebase';
 import useOrdersStore, { Order } from '@/store/backend';
+import Image from 'next/image'
 import { Timestamp, collection, doc, getDocs, onSnapshot, orderBy, query, where } from 'firebase/firestore';
-import { CheckIcon, DollarSignIcon, SmileIcon, StarIcon, StarsIcon, ThumbsUp, TruckIcon } from 'lucide-react';
+import { CheckIcon, DollarSignIcon, SmileIcon, StarIcon, StarsIcon, ThumbsUp, TruckIcon, Users2Icon } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react';
 const DashboardPage: React.FC = () => {
   const [monthsOrders,setMonthsOrders] = React.useState(0)
   const [confirmedOrders,setConfirmedOrders] = React.useState(0)
   const [confirmedProfit,setConfirmedProfit] = React.useState(0)
-  const [users,setUsers] = React.useState(0)
+  const [users,setUsers] = React.useState<any[]>()
 
   const {orders,setOrders} = useOrdersStore()
   // start is month before 
@@ -32,14 +33,39 @@ const DashboardPage: React.FC = () => {
       setConfirmedProfit(docs.filter((d)=>d.status === "Livré").reduce((a,b)=>a + b.price,0))
     })
     getDocs(collection(db,"users")).then((querySnapshot)=>{
-      setUsers(querySnapshot.docs.length)
+      setUsers(querySnapshot.docs.map(doc => doc.data()))
     })
   },[])
 
 
   const [range,setRange] = useState(30*3)
 
+  const [mostSelledPot,setMostSelledPot] = useState<string>()
+  const [mostSelledCactus,setMostSelledCactus] = useState<string>()
 
+  useEffect(()=>{
+    if(!orders) return
+    if(orders.length === 0) return
+    // setMostSelledPot(
+    //   orders[0]?.cart[0].pot
+    // )
+    const pots = orders.map((d)=>d.cart[0].pot)
+    const counts = pots.reduce((a,b)=>{
+      a[b] = (a[b] || 0) + 1
+      return a
+    },{} as {[key:string]:number})
+    const max = (Object.keys(counts)??[]).reduce((a,b)=>counts[a] > counts[b] ? a : b)
+    setMostSelledPot(max)
+
+    const cactuses = orders.map((d)=>d.cart[0].cactus)
+    const cactusCounts = cactuses.reduce((a,b)=>{
+      a[b] = (a[b] || 0) + 1
+      return a
+    },{} as {[key:string]:number})
+    const cactusMax = (Object.keys(cactusCounts)??[]).reduce((a,b)=>cactusCounts[a] > cactusCounts[b] ? a : b)
+    setMostSelledCactus(cactusMax)
+
+  },[orders])
 
 
   return (
@@ -90,7 +116,7 @@ const DashboardPage: React.FC = () => {
             <Progress className="mt-2" value={
               // with 100% 
               orders
-              .filter((d)=>d.status === "Livré").length
+              .filter((d)=>d.status === "Livré" || d.status === "Confirmé" || d.status === "En livraison" || d.status === "Prêt" ).length
               / orders.length * 100
             } />
 
@@ -149,6 +175,39 @@ const DashboardPage: React.FC = () => {
           </div>
 
 
+          <div className='p-5 bg-white flex-1 rounded-xl relative border shadow'>
+            <h1 className='text-xl'>Visetors count</h1>
+            <Users2Icon className="absolute top-2 right-2 text-xl" size={40} strokeWidth={1}/>
+            <h1 className='text-4xl'>{
+              users &&
+              users.length
+            }</h1>
+          </div>
+
+
+          <div className='p-5 bg-white flex-1 flex justify-between  rounded-xl relative border shadow'>
+            <h1 className='text-xl'>Best Sale Pot</h1>
+            <Image
+            src={`https://firebasestorage.googleapis.com/v0/b/cactusia-983c2.appspot.com/o/pots%2F${mostSelledPot}?alt=media&token=bb288d03-287d-45f0-8b90-f9871f1a7567`} 
+            alt="Cactus" width={60} height={60} className=''></Image>
+          </div>
+          <div className='p-5 bg-white flex-1 flex justify-between  rounded-xl relative border shadow'>
+            <h1 className='text-xl'>Best Sale Cactus</h1>
+            <Image
+            src={`https://firebasestorage.googleapis.com/v0/b/cactusia-983c2.appspot.com/o/cactuses%2F${mostSelledCactus}?alt=media&token=bb288d03-287d-45f0-8b90-f9871f1a7567`} 
+            alt="Cactus" width={90} height={90} className='object-contain'></Image>
+          </div>
+
+
+
+          {/* <div className='p-5 bg-white flex-1 rounded-xl relative border shadow'> */}
+          {/*   <h1 className='text-xl'>Today Visetors</h1> */}
+          {/*   <Users2Icon className="absolute top-2 right-2 text-xl" size={40} strokeWidth={1}/> */}
+          {/*   <h1 className='text-4xl'>{ */}
+          {/*     users && */}
+          {/*     users.filter((d)=>d.date.toDate() > new Date(new Date().setDate(new Date().getDate() - 0))).length || 0 */}
+          {/*   }</h1> */}
+          {/* </div> */}
 
 
           {/* <div className='p-5 bg-white flex-1 rounded-xl border shadow'> */}

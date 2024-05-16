@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/table"
 import { CartItem } from '@/store/cart'
 import { db } from '@/firebase'
-import { Timestamp, collection, deleteDoc,doc, onSnapshot, orderBy, query } from 'firebase/firestore'
+import { Timestamp, collection, deleteDoc,doc, limit, onSnapshot, orderBy, query, updateDoc } from 'firebase/firestore'
 import { Button } from '@/components/ui/button'
 import { ArrowRight, CheckIcon, Delete, NotebookIcon, Trash } from 'lucide-react'
 import useOrdersStore, { Order } from '@/store/backend'
@@ -38,10 +38,17 @@ const Page = (props: Props) => {
   const [search,setSearch] = useState("");
   
   useEffect(()=>{
-    const unsub = onSnapshot(query(collection(db, "orders"),orderBy("createdAt","desc")), (doc) => {
+    const unsub = onSnapshot(query(collection(db, "orders"),orderBy("createdAt","desc"),limit(40)), (Doc) => {
         setOrders(
-          doc.docs.map(d=>({...d.data() as Order ,id : d.id , selected : false}))
+          Doc.docs.map(d=>({...d.data() as Order ,id : d.id , selected : false}))
+
         )
+        // updateDoc(collection("dashboard"),"data",{
+        //     orders:{
+        //       total: Doc.docs.length,  
+        //     }
+        // })
+      // )
     });
     return()=> unsub()
   },[])
@@ -88,13 +95,14 @@ const Page = (props: Props) => {
         <h1 className='text-3xl'>Orders</h1>
         </div>
         {
-          orders &&
+          false &&
           <div className='h-[300px] my-2 max-w-3xl bg-white shadow rounded-3xl border p-4'>
             <div className='w-full h-full'>
             <Bar />
             </div>
           </div>
         }
+        <div className="my-4"></div>
 
 
 
@@ -114,7 +122,7 @@ const Page = (props: Props) => {
                   color: "#fff",
                   id: 0
                 },...states].map((state)=>(
-                  <SelectItem key={state.id} value={state.name}>{state.name}</SelectItem>
+                  <SelectItem key={state.id} value={state.name}>{" "}{state.name}</SelectItem>
                 ))
               }
             </SelectContent>

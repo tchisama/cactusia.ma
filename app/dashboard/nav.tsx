@@ -1,6 +1,6 @@
 "use client"
 import { useUserStore } from '@/store/users'
-import { BellIcon, Box, Home, Languages, LayoutList, Leaf, LogOut, Palette, Star, Users } from 'lucide-react'
+import { BellIcon, Box, Home, Languages, LayoutList, Leaf, LogOut, MailIcon, Palette, Star, Users } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useEffect, useMemo } from 'react'
@@ -9,9 +9,9 @@ type Props = {}
 
 
 const usersRules = {
-  "admin":["dashboard","orders","cactuses","pots","reviews","language","sections","users"],
+  "admin":["dashboard","orders","messages","cactuses","pots","reviews","language","sections","users"],
   "creator":["pots","cactuses","language","sections","reviews"],
-  "confirmor":["orders"],
+  "confirmor":["orders","messages"],
   "orders-pots-cactuses":["orders","cactuses","pots","notifications"]
 }
 
@@ -52,6 +52,7 @@ function Nav({}: Props) {
           (user.rule === "admin" ? [
             {name:"Dashboard",href:"/",icon:<Home size={size}/>},
             {name:"Notifications",href:"/notifications",icon:<BellIcon size={size}/>},
+            {name:"Messages",href:"/messages",icon:<MailIcon size={size}/>},
             {name:"Orders",href:"/orders" ,icon:<Box size={size}/>},
             {name:"Cactuses",href:"/cactuses",icon:<Leaf size={size}/>},
             {name:"Pots",href:"/pots" ,icon:<Palette size={size}/>},
@@ -67,8 +68,10 @@ function Nav({}: Props) {
             {name:"Sections",href:"/sections" ,icon:<LayoutList size={size}/>},
           ]: user.rule === "confirmor" ? [
             {name:"Orders",href:"/orders" ,icon:<Box size={size}/>},
+            {name:"Messages",href:"/messages",icon:<MailIcon size={size}/>},
           ]: user.rule === "orders-pots-cactuses" ? [
             {name:"Notifications",href:"/notifications",icon:<BellIcon size={size}/>},
+            {name:"Messages",href:"/messages",icon:<MailIcon size={size}/>},
             {name:"Orders",href:"/orders" ,icon:<Box size={size}/>},
             {name:"Cactuses",href:"/cactuses",icon:<Leaf size={size}/>},
             {name:"Pots",href:"/pots" ,icon:<Palette size={size}/>},

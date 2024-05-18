@@ -8,6 +8,7 @@ import Image from 'next/image'
 import { Timestamp, collection, doc, getDocs, onSnapshot, orderBy, query, where } from 'firebase/firestore';
 import { CheckIcon, DollarSignIcon, SmileIcon, StarIcon, StarsIcon, ThumbsUp, TruckIcon, Users2Icon } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react';
+import UsersBar from '@/components/Chart-users';
 const DashboardPage: React.FC = () => {
   const [monthsOrders,setMonthsOrders] = React.useState(0)
   const [confirmedOrders,setConfirmedOrders] = React.useState(0)
@@ -32,9 +33,9 @@ const DashboardPage: React.FC = () => {
       setConfirmedOrders(docs.filter((d)=>d.status === "Livré").length)
       setConfirmedProfit(docs.filter((d)=>d.status === "Livré").reduce((a,b)=>a + b.price,0))
     })
-    getDocs(collection(db,"users")).then((querySnapshot)=>{
-      setUsers(querySnapshot.docs.map(doc => doc.data()))
-    })
+    // getDocs(collection(db,"users")).then((querySnapshot)=>{
+    //   setUsers(querySnapshot.docs.map(doc => doc.data()))
+    // })
   },[])
 
 
@@ -42,6 +43,7 @@ const DashboardPage: React.FC = () => {
 
   const [mostSelledPot,setMostSelledPot] = useState<string>()
   const [mostSelledCactus,setMostSelledCactus] = useState<string>()
+
 
   useEffect(()=>{
     if(!orders) return
@@ -64,6 +66,9 @@ const DashboardPage: React.FC = () => {
     },{} as {[key:string]:number})
     const cactusMax = (Object.keys(cactusCounts)??[]).reduce((a,b)=>cactusCounts[a] > cactusCounts[b] ? a : b)
     setMostSelledCactus(cactusMax)
+
+
+
 
   },[orders])
 
@@ -175,28 +180,40 @@ const DashboardPage: React.FC = () => {
           </div>
 
 
-          <div className='p-5 bg-white flex-1 rounded-xl relative border shadow'>
-            <h1 className='text-xl'>Visetors count</h1>
-            <Users2Icon className="absolute top-2 right-2 text-xl" size={40} strokeWidth={1}/>
-            <h1 className='text-4xl'>{
-              users &&
-              users.length
-            }</h1>
-          </div>
+          {/* <div className='p-5 bg-white flex-1 rounded-xl relative border shadow'> */}
+          {/*   <h1 className='text-xl'>Visetors count</h1> */}
+          {/*   <Users2Icon className="absolute top-2 right-2 text-xl" size={40} strokeWidth={1}/> */}
+          {/*   <h1 className='text-4xl'>{ */}
+          {/*     users && */}
+          {/*     users.length */}
+          {/*   }</h1> */}
+          {/* </div> */}
 
 
-          <div className='p-5 bg-white flex-1 flex justify-between  rounded-xl relative border shadow'>
+          <div className='p-5 h-fit bg-white flex-1 flex justify-between  rounded-xl relative border shadow'>
             <h1 className='text-xl'>Best Sale Pot</h1>
             <Image
             src={`https://firebasestorage.googleapis.com/v0/b/cactusia-983c2.appspot.com/o/pots%2F${mostSelledPot}?alt=media&token=bb288d03-287d-45f0-8b90-f9871f1a7567`} 
             alt="Cactus" width={60} height={60} className=''></Image>
           </div>
-          <div className='p-5 bg-white flex-1 flex justify-between  rounded-xl relative border shadow'>
+
+
+
+          <div className='h-full  bg-white shadow rounded-xl row-span-2 col-span-3 border p-3 pr-5 pb-0'>
+            <div className='w-full h-[calc(100%-30px)]'>
+            <h1 className='text-xl'>Visetors Graph</h1>
+
+            <UsersBar/>
+            </div>
+          </div>
+
+          <div className='p-5 h-fit bg-white flex-1 flex justify-between  rounded-xl relative border shadow'>
             <h1 className='text-xl'>Best Sale Cactus</h1>
             <Image
             src={`https://firebasestorage.googleapis.com/v0/b/cactusia-983c2.appspot.com/o/cactuses%2F${mostSelledCactus}?alt=media&token=bb288d03-287d-45f0-8b90-f9871f1a7567`} 
             alt="Cactus" width={90} height={90} className='object-contain'></Image>
           </div>
+
 
 
 
@@ -230,6 +247,7 @@ const DashboardPage: React.FC = () => {
 
 
         </div>
+
       </div>
     </div>
   );

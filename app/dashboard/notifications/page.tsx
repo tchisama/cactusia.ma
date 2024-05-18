@@ -2,7 +2,7 @@
 import { states } from '@/components/StateChanger'
 import { Button } from '@/components/ui/button'
 import { db } from '@/firebase'
-import { collection, deleteDoc, doc, onSnapshot, orderBy, query } from 'firebase/firestore'
+import { collection, deleteDoc, doc, limit, onSnapshot, orderBy, query } from 'firebase/firestore'
 import { Timestamp } from 'firebase/firestore/lite'
 import { ArrowRight, ArrowRightLeft, ArrowUpRight, X } from 'lucide-react'
 import Link from 'next/link'
@@ -32,7 +32,7 @@ function page({}: Props) {
   const [notifications,setNotifications] = useState<any[]>([])
 
   useEffect(()=>{
-    const unsub = onSnapshot(query(collection(db, "notifications"),orderBy("date","desc")), (doc) => {
+    const unsub = onSnapshot(query(collection(db, "notifications"),orderBy("date","desc"),limit(50)), (doc) => {
         setNotifications(
           doc.docs.map(d=>({...d.data() as any ,id : d.id}))
         )

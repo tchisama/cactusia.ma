@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { FaWhatsapp } from 'react-icons/fa';
 import Message from './Message';
+import { PhoneCall } from 'lucide-react';
 
 type Props = {}
 
@@ -48,9 +49,14 @@ function page({}: Props) {
           <span className='font-bold text-gray-800'>Number :</span> <div className='col-span-3 text-gray-600 flex gap-4'>{order?.number} </div>
           <span className='font-bold text-gray-800'>Address :</span> <div className='col-span-3 text-gray-600 flex gap-4'>{order?.address} </div>
           <span className='font-bold text-gray-800'>city :</span> <div className='col-span-3 text-gray-600 flex gap-4'>{order?.city} </div>
-          <Link className='absolute right-4 top-4' href={"https://api.whatsapp.com/send/?phone=%2B212"+order.number.slice(1)}>
+          <div className="absolute right-4 top-4 flex gap-2">
+          <Link className='' href={"https://api.whatsapp.com/send/?phone=%2B212"+order.number.slice(1)}>
             <Button size={"icon"} variant={"outline"}><FaWhatsapp size={20}/></Button>
           </Link>
+          <Link className='' href={`tel:${order.number}`}>
+            <Button size={"icon"} variant={"outline"}><PhoneCall size={20}/></Button>
+          </Link>
+          </div>
           <Message order={order}/>
       </div>
 

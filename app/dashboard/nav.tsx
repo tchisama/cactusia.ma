@@ -46,7 +46,7 @@ function Nav({}: Props) {
   },[])
   return (
     pathname !== "/dashboard/orders-tickets" &&
-    <div className='bg-white border-r pt-20 shadow-xl flex flex-col gap-2 p-2 w-[250px]'>
+    <div className='bg-white border-r pt-20 shadow-xl flex flex-col gap-2 md:p-2 w-[50px] md:w-[250px]'>
         {
           user &&
           (user.rule === "admin" ? [
@@ -77,12 +77,12 @@ function Nav({}: Props) {
             {name:"Pots",href:"/pots" ,icon:<Palette size={size}/>},
           ]:[])
           .map(({name,href,icon},i) =>(
-            <Link  href={"/dashboard"+href} key={name}  className={' p-2  flex gap-2 items-center rounded-xl px-4 text-gray-600  font-bold '+((pathname === "/dashboard"+(href == "/" ? "":href)) ? " bg-primary text-white " : " bg-gray-50")}>{icon}{name}</Link> 
+            <Link  href={"/dashboard"+href} key={name}  className={' p-2  flex gap-2 items-center rounded-xl px-4 text-gray-600  font-bold '+((pathname === "/dashboard"+(href == "/" ? "":href)) ? " bg-primary text-white " : " bg-gray-50")}>{icon}<div className="hidden md:block">{name}</div></Link> 
           ))
         }
         <button onClick={()=>{localStorage.removeItem("user");window.location.reload()}} className='mt-auto  p-2  flex gap-2 items-center mb-2 bg-slate-100 rounded-xl px-4 text-gray-600  font-bold '><LogOut size={size}/> <div className='flex flex-col items-start'>
-          <div className='text-sm'>{user.name}</div>
-          <div className='text-xs'>Logout</div>
+          <div className='text-sm md:block hidden'>{user.name}</div>
+          <div className='text-xs md:block hidden'>Logout</div>
           </div></button>
     </div>
   )

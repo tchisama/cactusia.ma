@@ -99,11 +99,19 @@ const DashboardPage: React.FC = () => {
           <div className='p-5 bg-white flex-1 rounded-xl relative border shadow'>
             <h1 className='text-xl'>Total Profit</h1>
             <DollarSignIcon className="absolute top-2 right-2 text-xl" size={40} strokeWidth={1}/>
-            <h1 className='text-6xl'>{
+            <h1 className='text-5xl'>{
               orders
               // filter((d)=>d.createdAt.toDate() > new Date(new Date().setDate(new Date().getDate() - 7)))
               .filter((d)=>d.status === "Livré").reduce((a,b)=>a + b.price,0)
           } Dh</h1>
+            <div className="flex items-end gap-2">
+                <h1 className='text-3xl'>{
+                  orders
+                  .filter((d)=>d.createdAt.toDate() > new Date(new Date().setDate(new Date().getDate() - 7)))
+                  .filter((d)=>d.status === "Livré").reduce((a,b)=>a + b.price,0)
+              } Dh</h1>
+                <h1 className='text-lg'>Profit last week</h1>
+            </div>
           </div>
 
 

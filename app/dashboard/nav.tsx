@@ -1,4 +1,5 @@
 "use client"
+import useOrdersStore from '@/store/backend'
 import { useUserStore } from '@/store/users'
 import { BellIcon, Box, Home, Languages, LayoutList, Leaf, LogOut, MailIcon, Palette, Star, Users } from 'lucide-react'
 import Link from 'next/link'
@@ -20,6 +21,7 @@ function Nav({}: Props) {
   const size = 20
    const pathname = usePathname()
    const {user}  = useUserStore()
+  const {orders} = useOrdersStore()
 
 
 
@@ -77,7 +79,7 @@ function Nav({}: Props) {
             {name:"Pots",href:"/pots" ,icon:<Palette size={size}/>},
           ]:[])
           .map(({name,href,icon},i) =>(
-            <Link  href={"/dashboard"+href} key={name}  className={' p-2  flex gap-2 items-center rounded-xl px-4 text-gray-600  font-bold '+((pathname === "/dashboard"+(href == "/" ? "":href)) ? " bg-primary text-white " : " bg-gray-50")}>{icon}<div className="hidden md:block">{name}</div></Link> 
+            <Link  href={"/dashboard"+href} key={name}  className={' p-2  flex gap-2 items-center rounded-xl px-4 text-gray-600  font-bold '+((pathname === "/dashboard"+(href == "/" ? "":href)) ? " bg-primary text-white " : " bg-gray-50")}>{icon}<div className="hidden md:block">{name}</div>{name=="Orders" && <div className="bg-primary w-5 h-5 flex items-center justify-center rounded-full pt-1 text-white">{orders.filter(o=>o.status=="New").length}</div>}</Link> 
           ))
         }
         <button onClick={()=>{localStorage.removeItem("user");window.location.reload()}} className='mt-auto  p-2  flex gap-2 items-center mb-2 bg-slate-100 rounded-xl px-4 text-gray-600  font-bold '><LogOut size={size}/> <div className='flex flex-col items-start'>

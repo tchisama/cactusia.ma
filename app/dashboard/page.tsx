@@ -129,7 +129,7 @@ const DashboardPage: React.FC = () => {
             <Progress className="mt-2" value={
               // with 100% 
               orders
-              .filter((d)=>d.status === "Livré" || d.status === "Confirmé" || d.status === "En livraison" || d.status === "Prêt" ).length
+              .filter((d)=>d.status === "Livré" || d.status === "Confirmé" || d.status === "En livraison" || d.status === "Prêt" || d.status.toLowerCase() == "new" ).length
               / orders.length * 100
             } />
 
@@ -148,7 +148,7 @@ const DashboardPage: React.FC = () => {
             <StarsIcon className="absolute top-2 right-2 text-xl" size={40} strokeWidth={1}/>
             <h1 className='text-4xl'>{
               orders
-              .filter((d)=>d.status === "New").length}</h1>
+              .filter((d)=>d.status.toLowerCase() === "new").length}</h1>
           </div>
 
           <div className='p-5 bg-white flex-1 rounded-xl relative border shadow'>

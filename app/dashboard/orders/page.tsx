@@ -36,9 +36,10 @@ const Page = (props: Props) => {
 
   const [currentState,setCurrentState] = useState("Tout");
   const [search,setSearch] = useState("");
+  const [limitOrders,setLimitOrders] = useState(30)
   
   useEffect(()=>{
-    const unsub = onSnapshot(query(collection(db, "orders"),orderBy("createdAt","desc"),limit(150)), (Doc) => {
+    const unsub = onSnapshot(query(collection(db, "orders"),orderBy("createdAt","desc"),limit(limitOrders)), (Doc) => {
         setOrders(
           Doc.docs.map(d=>({...d.data() as Order ,id : d.id , selected : false}))
 
@@ -51,7 +52,7 @@ const Page = (props: Props) => {
       // )
     });
     return()=> unsub()
-  },[])
+  },[limitOrders])
 
 
 
@@ -220,6 +221,9 @@ const Page = (props: Props) => {
           ))}
         </TableBody>
       </Table>
+        <div className="flex justify-center items-center p-4">
+          <Button onClick={()=>setLimitOrders(limitOrders+30)}>Load More</Button>
+        </div>
     </div>
   )
 }

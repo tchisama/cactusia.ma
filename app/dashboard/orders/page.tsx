@@ -192,7 +192,11 @@ const Page = (props: Props) => {
               </TableCell>
               <TableCell ><StateChanger state={item.status} id={item.id}/></TableCell>
               <TableCell >
-                  {formatCreatedAt(item.createdAt as Timestamp)}
+                  {
+                      formatCreatedAt(item.createdAt as Timestamp).slice(3,6) + 
+                      formatCreatedAt(item.createdAt as Timestamp).slice(0,2) +
+                      formatCreatedAt(item.createdAt as Timestamp).slice(5)
+                  }
               </TableCell>
               <TableCell >{item.firstName} {item.lastName}</TableCell>
               <TableCell>{item.number}</TableCell>

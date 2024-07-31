@@ -12,9 +12,9 @@ import {
 } from "@/components/ui/table"
 import { CartItem } from '@/store/cart'
 import { db } from '@/firebase'
-import { Timestamp, collection, deleteDoc,doc, limit, onSnapshot, orderBy, query, updateDoc } from 'firebase/firestore'
+import { Timestamp, collection, deleteDoc,doc, limit, onSnapshot, orderBy, query, startAt, updateDoc } from 'firebase/firestore'
 import { Button } from '@/components/ui/button'
-import { ArrowRight, CheckIcon, Delete, NotebookIcon, Trash } from 'lucide-react'
+import { ArrowLeft, ArrowRight, CheckIcon, Delete, NotebookIcon, Trash } from 'lucide-react'
 import useOrdersStore, { Order } from '@/store/backend'
 import Link from 'next/link'
 import StateChanger, { states } from '@/components/StateChanger'
@@ -36,13 +36,14 @@ const Page = (props: Props) => {
 
   const [currentState,setCurrentState] = useState("Tout");
   const [search,setSearch] = useState("");
-  const [limitOrders,setLimitOrders] = useState(30)
+  const [limitOrders,setLimitOrders] = useState<number|"all">(100)
+  const [page,setPage] = useState(0)
+  const [currentOrders,setCurrentOrders] = useState<Order[]>([])
   
   useEffect(()=>{
-    const unsub = onSnapshot(query(collection(db, "orders"),orderBy("createdAt","desc"),limit(limitOrders)), (Doc) => {
+    const unsub = onSnapshot(query(collection(db, "orders"),orderBy("createdAt","desc")), (Doc) => {
         setOrders(
           Doc.docs.map(d=>({...d.data() as Order ,id : d.id , selected : false}))
-
         )
         // updateDoc(collection("dashboard"),"data",{
         //     orders:{
@@ -52,7 +53,19 @@ const Page = (props: Props) => {
       // )
     });
     return()=> unsub()
-  },[limitOrders])
+  },[])
+
+useEffect(() => {
+  if (limitOrders === "all") {
+    setCurrentOrders(orders);
+    return;
+  }
+  setCurrentOrders(orders.slice(
+    page * limitOrders,
+    (page + 1) * limitOrders
+  ));
+}, [limitOrders, page, orders]);
+
 
 
 
@@ -68,7 +81,7 @@ const Page = (props: Props) => {
         {label:"price",value:"price"},
         {label:"quantity",value:"quantity"},
       ],
-      content: orders.filter(o=>o.selected==true).map(o=>({
+      content: currentOrders.filter(o=>o.selected==true).map(o=>({
         firstName: o.firstName,
         lastName: o.lastName,
         number: o.number,
@@ -83,14 +96,14 @@ const Page = (props: Props) => {
       fileName : "orders",
     })
 
-    setOrders(orders.map(o=>({...o,selected:false})))
+    setCurrentOrders(currentOrders.map(o=>({...o,selected:false})))
   }
 
 
 
 
   return (
-    orders.length > 0 &&
+    currentOrders.length > 0 &&
     <div className='p-4 font-bold text-gray-700 min-h-screen flex flex-col'>
         <div className='flex justify-between items-center'>
         <h1 className='text-3xl'>Orders</h1>
@@ -128,6 +141,22 @@ const Page = (props: Props) => {
               }
             </SelectContent>
           </Select>
+          <Select 
+            onValueChange={(value)=>setLimitOrders(value as number|"all")}
+            value={String(limitOrders)}
+          >
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Theme" />
+            </SelectTrigger>
+            <SelectContent>
+              {
+                [50,100,200,"all"].map((number)=>(
+                  <SelectItem key={number} value={number.toLocaleString()}>{" "}{number}</SelectItem>
+                ))
+              }
+            </SelectContent>
+          </Select>
+
           <Input  value={search} onInput={(e:any)=>setSearch(e.target.value)} placeholder="search on all feilds"></Input>
         </div>
 
@@ -137,21 +166,21 @@ const Page = (props: Props) => {
 
 
           {
-            orders
+            currentOrders
             .filter(o=>o.selected==true).length > 0 &&
             <div className="my-4 flex gap-2">
                   <Button onClick={exportExcel}> Export Excel</Button>
-                  <Button variant="outline" onClick={()=>setOrders(orders.map(o=>({...o,selected:false})))}> Unselect All</Button>
+                  <Button variant="outline" onClick={()=>setCurrentOrders(currentOrders.map(o=>({...o,selected:false})))}> Unselect All</Button>
                   <Link href="/dashboard/orders-tickets">
                     <Button variant="outline"  >Tickets</Button>
                   </Link>
                   <Button className="flex ml-auto gap-2" onClick={()=>{
 
             if(!confirm("Are you sure you want to delete the selected orders?")) return
-            orders
+            currentOrders
             .filter(o=>o.selected==true).forEach(o=>{
                 deleteDoc(doc(db,"orders",o.id)).then(()=>{
-                  setOrders(orders.filter(oo=>oo.id !== o.id))
+                  setCurrentOrders(currentOrders.filter(oo=>oo.id !== o.id))
                 })
             })
 
@@ -176,14 +205,14 @@ const Page = (props: Props) => {
         </TableHeader>
         <TableBody>
           {
-              orders
+              currentOrders
               .filter(o=>currentState === "Tout" ? true :  o.status.toLowerCase() === currentState.toLowerCase())
               .filter(o=>JSON.stringify(o).toLowerCase().includes(search.toLowerCase()))
               .map((item) => (
             <TableRow key={item.id}>
               <TableCell >
                   <Button
-                    onClick={()=>setOrders(orders.map(o=>o.id === item.id ? {...o,selected:!o.selected} : o))}
+                    onClick={()=>setCurrentOrders(currentOrders.map(o=>o.id === item.id ? {...o,selected:!o.selected} : o))}
                     variant="outline" size="icon">
                     {item.selected &&
                     <CheckIcon/>
@@ -225,9 +254,26 @@ const Page = (props: Props) => {
           ))}
         </TableBody>
       </Table>
+        {
+          limitOrders != "all" &&
         <div className="flex justify-center items-center p-4">
-          <Button onClick={()=>setLimitOrders(limitOrders+30)}>Load More</Button>
+          <Button onClick={()=>{
+            if(page > 0){
+              setPage(page-1)
+            }
+          }
+          } variant="outline" size="icon"><ArrowLeft size={16}/></Button>
+          <span className="mx-2">{page+1}/{
+              Math.floor(orders.length/limitOrders) +1
+              }</span>
+          <Button onClick={()=>{
+            if(page < Math.floor(orders.length/limitOrders)){
+              setPage(page+1)
+            }
+          }
+          } variant="outline" size="icon"><ArrowRight size={16}/></Button>
         </div>
+        }
     </div>
   )
 }

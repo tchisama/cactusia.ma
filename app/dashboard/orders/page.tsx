@@ -182,6 +182,7 @@ useEffect(() => {
             .filter(o=>o.selected==true).length > 0 &&
             <div className="my-4 flex gap-2">
                   <Button onClick={exportExcel}> Export Excel</Button>
+                  <Button variant="outline" onClick={()=>setCurrentOrders(currentOrders.map(o=>({...o,selected:true})))}> Select All</Button>
                   <Button variant="outline" onClick={()=>setCurrentOrders(currentOrders.map(o=>({...o,selected:false})))}> Unselect All</Button>
                   <Link href="/dashboard/orders-tickets">
                     <Button variant="outline"  >Tickets</Button>

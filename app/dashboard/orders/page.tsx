@@ -26,6 +26,7 @@ import xlsx from "json-as-xlsx"
 import { Input } from '@/components/ui/input'
 import { Select } from '@radix-ui/react-select'
 import { SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { set } from 'zod'
 type Props = {}
 
 const Page = (props: Props) => {
@@ -41,6 +42,7 @@ const Page = (props: Props) => {
   const [currentOrders,setCurrentOrders] = useState<Order[]>([])
   
   useEffect(()=>{
+    if(orders.length > 0) return
     const unsub = onSnapshot(query(collection(db, "orders"),orderBy("createdAt","desc")), (Doc) => {
         setOrders(
           Doc.docs.map(d=>({...d.data() as Order ,id : d.id , selected : false}))
@@ -57,17 +59,27 @@ const Page = (props: Props) => {
 
 useEffect(() => {
   if (limitOrders === "all") {
-    setCurrentOrders(orders);
+    setCurrentOrders(orders
+      .filter(o=>currentState === "Tout" ? true :  o.status.toLowerCase() === currentState.toLowerCase())
+      .filter(o=>JSON.stringify(o).toLowerCase().includes(search.toLowerCase()))
+      );
     return;
   }
-  setCurrentOrders(orders.slice(
+    const newOrders = orders. filter(o=>currentState === "Tout" ? true :  o.status.toLowerCase() === currentState.toLowerCase())
+    .filter(o=>JSON.stringify(o).toLowerCase().includes(search.toLowerCase()))
+
+  setCurrentOrders(newOrders
+      .slice(
     page * limitOrders,
     (page + 1) * limitOrders
-  ));
-}, [limitOrders, page, orders]);
+  ))
 
-
-
+}, [limitOrders, page, orders, currentState, search]);
+// set Page to 0 if currentState changes
+  useEffect(() => {
+    setPage(0);
+  },[currentState]);
+    
 
   const exportExcel =()=>{
     const data = [{
@@ -188,6 +200,15 @@ useEffect(() => {
             }} variant="destructive" > <Trash size={16}/> Delete</Button>
           </div>
         }
+        <h1 className="text-xl my-2">
+        {
+          orders
+          .filter(o=>currentState === "Tout" ? true :  o.status.toLowerCase() === currentState.toLowerCase())
+          .filter(o=>JSON.stringify(o).toLowerCase().includes(search.toLowerCase()))
+            .length
+        }
+          {" "} Orders  { currentState === "Tout" ? "" : " are " + currentState} {search && `containing "${search}"` }
+        </h1>
       <Table className='bg-white border rounded-xl p-2'>
       <TableCaption>A list of your recent invoices.</TableCaption>
       <TableHeader>
@@ -205,9 +226,8 @@ useEffect(() => {
         </TableHeader>
         <TableBody>
           {
+              currentOrders.length > 0 &&
               currentOrders
-              .filter(o=>currentState === "Tout" ? true :  o.status.toLowerCase() === currentState.toLowerCase())
-              .filter(o=>JSON.stringify(o).toLowerCase().includes(search.toLowerCase()))
               .map((item) => (
             <TableRow key={item.id}>
               <TableCell >
@@ -264,10 +284,16 @@ useEffect(() => {
           }
           } variant="outline" size="icon"><ArrowLeft size={16}/></Button>
           <span className="mx-2">{page+1}/{
-              Math.floor(orders.length/limitOrders) +1
+              Math.floor(orders
+                .filter(o=>currentState === "Tout" ? true :  o.status.toLowerCase() === currentState.toLowerCase())
+                .filter(o=>JSON.stringify(o).toLowerCase().includes(search.toLowerCase()))
+                  .length/limitOrders) +1
               }</span>
           <Button onClick={()=>{
-            if(page < Math.floor(orders.length/limitOrders)){
+            if(page < Math.floor(orders
+              .filter(o=>currentState === "Tout" ? true :  o.status.toLowerCase() === currentState.toLowerCase())
+              .filter(o=>JSON.stringify(o).toLowerCase().includes(search.toLowerCase()))
+                  .length/limitOrders)){
               setPage(page+1)
             }
           }

@@ -24,6 +24,7 @@ const DashboardPage: React.FC = () => {
 
 
   useEffect(() => {
+    if(orders.length > 0) return
 // ,where("createdAt",">=",start),where("createdAt","<=",end)
     const q = query(collection(db,"orders"))
     getDocs(q).then((querySnapshot)=>{

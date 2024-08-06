@@ -1,16 +1,6 @@
 "use client"
 
 import React, { useEffect, useState } from 'react'
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet"
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Order } from '@/store/backend'
@@ -33,28 +23,9 @@ function Message({order}: Props) {
   }
 
   return (
-    <div>
-    <Sheet>
-      <SheetTrigger>
-        <Button className='mt-4'>
-          Open Note
-        </Button>
-      </SheetTrigger>
-      <SheetContent>
-        <SheetHeader>
-          <SheetTitle>Order Note</SheetTitle>
-          <SheetDescription>
-            <Textarea className='h-[500px]' value={note} onChange={(e:any)=>setNote(e.target.value)}/>
-          </SheetDescription>
-        </SheetHeader>
-        <SheetFooter className='pt-8'>
-          <SheetClose>
+    <div className="flex-1 pt-4">
+            <Textarea className=' rounded-xl mb-6 w-full flex-1' value={note} onChange={(e:any)=>setNote(e.target.value)}/>
             <Button onClick={update}>Save</Button>
-          </SheetClose>
-        </SheetFooter>
-      </SheetContent>
-    </Sheet>
-
     </div>
   )
 }

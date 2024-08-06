@@ -40,7 +40,9 @@ function page({}: Props) {
   return (
     order ?
     <div className='container'>
+
       <h1 className='text-3xl py-4'>Order Infos</h1>
+      <div className="flex items-start gap-4">
       <div className='my-4 relative p-6 bg-white rounded-xl w-fit min-w-[800px] border shadow grid grid-cols-4'>
           <span className='font-bold  text-gray-800'>Price :</span> <div className='col-span-3  text-2xl text-gray-600 flex gap-4'>{order?.price} Dh</div>
           <span className='font-bold text-gray-800'>State :</span> <div className='col-span-3 text-gray-600 flex my-2 gap-4'><StateChanger state={order?.status} id={order?.id}/></div>
@@ -57,8 +59,9 @@ function page({}: Props) {
             <Button size={"icon"} variant={"outline"}><PhoneCall size={20}/></Button>
           </Link>
           </div>
-          <Message order={order}/>
       </div>
+          <Message order={order}/>
+        </div>
 
       <div className='  p-4'>
         {
